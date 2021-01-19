@@ -1,0 +1,8 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.git
+/venv*
+/backend/resources

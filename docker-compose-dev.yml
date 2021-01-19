@@ -1,0 +1,58 @@
+version: "3.7"
+services:
+  backend:
+    image: library/python:3.8.5-slim
+    command: ["bash", "/speechTranslation/backend/scripts/run-dev.sh"]
+    volumes:
+      - ./backend:/speechTranslation/backend
+      - ./backend/venv:/speechTranslation/backend/venv
+      - backend_data:/speechTranslation/data
+    environment:
+      ADMIN_USERNAME: "admin"
+      ADMIN_PASSWORD: "password"
+      DATABASE_URL: "mysql+pymysql://audino:audino@mysql/audino?charset=utf8mb4"
+      SANIC_APP: "app.py"
+      JWT_SECRET_KEY: "secretkey"
+      JWT_REDIS_STORE_URL: "redis://:audino@redis:6379/0"
+    ports:
+      - 80:80
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - backend-network
+      - frontend-network
+
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/mysql
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "speechTranslation"
+      MYSQL_ROOT_PASSWORD: "kustSpeechTranslation"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "kustUser"
+    command: --init-file=/mysql/create_database.sql --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
+    networks:
+      - backend-network
+
+  redis:
+    build: ./redis
+    volumes:
+      - redis_data:/data
+    environment:
+      REDIS_PASSWORD: "kustSpeechTranslation"
+    ports:
+      - 6379:6379
+    networks:
+      - backend-network
+
+volumes:
+  mysql_data:
+  redis_data:
+  backend_data:
+
+networks:
+  backend-network:
