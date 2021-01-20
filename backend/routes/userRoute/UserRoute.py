@@ -115,7 +115,6 @@ async def add_user(request, user):
 @inject_user()
 @protected()
 async def get_all_user_information(request, user):
-
     if not user.role:
         raise Unauthorized('You have no authorized to get user information')
 
@@ -150,7 +149,6 @@ async def get_user_information(request, user):
     return json(response.__dict__)
 
 
-
 @user_route.route('/delete_user', methods=['POST'])
 @inject_user()
 @protected()
@@ -168,9 +166,9 @@ async def delete_user(request, user):
     userService = UserService()
     delete_user = userService.get_user_information(User(uid=user_id))
     userService.delete_user(User(uid=user_id))
-    response = ResponseBody(message=f"delete {delete_user.username} Success", status_code=StatusCode.PERMISSION_AVAILABLE.name)
+    response = ResponseBody(message=f"delete {delete_user.username} Success",
+                            status_code=StatusCode.PERMISSION_AVAILABLE.name)
     return json(response.__dict__)
-
 
 
 @user_route.route('/modify_user', methods=['POST'])
@@ -191,7 +189,6 @@ async def modify_user(request, user):
     if not user.role:
         raise Unauthorized('You have no authorized to modify user information')
 
-
     userService = UserService()
     # Query the user, if the user not exist,raise the UserNotExist exception
     modify_user = userService.get_user_information(User(uid=user_id))
@@ -210,5 +207,6 @@ async def modify_user(request, user):
 
     userService.modify_user(modify_user)
 
-    response = ResponseBody(message=f"Modify {modify_user.username} Success: ", status_code=StatusCode.PERMISSION_AVAILABLE.name)
+    response = ResponseBody(message=f"Modify {modify_user.username} Success: ",
+                            status_code=StatusCode.PERMISSION_AVAILABLE.name)
     return json(response.__dict__)

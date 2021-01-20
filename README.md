@@ -90,15 +90,15 @@ Example:
 
 ```python
 @Mysql.auto_execute_sql
-    def get_user_id(self, username):
-        """get user password to validate identify by uesrname
-        Args:
-            user (User):
-        Returns:
-           tuple: query result of sql
-        """
-        sql = f"select uid from user where username = '{username}'"
-        return sql
+def get_user_id(self, username):
+    """get user password to validate identify by uesrname
+    Args:
+        user (User):
+    Returns:
+       tuple: query result of sql
+    """
+    sql = f"select uid from user where username = '{username}'"
+    return sql
 ```
 
 ##### @Mysql.execute_sql(sql)
@@ -107,12 +107,12 @@ Example:
 
 ```python
 @Mysql.execute_sql('select * from user')
-    def get_all_user(self, results):
-        users = []
-        for row in results:
-        	user = User(username=row[0])
-            users.append(user)
-        return users
+def get_all_user(self, results):
+    users = []
+    for row in results:
+        user = User(username=row[0])
+        users.append(user)
+    return users
 ```
 
 
