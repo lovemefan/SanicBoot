@@ -20,8 +20,8 @@ class ConfigFileModifyHandler(FileSystemEventHandler):
     """Envent handle of config change"""
 
     def on_modified(self, event):
-        if os.path.relpath(event.src_path) == 'config.ini':
-            Config.get_instance().load_config()
+        logger.debug('updating config ...')
+        Config.get_instance().load_config()
 
 
 class Config:
