@@ -3,6 +3,7 @@
 # @Time    : 2020/12/22 下午11:49
 # @Author  : lovemefan
 from backend.decorator.mysql import Mysql
+from backend.decorator.singleton import singleton
 from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 
@@ -65,6 +66,21 @@ class UserDao:
         return sql
 
     @Mysql.auto_execute_sql
+    def add_user_into_group(self, uid, create_by: int):
+        """
+        Args:
+            user (User):
+            create_by (int): the uid of create by
+        Exception:
+            pymysql.err.IntegrityError : The username has exist
+        Returns:
+           tuple: query result of sql
+        """
+
+        sql = f"insert into group_user(gid,uid) select gid,{uid} from group_user where uid = {create_by}"
+        return sql
+
+    @Mysql.auto_execute_sql
     def modify_user(self, user):
         """modify user,you can only modify username,password,phone,user_role and status
         Args:
@@ -77,7 +93,10 @@ class UserDao:
 
     @Mysql.auto_execute_sql
     def delete_user(self, user):
-        sql = f"delete from user where uid='{user.uid}'"
+        if user.username:
+            sql = f"delete from user where username='{user.username}'"
+        elif user.uid:
+            sql = f"delete from user where uid='{user.uid}'"
         return sql
 
     @Mysql.auto_execute_sql
@@ -103,4 +122,5 @@ if __name__ == '__main__':
                 )
     res = dao.add_user(user)
     dao.get_all_user()
+
 

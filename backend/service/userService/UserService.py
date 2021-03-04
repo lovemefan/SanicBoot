@@ -56,20 +56,22 @@ class UserService:
     def get_user_id(self, user):
         """get uid by usename"""
         row = self.userDao.get_user_id(user.username)
-        uid = row[0]
+
         if len(row) == 0:
             raise UserNotExist(user.username)
+        uid = row[0]
         user.uid = uid[0]
         return user
 
     def add_user(self, user):
-        """add User
+        """add User and add user into group
         Args:
             user (User): class instance of User
         Exception:
             pymysql.err.IntegrityError : The username has exist
         """
         self.userDao.add_user(user)
+        self.userDao.add_user_into_group(self.get_user_id(user).uid, user.create_by)
         return True
 
     def modify_user(self, user):

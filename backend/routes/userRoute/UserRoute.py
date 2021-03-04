@@ -8,8 +8,8 @@ from sanic import Blueprint
 from sanic.response import json
 from sanic_jwt import exceptions, protected, inject_user
 from sanic_jwt.exceptions import Unauthorized
-
-from backend.exception.UserException import UserNotExist, UserAddException, UserDeleteException, MissParameters
+from backend.exception.UserException import UserNotExist, UserAddException, UserDeleteException, UserAlreadyExist, \
+    MissParameters
 from backend.model.ResponseBody import ResponseBody
 from backend.model.User import User
 from backend.service.userService.UserService import UserService
@@ -104,7 +104,7 @@ async def add_user(request, user):
                                   role=role,
                                   create_by=create_by))
     except pymysql.err.IntegrityError:
-        raise UserNotExist(f"user {username} is already exist ")
+        raise UserAlreadyExist(username)
 
     return json(
         ResponseBody(message=f'Add user {username} success', status_code=StatusCode.ADD_USER_SUCCESS.name).__dict__,
@@ -115,6 +115,7 @@ async def add_user(request, user):
 @inject_user()
 @protected()
 async def get_all_user_information(request, user):
+
     if not user.role:
         raise Unauthorized('You have no authorized to get user information')
 
@@ -164,10 +165,9 @@ async def delete_user(request, user):
         raise Unauthorized('You have no authorized to delete user information')
 
     userService = UserService()
-    delete_user = userService.get_user_information(User(uid=user_id))
+    delete_user = userService.get_user_information(User(uid=user_id, username=username))
     userService.delete_user(User(uid=user_id))
-    response = ResponseBody(message=f"delete {delete_user.username} Success",
-                            status_code=StatusCode.PERMISSION_AVAILABLE.name)
+    response = ResponseBody(message=f"delete {delete_user.username} Success", status_code=StatusCode.DELETE_USER_SUCCESS.name)
     return json(response.__dict__)
 
 
@@ -189,6 +189,7 @@ async def modify_user(request, user):
     if not user.role:
         raise Unauthorized('You have no authorized to modify user information')
 
+
     userService = UserService()
     # Query the user, if the user not exist,raise the UserNotExist exception
     modify_user = userService.get_user_information(User(uid=user_id))
@@ -207,6 +208,5 @@ async def modify_user(request, user):
 
     userService.modify_user(modify_user)
 
-    response = ResponseBody(message=f"Modify {modify_user.username} Success: ",
-                            status_code=StatusCode.PERMISSION_AVAILABLE.name)
+    response = ResponseBody(message=f"Modify {modify_user.username} Success: ", status_code=StatusCode.MODIFY_USER_SUCCESS.name)
     return json(response.__dict__)
