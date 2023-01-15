@@ -72,6 +72,12 @@ maxusage=1000
 
 直接运行 backend/routes/app.py启动，也可以根据Dockerfile启动服务
 
+或者
+```bash
+cd sanic-backend
+gunicorn --bind 0.0.0.0:80 --workers 1  backend.app:app -k uvicorn.workers.UvicornWorker
+```
+
 
 
 #### 异常处理
