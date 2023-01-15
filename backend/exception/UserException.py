@@ -3,12 +3,21 @@
 # @Time    : 2020/12/24 下午3:35
 # @Author  : lovemefan
 # @File    : UserException.py
-from sanic.exceptions import SanicException, add_status_code
+from sanic.exceptions import SanicException
 
 
-@add_status_code(400)
 class MissParameters(SanicException):
     pass
+
+
+class InvalidParameters(SanicException):
+    pass
+
+
+
+class MissParameters(SanicException):
+    pass
+
 
 class UserCreateException(Exception):
     def __init__(self, description):
