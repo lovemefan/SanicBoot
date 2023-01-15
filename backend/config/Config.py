@@ -3,6 +3,7 @@
 # @Time    : 2020/12/18 下午3:25
 # @Author  : lovemefan
 # @File    : config.py
+import logging
 import os
 
 import threading
@@ -11,7 +12,6 @@ from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
 # using lock to make sure get one config at same time
-from backend.utils.logger import logger
 
 lock = threading.Lock()
 
@@ -20,7 +20,7 @@ class ConfigFileModifyHandler(FileSystemEventHandler):
     """Envent handle of config change"""
 
     def on_modified(self, event):
-        logger.debug('updating config ...')
+        logging.debug('updating config ...')
         Config.get_instance().load_config()
 
 
@@ -33,14 +33,14 @@ class Config:
 
     def __init__(self, config_file_path=None):
         """initialize attributions of config class """
-        logger.debug('init config ...')
+        logging.debug('init config ...')
         self.config = ConfigParser()
         self.config_file_path = config_file_path or os.path.join(os.path.dirname(__file__), 'config.ini')
         self.load_config()
         self._init_config_file_observer()
 
     def _init_config_file_observer(self):
-        logger.debug('monitor the config file while file changed')
+        logging.debug('monitor the config file while file changed')
         event_handler = ConfigFileModifyHandler()
         observer = Observer()
         observer.schedule(event_handler, path=os.path.dirname(self.config_file_path), recursive=False)
@@ -62,7 +62,7 @@ class Config:
 
     def load_config(self):
         """load the config file"""
-        logger.debug('loading the config ...')
+        logging.debug('loading the config ...')
         self.config.read(self.config_file_path, 'utf-8')
 
     def get(self, key, default=None):
