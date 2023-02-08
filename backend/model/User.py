@@ -8,7 +8,7 @@ from datetime import datetime
 
 class User:
     def __init__(self, username=None, uid=None, phone=None, email=None, password=None,
-                 role=0, create_by=None, create_time=None, last_login_time=None, status=1):
+                 role=0, create_by=None, create_time=None, last_login_time=None, status=1, identity=3):
         """ The user class
         :param uid: user id
         :param username: username
@@ -19,6 +19,7 @@ class User:
         :param create_by: the admin id created by
         :param last_login_time: last login time,update when user login
         :param status: user status,0 is available, 1 is forbidden
+        :param user_identity: identity of user ,1 is super admin, 2 is admin, 3 is user
         """
         self.uid = uid
         self.username = username
@@ -37,6 +38,7 @@ class User:
         else:
             self.last_login_time = last_login_time
         self.status = status
+        self.identity = identity
 
     def to_dict(self):
         return {

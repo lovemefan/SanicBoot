@@ -48,7 +48,7 @@ class UserService:
             raise UserNotExist(user.username)
         row = info[0]
         user = User(uid=row[0], username=row[1], phone=row[2], email=row[3], role=row[4], create_by=row[5],
-                    create_time=row[6], last_login_time=row[7], status=row[8])
+                    create_time=row[6], last_login_time=row[7], status=row[8], identity=row[9])
 
         return user
 

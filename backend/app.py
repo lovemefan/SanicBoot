@@ -84,7 +84,7 @@ async def scope_extender(user, *args, **kwargs):
     if user.user_identity is None:
         user_service = UserService()
         user = user_service.get_user_information(user)
-    return user.user_identity
+    return user.identity
 
 
 class MyJWTConfig(Configuration):

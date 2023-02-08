@@ -47,7 +47,7 @@ class UserDao:
         Returns:
            tuple: query result of sql
         """
-        sql = f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status  " \
+        sql = f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status, u1.identity  " \
               f"from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid where u1.uid = {user.uid}"
         return sql
 
