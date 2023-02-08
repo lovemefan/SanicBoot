@@ -6,6 +6,8 @@
 import logging
 import logging.handlers
 import os
+from pathlib import Path
+
 # from config import Config
 from backend.config.Config import Config
 
@@ -26,8 +28,11 @@ if Config.get_instance().get("log.filename", None) is not None:
 else:
     if not os.path.exists("logs"):
         os.makedirs("logs")
+file_path = Config.get_instance().get("log.filename", "logs/run.log")
+file_dir = Path(os.path.dirname(file_path))
+file_dir.mkdir(parents=True, exist_ok=True)
 file_stream_handler = logging.handlers.RotatingFileHandler(
-    filename=Config.get_instance().get("log.filename", "logs/run.log"),
+    filename=file_path,
     maxBytes=int(Config.get_instance().get("log.maxBytes", 102400)),
     backupCount=int(Config.get_instance().get("log.backupCount", 5)),
     )
