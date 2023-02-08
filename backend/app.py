@@ -26,7 +26,7 @@ sys.path.append(os.path.abspath(os.pardir))
 
 from backend.config.Config import Config
 
-app = Sanic(__name__)
+app = Sanic('sanic-backend')
 app.blueprint(swagger_blueprint)
 app.static("/v1/data", "../../data")
 
