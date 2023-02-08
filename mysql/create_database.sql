@@ -56,11 +56,12 @@ CREATE TABLE `user`(
     `create_by` bigint unsigned NOT NULL COMMENT '创建该用户的用户id，只有管理员才能创建用户',
     `last_login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间',
     `status`  tinyint unsigned DEFAULT '1' COMMENT '1:有效，0:禁止登录',
+    `identity`  tinyint unsigned DEFAULT '1' COMMENT '1:超级管理员，2:管理员，3:普通用户',
     PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 CREATE UNIQUE INDEX `pk_uid` ON `user` (`uid`);
 CREATE UNIQUE INDEX `uk_username` ON `user` (`username`);
 
-INSERT INTO `user` VALUES (1341983140255768576, 'admin', NULL, NULL, 'd6cfa7f078f83d22a4b10169fef95e88', 1, NOW(), 1341983140255768576, '2020-12-24 13:37:38', 1);
-INSERT INTO user(uid,username,`password`,phone,email,user_role,create_by) VALUES(1342014866998829056,'lovemefan','5c5ed1b1b2e95abacda4cc7c8b40d58d','18679128652','lovemefan@outlook.com',1,1341983140255768576);
+INSERT INTO `user` VALUES (1341983140255768576, 'admin', NULL, NULL, 'd6cfa7f078f83d22a4b10169fef95e88', 1, NOW(), 1341983140255768576, '2020-12-24 13:37:38', 1, 1);
+INSERT INTO user(uid,username,`password`,phone,email,user_role,create_by,identity) VALUES(1342014866998829056,'lovemefan','5c5ed1b1b2e95abacda4cc7c8b40d58d','','lovemefan@outlook.com',1,1341983140255768576,2);
