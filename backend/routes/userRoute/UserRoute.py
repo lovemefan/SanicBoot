@@ -8,6 +8,8 @@ from sanic import Blueprint
 from sanic.response import json
 from sanic_jwt import exceptions, protected, inject_user
 from sanic_jwt.exceptions import Unauthorized
+
+from backend.decorator.validateParameters import NotEmpty, Length, Pattern
 from backend.exception.UserException import UserNotExist, UserAddException, UserDeleteException, UserAlreadyExist, \
     MissParameters
 from backend.model.ResponseBody import ResponseBody
@@ -20,17 +22,15 @@ user_route = Blueprint('user', url_prefix='/api/user', version=1)
 
 
 @user_route.route('/validate_password', methods=['POST'])
+@NotEmpty(required=['username', 'password'], parameter_type='json')
+@Length('password', min=5, max=20, message='Length of password must be 5 to 20', parameter_type='json')
 async def validate_password(request):
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+    username = request.json.get('username')
+    password = request.json.get('password')
 
     user = User(username=username, password=password)
-    if not username or not password:
-        response = ResponseBody(message='username or password empty',
-                                status_code=StatusCode.USERNAME_OR_PASSWORD_EMPTY.name)
-        return json(response.__dict__)
     userService = UserService()
-    if userService.validate(user):
+    if await userService.validate(user):
         response = ResponseBody(message='username or password empty',
                                 status_code=StatusCode.USERNAME_OR_PASSWORD_EMPTY.name)
 
@@ -41,14 +41,14 @@ async def authenticate(request, *args, **kwargs):
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     userService = UserService()
-    user = userService.get_user_id(User(username=username))
+    user = await userService.get_user_id(User(username=username))
 
     if not username or not password:
         raise exceptions.AuthenticationFailed("Missing username or password.")
 
     try:
-        if userService.validate(User(username=username, password=password)):
-            userService.login(user)
+        if await userService.validate(User(username=username, password=password)):
+            await userService.login(user)
             logger.info(f"User :{user.__dict__}")
             return user
         else:
@@ -64,7 +64,7 @@ async def retrieve_user(request, payload, *args, **kwargs):
         user_id = payload.get('user_id', None)
         if user_id:
             userService = UserService()
-            user = userService.get_user_information(User(uid=user_id))
+            user = await userService.get_user_information(User(uid=user_id))
             return user
         else:
             return None
@@ -97,7 +97,7 @@ async def add_user(request, user):
 
     userService = UserService()
     try:
-        userService.add_user(User(username=username,
+        await userService.add_user(User(username=username,
                                   password=password,
                                   phone=phone,
                                   email=email,
@@ -120,7 +120,7 @@ async def get_all_user_information(request, user):
         raise Unauthorized('You have no authorized to get user information')
 
     userService = UserService()
-    users = userService.get_all_user_information()
+    users = await userService.get_all_user_information()
     response = ResponseBody(message=users, status_code=StatusCode.PERMISSION_AVAILABLE.name)
     return json(response.__dict__)
 
@@ -143,9 +143,9 @@ async def get_user_information(request, user):
 
     userService = UserService()
     if user_id:
-        user = userService.get_user_information(User(uid=user_id))
+        user = await userService.get_user_information(User(uid=user_id))
     else:
-        user = userService.get_user_information(userService.get_user_id(User(username=username)))
+        user = await userService.get_user_information(await userService.get_user_id(User(username=username)))
     response = ResponseBody(message=user.to_dict(), status_code=StatusCode.PERMISSION_AVAILABLE.name)
     return json(response.__dict__)
 
@@ -165,8 +165,8 @@ async def delete_user(request, user):
         raise Unauthorized('You have no authorized to delete user information')
 
     userService = UserService()
-    delete_user = userService.get_user_information(User(uid=user_id, username=username))
-    userService.delete_user(User(uid=user_id))
+    delete_user = await userService.get_user_information(User(uid=user_id, username=username))
+    await userService.delete_user(User(uid=user_id))
     response = ResponseBody(message=f"delete {delete_user.username} Success", status_code=StatusCode.DELETE_USER_SUCCESS.name)
     return json(response.__dict__)
 
@@ -174,6 +174,9 @@ async def delete_user(request, user):
 @user_route.route('/modify_user', methods=['POST'])
 @inject_user()
 @protected()
+@NotEmpty(required=['user_id', 'username', 'email', 'password', 'user_role', 'status'], parameter_type='json')
+@Pattern('email', pattern='^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$',
+         pattern_mode='match', parameter_type='json', message='Email format invalid')
 async def modify_user(request, user):
     if not request.json:
         raise MissParameters('no parameter send')
@@ -192,7 +195,7 @@ async def modify_user(request, user):
 
     userService = UserService()
     # Query the user, if the user not exist,raise the UserNotExist exception
-    modify_user = userService.get_user_information(User(uid=user_id))
+    modify_user = await userService.get_user_information(User(uid=user_id))
 
     # if the parameter of request exist,modify the attribute of user,else do nothing.
     if username:
@@ -206,7 +209,7 @@ async def modify_user(request, user):
     if status:
         modify_user.status = status
 
-    userService.modify_user(modify_user)
+    await userService.modify_user(modify_user)
 
     response = ResponseBody(message=f"Modify {modify_user.username} Success: ", status_code=StatusCode.MODIFY_USER_SUCCESS.name)
     return json(response.__dict__)

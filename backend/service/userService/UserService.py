@@ -19,15 +19,14 @@ class UserService:
     def __init__(self):
         self.userDao = UserDao()
 
-
-    def get_all_user_information(self):
+    async def get_all_user_information(self):
         """query from dbs
         Args:
             user (User): User instance
         Returns:
             User : user information
         """
-        info = self.userDao.get_all_user()
+        info = await self.userDao.get_all_user()
         users = []
         for row in info:
             user = User(uid=row[0], username=row[1], phone=row[2], email=row[3], role=row[4], create_by=row[5],
@@ -36,14 +35,14 @@ class UserService:
 
         return users
 
-    def get_user_information(self, user: User):
+    async def get_user_information(self, user: User):
         """query from dbs
         Args:
             user (User): User instance
         Returns:
             User : user information
         """
-        info = self.userDao.get_user_information(user)
+        info = await self.userDao.get_user_information(user)
 
         if len(info) == 0:
             raise UserNotExist(user.username)
@@ -53,9 +52,9 @@ class UserService:
 
         return user
 
-    def get_user_id(self, user):
+    async def get_user_id(self, user):
         """get uid by usename"""
-        row = self.userDao.get_user_id(user.username)
+        row = await self.userDao.get_user_id(user.username)
 
         if len(row) == 0:
             raise UserNotExist(user.username)
@@ -63,36 +62,36 @@ class UserService:
         user.uid = uid[0]
         return user
 
-    def add_user(self, user):
+    async def add_user(self, user):
         """add User and add user into group
         Args:
             user (User): class instance of User
         Exception:
             pymysql.err.IntegrityError : The username has exist
         """
-        self.userDao.add_user(user)
-        self.userDao.add_user_into_group(self.get_user_id(user).uid, user.create_by)
+        await self.userDao.add_user(user)
+        await self.userDao.add_user_into_group(self.get_user_id(user).uid, user.create_by)
         return True
 
-    def modify_user(self, user):
+    async def modify_user(self, user):
         """modify User you can only modify username,password,phone,user_role and status
         Args:
             user (User): class instance of User
         """
-        self.userDao.modify_user(user)
+        await self.userDao.modify_user(user)
         return True
 
-    def delete_user(self, user):
+    async def delete_user(self, user):
         """delete User
         Args:
             user (User): class instance of User
         Exception:
             if the user's uid is none, will raise a exception
         """
-        self.userDao.delete_user(user)
+        await self.userDao.delete_user(user)
         return True
 
-    def validate(self, user):
+    async def validate(self, user):
         """validate username and password
         Args:
             user (User): user instance of User class
@@ -102,7 +101,7 @@ class UserService:
             UserNotExist : if the user not exist will raise this exception
         """
         username = user.username
-        password = self.userDao.get_user_password(username)
+        password = await self.userDao.get_user_password(username)
         if len(password) == 0:
             raise UserNotExist(username)
 
@@ -110,9 +109,9 @@ class UserService:
 
         return password == user.password
 
-    def login(self, user):
+    async def login(self, user):
         """update last login time"""
-        self.userDao.login(user)
+        await self.userDao.login(user)
         return True
 
 if __name__ == '__main__':
