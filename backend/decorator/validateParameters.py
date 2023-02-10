@@ -112,7 +112,6 @@ async def _assert_condition(data: dict, key, condition, func, message, key_type=
         return json(response, 401)
 
 
-
 def Length(key, message, min=0, max=0, parameter_type: str = 'all'):
     def decorator(func):
         @wraps(func)
@@ -162,7 +161,7 @@ def Assert(key, condition, message, parameter_type: str = 'all', key_type=Any, s
             request = args[0]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
-            return _assert_condition(data, key, condition, func, message, key_type, string2number, *args, **kwargs)
+            return await _assert_condition(data, key, condition, func, message, key_type, string2number, *args, **kwargs)
 
         return wrap
 
