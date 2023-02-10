@@ -33,6 +33,10 @@ def get_parameters_from_request_by_content_type(request, parameter_type):
         data.update(request.form)
         data.update(dict(request.args))
         data.update(dict(request.files))
+        try:
+            data.update(dict(request.json))
+        except Exception as e:
+            pass
     elif parameter_type == 'json':
         data = dict(request.json)
     elif parameter_type == 'form':
