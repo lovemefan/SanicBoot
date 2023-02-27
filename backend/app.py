@@ -6,7 +6,7 @@
 import os
 from time import sleep
 
-from sanic import Sanic
+from sanic import Sanic, Request, HTTPResponse
 import sys
 from sanic.exceptions import RequestTimeout, NotFound, Unauthorized, SanicException
 from sanic.response import json
@@ -133,6 +133,34 @@ def exception_response(request, exception):
         message=reasons,
         code=StatusCode.INTERNAL_SERVER_ERROR.value
     ).__dict__, 500)
+
+
+@app.middleware("request")
+def cors_middle_req(request: Request):
+    """路由需要启用OPTIONS方法"""
+    if request.method.lower() == 'options':
+        allow_headers = [
+            'Authorization',
+            'content-type'
+        ]
+        headers = {
+            'Access-Control-Allow-Methods':
+                ', '.join(request.app.router.get_supported_methods(request.path)),
+            'Access-Control-Max-Age': '86400',
+            'Access-Control-Allow-Headers': ', '.join(allow_headers),
+        }
+        return HTTPResponse('', headers=headers)
+
+
+@app.middleware("response")
+def cors_middle_res(request: Request, response: HTTPResponse):
+    """跨域处理"""
+    allow_origin = '*'
+    response.headers.update(
+        {
+            'Access-Control-Allow-Origin': allow_origin,
+        }
+    )
 
 
 # banner文件展示
