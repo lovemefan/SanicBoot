@@ -40,5 +40,7 @@ class StatusCode(Enum):
     UNAUTHORIZED = '0014'
     # 参数非法
     INVALID_PARAMETER = '0015'
+    # 内部服务错误
+    INTERNAL_SERVER_ERROR = '0016'
 
 

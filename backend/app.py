@@ -8,7 +8,7 @@ from time import sleep
 
 from sanic import Sanic
 import sys
-from sanic.exceptions import RequestTimeout, NotFound, Unauthorized
+from sanic.exceptions import RequestTimeout, NotFound, Unauthorized, SanicException
 from sanic.response import json
 from sanic_jwt import initialize, Configuration
 from sanic_jwt.exceptions import SanicJWTException
@@ -100,23 +100,39 @@ sainc_init = initialize(app,
                         url_prefix='/v1/api/auth')
 
 
-def sanic_jwt_exception_response(request, exception):
+# replace all response of sanic_jwt with our response body
+@sainc_init.app.exception(SanicException)
+def sanic_exception_response(request, exception):
     """
-    convert sanic_jwt response into our response body
+    convert sanic response into our response body
     """
     reasons = (
         exception.args[0][0]
         if isinstance(exception.args[0], list)
         else exception.args[0]
     )
+    logger.exception(exception)
     return json(ResponseBody(
         message=reasons,
-        code=StatusCode.UNAUTHORIZED.value
-    ).__dict__, 403)
+        code=StatusCode.INTERNAL_SERVER_ERROR.value
+    ).__dict__, 500)
 
 
-# replace all response of sanic_jwt with our response body
-sainc_init.app.exception(SanicJWTException)(sanic_jwt_exception_response)
+@sainc_init.app.exception(Exception)
+def exception_response(request, exception):
+    """
+    convert sanic response into our response body
+    """
+    reasons = (
+        exception.args[0][0]
+        if isinstance(exception.args[0], list)
+        else exception.args[0]
+    )
+    logger.exception(exception)
+    return json(ResponseBody(
+        message=reasons,
+        code=StatusCode.INTERNAL_SERVER_ERROR.value
+    ).__dict__, 500)
 
 
 # banner文件展示
