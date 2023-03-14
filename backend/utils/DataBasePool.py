@@ -46,7 +46,7 @@ class DataBasePool(BaseConfig):
         )
         self.__pool_db_init__ = False
 
-    async def execute(self, sql: Union[str, list], query: bool = None, many: bool = False, data: list = None):
+    async def execute(self, sql: Union[str, list], query: bool = None, many: bool = False, data: list = None, return_affected: bool = False):
         """Execute batch of sql statement method will execute the operation iterating over two ways:
 
          1. update or insert in same table. insert or replace statements are optimized by batching the data,
@@ -124,8 +124,9 @@ class DataBasePool(BaseConfig):
                         await cursor.executemany(sql[0], data)
                         logger.debug(f"Executing many: {sql[0]} of {data}")
                     else:
+                        affected_rows = []
                         for s in sql:
-                            await cursor.execute(s)
+                            affected_rows.append(await cursor.execute(s))
                             logger.debug(f"Executing: {s}")
                     result = await cursor.fetchall()
 
@@ -143,7 +144,12 @@ class DataBasePool(BaseConfig):
                     logger.error(f"Rollback finished")
                     raise SQLException("SQL execution failed.")
 
-        return result
+        if return_affected:
+            # if set return_affected, will return all the sqls' number of rows that has been produced of affected
+            # the document intro will be found @https://aiomysql.readthedocs.io/en/latest/cursors.html
+            return(result, affected_rows)
+        else:
+            return result
 
     @staticmethod
     def get_instance():
