@@ -171,7 +171,6 @@ await user_list(data=data)
 3. 在同一事务下批量执行多条sql语句
 尽量手动指定query，不指定的话，不好判断所有的语句是否需要事务，默认会取出第一条sql语句，如果时select语句
 query=True,否则query=False。
-4. 
 ```python
 @Mysql.auto_execute_sql
 def insert_employee(name, query=False)

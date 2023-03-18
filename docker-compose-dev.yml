@@ -24,7 +24,6 @@ services:
       - backend-network
       - frontend-network
 
-
   mysql:
     image: mysql:5.7
     volumes:

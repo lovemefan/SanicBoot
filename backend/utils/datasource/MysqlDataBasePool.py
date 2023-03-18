@@ -5,28 +5,25 @@
 # @File    : DBOperation.py
 # using lock to make sure get one config at same time
 import asyncio
-import threading
 import time
 from typing import Union
 
 import aiomysql
 import pymysql
-from backend.config.BaseConfig import BaseConfig
 from backend.exception.SqlException import SQLException
+from backend.utils.datasource import register_datasource
+from backend.utils.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
 
 
-lock = threading.Lock()
-
-
-class DataBasePool(BaseConfig):
+@register_datasource('mysql')
+class MysqlDataBasePool(DataBasePoolBase):
     """DataBase pool
     To get connection from database pool
     Example : DataBasePool.get_instance()
     """
-    __instance = None
-
     def __init__(self):
+        super().__init__()
         config = {
             'host': self.get('mysql.host'),
             'port': int(self.get('mysql.port')),
@@ -35,7 +32,7 @@ class DataBasePool(BaseConfig):
             'password': self.get('mysql.password'),
             'charset': 'utf8'
         }
-        self.poolDB = aiomysql.create_pool(
+        self.__poolDB = aiomysql.create_pool(
             # use pymysql as mysql database driver
             minsize=1,
             loop=asyncio.get_event_loop(),
@@ -102,10 +99,10 @@ class DataBasePool(BaseConfig):
         # if query is None, auto set query is True if select in sql
 
         if not self.__pool_db_init__:
-            self.pool_db = await self.poolDB
+            self.__poolDB = await self.__poolDB
             self.__pool_db_init__ = True
 
-        async with self.pool_db.acquire() as conn:
+        async with self.__poolDB.acquire() as conn:
             # set connection into autocommit mode otherwise the 'select' will use wrong cache
             await conn.autocommit(True)
             async with conn.cursor(aiomysql.Cursor) as cursor:
@@ -145,19 +142,5 @@ class DataBasePool(BaseConfig):
 
         return result
 
-    @staticmethod
-    def get_instance():
-        """get a instance at once simultaneously"""
-        if DataBasePool.__instance:
-            return DataBasePool.__instance
-        try:
-            lock.acquire()
-            if not DataBasePool.__instance:
-                logger.info('Building DataBase Pool.')
-                DataBasePool.__instance = DataBasePool()
-                logger.info('Build DataBase Pool finished.')
-        finally:
-            lock.release()
-        return DataBasePool.__instance
 
 

@@ -6,7 +6,7 @@
 import inspect
 from typing import Union
 
-from backend.utils.DataBasePool import DataBasePool
+from backend.utils.datasource import get_datasource
 from backend.utils.logger import logger
 from backend.exception.SqlException import SQLException
 
@@ -23,9 +23,9 @@ def filter_invalid_character(*args, **kwargs):
     check the parameters recursion for sql is valid .
     """
     def valid(text: str):
-        for filter in fileter_list:
-            if filter in text.lower():
-                logger.error(f"Sql injection warning !!!, filter:{filter}", )
+        for _filter in fileter_list:
+            if _filter in text.lower():
+                logger.error(f"Sql injection warning !!!, filter:{_filter}", )
                 raise SQLException("Sql injection warning !!!")
 
     def recursion_valid(data: Union[list, tuple, dict]):
@@ -46,10 +46,12 @@ def filter_invalid_character(*args, **kwargs):
         recursion_valid(arg)
 
 
+class DatasourceDecorator:
+    def __init__(self, source_name: str):
+        self.source_name = source_name
+        self.datasource = get_datasource(source_name)
 
-class Mysql:
-    @staticmethod
-    def execute_sql(sql):
+    def execute_sql(self, sql):
         """this is a decorator to execute sql and autowire result into parameter named results of method
         It uses the DataBase pool to get connection.
         Args:
@@ -64,15 +66,14 @@ class Mysql:
 
         def decorator(func):
             async def wrap(*args, **kwargs):
-                results = await DataBasePool.get_instance().execute(sql)
+                results = await self.datasource.get_instance().execute(sql)
                 return func(*args, **kwargs, results=results)
 
             return wrap
 
         return decorator
 
-    @staticmethod
-    def auto_execute_sql(func):
+    def auto_execute_sql(self, func):
         """this is a decorator execute sql from the return of func method and return results of sql execution.
         Examples:
             # when query is True, connection will skip commit operation,
@@ -104,7 +105,7 @@ class Mysql:
             query = inspect.signature(func).parameters.get('query', None)
             many = inspect.signature(func).parameters.get('many', False)
             data = kwargs.get('data', None)
-            results = await DataBasePool.get_instance().execute(sql, query, many, data)
+            results = await self.datasource.get_instance().execute(sql, query, many, data)
             return results
 
         return wrap
