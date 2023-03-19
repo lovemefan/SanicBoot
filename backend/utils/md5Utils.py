@@ -7,7 +7,6 @@
 import hashlib
 
 
-
 class MD5Utils:
     def __init__(self):
         pass
@@ -22,31 +21,30 @@ class MD5Utils:
         # 如果没有参数，所以md5遵守一个规则，生成同一个对应关系，如果加了参数，
         # 就是在原先加密的基础上再加密一层，这样的话参数只有自己知道，防止被撞库，
         # 因为别人永远拿不到这个参数
-        md5_hash = hashlib.md5(bytes('人社厅语音项目', encoding='utf-8'))
+        md5_hash = hashlib.md5(bytes("人社厅语音项目", encoding="utf-8"))
 
         # 要对哪个字符串进行加密，就放这里
         # 此处必须声明encode
         # 若写法为hl.update(str)  报错为： Unicode-objects must be encoded before hashing
-        md5_hash.update(text.encode(encoding='utf-8'))
+        md5_hash.update(text.encode(encoding="utf-8"))
 
         return md5_hash.hexdigest()
 
     @staticmethod
     def file_md5(file_path):
         """计算文件的md5码值"""
-        with open(file_path, 'rb') as fp:
+        with open(file_path, "rb") as fp:
             data = fp.read()
         file_md5 = hashlib.md5(data).hexdigest()
         return file_md5
 
 
-if __name__ == '__main__':
-    username = 'test2'
+if __name__ == "__main__":
+    username = "test2"
     # password = 'kust_admin'
-    password = 'test'
+    password = "test"
     # 密码用md5加密
     hash = MD5Utils.encode(password)
     print(hash)
-    file = 'Alaw2pcm.py'
+    file = "Alaw2pcm.py"
     print(MD5Utils.file_md5(file))
-

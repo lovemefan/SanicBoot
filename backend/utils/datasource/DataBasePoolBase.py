@@ -3,7 +3,6 @@
 # @Time      :2023/3/19 01:25
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
-import threading
 import asyncio
 import threading
 import time
@@ -11,6 +10,7 @@ from typing import Union
 
 import aiomysql
 import pymysql
+
 from backend.config.BaseConfig import BaseConfig
 from backend.exception.SqlException import SQLException
 from backend.utils.logger import logger
@@ -23,6 +23,7 @@ class DataBasePoolBase(BaseConfig):
     To get connection from database pool
     Example : DataBasePool.get_instance()
     """
+
     __instance = None
     __poolDB = None
     __pool_db_init__ = False
@@ -30,8 +31,14 @@ class DataBasePoolBase(BaseConfig):
     def __init__(self):
         pass
 
-    async def execute(self, sql: Union[str, list], query: bool = None, many: bool = False, data: list = None):
-        raise NotImplemented
+    async def execute(
+        self,
+        sql: Union[str, list],
+        query: bool = None,
+        many: bool = False,
+        data: list = None,
+    ):
+        raise NotImplementedError
 
     @staticmethod
     def get_instance():
@@ -41,9 +48,9 @@ class DataBasePoolBase(BaseConfig):
         try:
             lock.acquire()
             if not DataBasePoolBase.__instance:
-                logger.info('Building DataBase Pool.')
+                logger.info("Building DataBase Pool.")
                 DataBasePoolBase.__instance = DataBasePoolBase()
-                logger.info('Build DataBase Pool finished.')
+                logger.info("Build DataBase Pool finished.")
         finally:
             lock.release()
         return DataBasePoolBase.__instance

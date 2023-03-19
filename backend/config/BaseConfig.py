@@ -10,6 +10,7 @@ class BaseConfig:
     """implements this class to use the get method to get config from config file
     Example :  class A(BaseConfig)  use a = A() ,you can use a.get(key:str) to get  config from config file
     """
+
     @staticmethod
     def get(key, default=None):
         """get value from config by the key file dynamically

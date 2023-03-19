@@ -6,5 +6,6 @@
 
 
 class InvalidSystemClock(Exception):
-    '''time clock exception'''
+    """time clock exception"""
+
     pass

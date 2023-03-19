@@ -10,40 +10,50 @@ from typing import Union
 
 import aiomysql
 import pymysql
+
 from backend.exception.SqlException import SQLException
 from backend.utils.datasource import register_datasource
 from backend.utils.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
 
 
-@register_datasource('mysql')
+@register_datasource("mysql")
 class MysqlDataBasePool(DataBasePoolBase):
     """DataBase pool
     To get connection from database pool
     Example : DataBasePool.get_instance()
     """
+
     def __init__(self):
         super().__init__()
         config = {
-            'host': self.get('mysql.host'),
-            'port': int(self.get('mysql.port')),
-            'db': self.get('mysql.db_name'),
-            'user': self.get('mysql.user'),
-            'password': self.get('mysql.password'),
-            'charset': 'utf8'
+            "host": self.get("mysql.host"),
+            "port": int(self.get("mysql.port")),
+            "db": self.get("mysql.db_name"),
+            "user": self.get("mysql.user"),
+            "password": self.get("mysql.password"),
+            "charset": "utf8",
         }
         self.__poolDB = aiomysql.create_pool(
             # use pymysql as mysql database driver
             minsize=1,
             loop=asyncio.get_event_loop(),
-            # max number usage of one connection,0 or None is no limits,default is 0
-            maxsize=int(self.get('mysql.maxusage')),
+            # max number usage of one connection,
+            # 0 or None is no limits,default is 0
+            maxsize=int(self.get("mysql.maxusage")),
             autocommit=True,
-            **config
+            **config,
         )
         self.__pool_db_init__ = False
 
-    async def execute(self, sql: Union[str, list], query: bool = None, many: bool = False, data: list = None, return_affected: bool = False):
+    async def execute(
+        self,
+        sql: Union[str, list],
+        query: bool = None,
+        many: bool = False,
+        data: list = None,
+        return_affected: bool = False,
+    ):
         """Execute batch of sql statement method will execute the operation iterating over two ways:
 
          1. update or insert in same table. insert or replace statements are optimized by batching the data,
@@ -83,14 +93,14 @@ class MysqlDataBasePool(DataBasePoolBase):
         """
         # execute sql
         if isinstance(sql, str):
-            sql = [sql.strip().replace('\n', ' ').replace('  ', ' ')]
+            sql = [sql.strip().replace("\n", " ").replace("  ", " ")]
             logger.debug(f"Executing {sql}")
         elif isinstance(sql, list):
-            sql = [s.strip().replace('\n', ' ').replace('  ', ' ') for s in sql]
-            logger.debug(f"Executing many sql in same transaction")
+            sql = [s.strip().replace("\n", " ").replace("  ", " ") for s in sql]
+            logger.debug("Executing many sql in same transaction")
 
         if query is None:
-            if 'select' in sql[0].lower()[:6]:
+            if "select" in sql[0].lower()[:6]:
                 query = True
             else:
                 query = False
@@ -110,14 +120,16 @@ class MysqlDataBasePool(DataBasePoolBase):
                     start_time = time.time()
                     if not query:
                         # begin transaction
-                        logger.debug(f"Begin transaction ")
+                        logger.debug("Begin transaction ")
                         await conn.begin()
 
                     # if set many true and update/insert sql and data is list not None, insert all
                     if many and not query and data is not None:
                         if len(sql) != 1:
-                            raise ValueError("Using executemany must set sql as str instead of list "
-                                             "when set the many true and data not none ")
+                            raise ValueError(
+                                "Using executemany must set sql as str instead of list "
+                                "when set the many true and data not none "
+                            )
                         await cursor.executemany(sql[0], data)
                         logger.debug(f"Executing many: {sql[0]} of {data}")
                     else:
@@ -129,24 +141,23 @@ class MysqlDataBasePool(DataBasePoolBase):
 
                     if not query:
                         await conn.commit()
-                        logger.debug(f"Commit finished")
+                        logger.debug("Commit finished")
 
                     end_time = time.time()
-                    logger.debug(f"Execute finished in {end_time - start_time:.3} s. "
-                                 f"return {result if len(str(result)) < 100 else str(result)[:100] + ' ...'}")
+                    logger.debug(
+                        f"Execute finished in {end_time - start_time:.3} s. "
+                        f"return {result if len(str(result)) < 100 else str(result)[:100] + ' ...'}"
+                    )
                 except pymysql.Error as e:
                     logger.exception(str(e))
                     if not query:
                         await conn.rollback()
-                    logger.error(f"Rollback finished")
+                    logger.error("Rollback finished")
                     raise SQLException("SQL execution failed.")
 
         if return_affected:
             # if set return_affected, will return all the sqls' number of rows that has been produced of affected
             # the document intro will be found @https://aiomysql.readthedocs.io/en/latest/cursors.html
-            return(result, affected_rows)
+            return (result, affected_rows)
         else:
             return result
-
-
-

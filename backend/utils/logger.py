@@ -16,11 +16,13 @@ level_map = {
     "INFO": logging.INFO,
     "WARNING": logging.WARNING,
     "ERROR": logging.ERROR,
-    "CRITICAL": logging.CRITICAL
+    "CRITICAL": logging.CRITICAL,
 }
 
 stream_handler = logging.StreamHandler()
-stream_handler.setFormatter(logging.Formatter(Config.get_instance().get("log.format", None)))
+stream_handler.setFormatter(
+    logging.Formatter(Config.get_instance().get("log.format", None))
+)
 if Config.get_instance().get("log.filename", None) is not None:
     dir = os.path.dirname(Config.get_instance().get("log.filename"))
     if not os.path.exists(dir):
@@ -35,8 +37,10 @@ file_stream_handler = logging.handlers.RotatingFileHandler(
     filename=file_path,
     maxBytes=int(Config.get_instance().get("log.maxBytes", 102400)),
     backupCount=int(Config.get_instance().get("log.backupCount", 5)),
-    )
-file_stream_handler.setFormatter(logging.Formatter(Config.get_instance().get("log.format", None)))
+)
+file_stream_handler.setFormatter(
+    logging.Formatter(Config.get_instance().get("log.format", None))
+)
 
 logger = logging.getLogger(__name__)
 

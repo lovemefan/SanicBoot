@@ -16,10 +16,7 @@ from sanic_jwt.exceptions import Unauthorized
 from backend.model.UserIdentity import UserIdentity
 
 
-def authority(user_identity=None,
-              require_all=False,
-              require_all_actions=True,
-              **kw):
+def authority(user_identity=None, require_all=False, require_all_actions=True, **kw):
     if user_identity is None:
         user_identity = [UserIdentity.USER]
 
@@ -56,9 +53,7 @@ def authority(user_identity=None,
                         # deny access
                         is_authorized = False
                         reasons = "Invalid user identity."
-                        raise Unauthorized(
-                            reasons
-                        )
+                        raise Unauthorized(reasons)
 
                     else:
                         is_authorized = await validate_identity(
@@ -93,15 +88,15 @@ def authority(user_identity=None,
 
 
 async def validate_identity(
-        request,
-        user_identity,
-        current_user_identity,
-        override,
-        destructure,
-        require_all=True,
-        require_all_actions=True,
-        request_args=[],
-        request_kwargs={},
+    request,
+    user_identity,
+    current_user_identity,
+    override,
+    destructure,
+    require_all=True,
+    require_all_actions=True,
+    request_args=[],
+    request_kwargs={},
 ):
     scopes = await utils.call(destructure, user_identity)
     scopes = await utils.call(scopes, request, *request_args, **request_kwargs)
@@ -122,7 +117,7 @@ async def validate_identity(
 
 
 def validate_single_identity(
-        required, user_scopes, require_all_actions=True, override=None
+    required, user_scopes, require_all_actions=True, override=None
 ):
     if not user_scopes:
         return False
@@ -138,7 +133,6 @@ def validate_single_identity(
     is_valid = False
 
     for requested in user_scopes:
-
         valid_namespace = required.value == requested
 
         is_valid = all([valid_namespace])

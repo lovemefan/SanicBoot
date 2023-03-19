@@ -5,7 +5,8 @@
 # @File    : ResponseBody.py
 class ResponseBody:
     """The response body of http"""
-    def __init__(self, message='', data=None, code=None):
+
+    def __init__(self, message="", data=None, code=None):
         self.message = message
         self.data = data
         self.code = code

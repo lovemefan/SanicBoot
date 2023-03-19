@@ -6,26 +6,52 @@
 import inspect
 from typing import Union
 
+from backend.exception.SqlException import SQLException
 from backend.utils.datasource import get_datasource
 from backend.utils.logger import logger
-from backend.exception.SqlException import SQLException
 
-fileter_list = ['union', '#', "'", 'exec', 'chr ', 'mid ',
-                '*', 'or ', 'and ', 'insert', 'select', 'delete', 'drop',
-                'update', 'count', 'char('
-                'master', 'truncate', 'declare', ';', '+', '&', '/*', '*/'
-                'updatexml(', 'extractvalue(', 'exp(', 'load_file(', 'database('
-                ]
+fileter_list = [
+    "union",
+    "#",
+    "'",
+    "exec",
+    "chr ",
+    "mid ",
+    "*",
+    "or ",
+    "and ",
+    "insert",
+    "select",
+    "delete",
+    "drop",
+    "update",
+    "count",
+    "char(" "master",
+    "truncate",
+    "declare",
+    ";",
+    "+",
+    "&",
+    "/*",
+    "*/" "updatexml(",
+    "extractvalue(",
+    "exp(",
+    "load_file(",
+    "database(",
+]
 
 
 def filter_invalid_character(*args, **kwargs):
     """
     check the parameters recursion for sql is valid .
     """
+
     def valid(text: str):
         for _filter in fileter_list:
             if _filter in text.lower():
-                logger.error(f"Sql injection warning !!!, filter:{_filter}", )
+                logger.error(
+                    f"Sql injection warning !!!, filter:{_filter}",
+                )
                 raise SQLException("Sql injection warning !!!")
 
     def recursion_valid(data: Union[list, tuple, dict]):
@@ -102,10 +128,12 @@ class DatasourceDecorator:
         async def wrap(*args, **kwargs):
             filter_invalid_character(*args, **kwargs)
             sql = func(*args, **kwargs)
-            query = inspect.signature(func).parameters.get('query', None)
-            many = inspect.signature(func).parameters.get('many', False)
-            data = kwargs.get('data', None)
-            results = await self.datasource.get_instance().execute(sql, query, many, data)
+            query = inspect.signature(func).parameters.get("query", None)
+            many = inspect.signature(func).parameters.get("many", False)
+            data = kwargs.get("data", None)
+            results = await self.datasource.get_instance().execute(
+                sql, query, many, data
+            )
             return results
 
         return wrap

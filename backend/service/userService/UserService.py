@@ -12,9 +12,7 @@ from backend.model.User import User
 
 @singleton
 class UserService:
-    """user @singleton to avoid create amount of same instance, improve the efficiency
-
-    """
+    """user @singleton to avoid create amount of same instance, improve the efficiency"""
 
     def __init__(self):
         self.userDao = UserDao()
@@ -29,8 +27,17 @@ class UserService:
         info = await self.userDao.get_all_user()
         users = []
         for row in info:
-            user = User(uid=row[0], username=row[1], phone=row[2], email=row[3], role=row[4], create_by=row[5],
-                    create_time=row[6], last_login_time=row[7], status=row[8])
+            user = User(
+                uid=row[0],
+                username=row[1],
+                phone=row[2],
+                email=row[3],
+                role=row[4],
+                create_by=row[5],
+                create_time=row[6],
+                last_login_time=row[7],
+                status=row[8],
+            )
             users.append(user.__dict__)
 
         return users
@@ -47,8 +54,18 @@ class UserService:
         if len(info) == 0:
             raise UserNotExist(user.username)
         row = info[0]
-        user = User(uid=row[0], username=row[1], phone=row[2], email=row[3], role=row[4], create_by=row[5],
-                    create_time=row[6], last_login_time=row[7], status=row[8], identity=row[9])
+        user = User(
+            uid=row[0],
+            username=row[1],
+            phone=row[2],
+            email=row[3],
+            role=row[4],
+            create_by=row[5],
+            create_time=row[6],
+            last_login_time=row[7],
+            status=row[8],
+            identity=row[9],
+        )
 
         return user
 
@@ -70,7 +87,9 @@ class UserService:
             pymysql.err.IntegrityError : The username has exist
         """
         await self.userDao.add_user(user)
-        await self.userDao.add_user_into_group(self.get_user_id(user).uid, user.create_by)
+        await self.userDao.add_user_into_group(
+            self.get_user_id(user).uid, user.create_by
+        )
         return True
 
     async def modify_user(self, user):
@@ -114,19 +133,21 @@ class UserService:
         await self.userDao.login(user)
         return True
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     ins1 = UserService()
     ins2 = UserService()
     # print True
     # print(ins1 is ins2)
-    user = User(username='lovemefan',
-                uid=1342014866998829056,
-                password='5c5ed1b1b2e95abacda4cc7c8b40d58d',
-                phone='186******2',
-                email='lovemefan@outlook.com',
-                role=1,
-                create_by=1341983140255768576
-                )
+    user = User(
+        username="lovemefan",
+        uid=1342014866998829056,
+        password="5c5ed1b1b2e95abacda4cc7c8b40d58d",
+        phone="186******2",
+        email="lovemefan@outlook.com",
+        role=1,
+        create_by=1341983140255768576,
+    )
     # res = ins1.get_user_information(User('admin'))
     # print(res)
     # ins2.add_user(user)

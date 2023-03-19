@@ -1,5 +1,5 @@
-aiofiles==22.1.0
-DBUtils==3.0.2
+aiofiles==23.1.0
+aiomysql==0.1.1
 httptools==0.5.0
 multidict==6.0.4
 PyJWT==2.6.0
@@ -11,5 +11,5 @@ sanic-openapi==21.12.0
 sanic-routing==22.8.0
 ujson==5.7.0
 uvloop==0.17.0
-watchdog==2.2.1
+watchdog==2.3.1
 websockets==10.4

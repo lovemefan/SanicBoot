@@ -7,15 +7,18 @@ from backend.decorator.singleton import singleton
 from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 
-Mysql = DatasourceDecorator('mysql')
+Mysql = DatasourceDecorator("mysql")
 
 
 class UserDao:
     """User operation"""
+
     def __init__(self):
         pass
 
-    @Mysql.execute_sql('select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid')
+    @Mysql.execute_sql(
+        "select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid"
+    )
     def get_all_user(self, results):
         return results
 
@@ -49,8 +52,10 @@ class UserDao:
         Returns:
            tuple: query result of sql
         """
-        sql = f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status, u1.identity  " \
-              f"from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid where u1.uid = {user.uid}"
+        sql = (
+            f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status, u1.identity  "
+            f"from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid where u1.uid = {user.uid}"
+        )
         return sql
 
     @Mysql.auto_execute_sql
@@ -112,17 +117,15 @@ class UserDao:
             return sql
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dao = UserDao()
     user = User(
-                username='lovemefan',
-                password='5c5ed1b1b2e95abacda4cc7c8b40d58d',
-                phone='18679128652',
-                email='lovemefan@outlook.com',
-                role=1,
-                create_by=1341983140255768576
-                )
+        username="lovemefan",
+        password="5c5ed1b1b2e95abacda4cc7c8b40d58d",
+        phone="18679128652",
+        email="lovemefan@outlook.com",
+        role=1,
+        create_by=1341983140255768576,
+    )
     res = dao.add_user(user)
     dao.get_all_user()
-
-

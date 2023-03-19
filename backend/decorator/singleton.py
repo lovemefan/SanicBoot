@@ -13,7 +13,8 @@ instances = {}
 
 
 def singleton(cls):
-    """this is decorator to decorate class , make the class singleton(修饰器实现单例模式) """
+    """this is decorator to decorate class , make the class singleton(修饰器实现单例模式)"""
+
     def get_instance(*args, **kwargs):
         cls_name = cls.__name__
         try:
@@ -29,6 +30,7 @@ def singleton(cls):
         return instances[cls_name]
 
     return get_instance
+
 
 def get_all_instance():
     """return all instance in the container"""

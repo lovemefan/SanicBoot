@@ -7,5 +7,5 @@
 from backend.routes.userRoute.UserRoute import user_route
 
 blueprint_list = {
-    'user_route': user_route,
+    "user_route": user_route,
 }

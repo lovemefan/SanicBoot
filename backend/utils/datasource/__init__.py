@@ -53,10 +53,10 @@ def import_models(models_dir, namespace):
     for file in os.listdir(models_dir):
         path = os.path.join(models_dir, file)
         if (
-                not file.startswith("_")
-                and not file.startswith("DataBasePoolBase.py")
-                and not file.startswith(".")
-                and (file.endswith(".py") or os.path.isdir(path))
+            not file.startswith("_")
+            and not file.startswith("DataBasePoolBase.py")
+            and not file.startswith(".")
+            and (file.endswith(".py") or os.path.isdir(path))
         ):
             datasource_name = file[: file.find(".py")] if file.endswith(".py") else file
             logger.info("Importing datasource: {}".format(datasource_name))

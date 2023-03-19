@@ -14,11 +14,6 @@ class InvalidParameters(SanicException):
     pass
 
 
-
-class MissParameters(SanicException):
-    pass
-
-
 class UserCreateException(Exception):
     def __init__(self, description):
         self.description = description

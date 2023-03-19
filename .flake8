@@ -1,0 +1,20 @@
+[flake8]
+show-source=true
+statistics=true
+max-line-length = 88
+per-file-ignores =
+    # line too long
+    backend/utils/datasource/DataBasePollBAse: E501,
+
+
+exclude =
+  .git,
+  **/data/**
+
+ignore =
+  # E203 white space before ":"
+  E203,
+  # W503 line break before binary operator
+  W503,
+  # E226 missing whitespace around arithmetic operator
+  E226,
