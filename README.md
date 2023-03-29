@@ -2,8 +2,6 @@
 [toc]
 ## 1. 简介
 
-最近使用python做web开发选择web框架的时候，flask并不支持异步，有些异步框架Tornado、Twisted、Gevent 等为了解决性能问题。这些框架在性能上有些提升，但是也有一些问题难以解决。
-
 在python3.6中，官方的异步协程库asyncio正式成为标准。在保留便捷性的同时对性能有了很大的提升,已经出现许多的异步框架使用asyncio。
 
 使用较早的异步框架是aiohttp，它提供了server端和client端，对asyncio做了很好的封装。但是开发方式和最流行的微框架flask不同，flask开发简单，轻量，高效。将两者结合起来就有了sanic。
@@ -13,7 +11,6 @@ Sanic框架是和Flask相似异步协程框架，简单轻量，并且性能很�
 ## 2. 特性
 
 * **使用sanic异步框架，简单，轻量，高效。**
-* **使用uvloop为核心引擎，使sanic在很多情况下单机并发甚至不亚于Golang。**
 * **项目中使用单例模式实例容器来管理service层的实列，全局只需要创建一次**
 * **全局配置文件，不需要重启服务，支持动态更新**
 * **使用异步数据库aiomysql连接引擎，异步提高执行效率，使用数据库池管理连接，避免浪费大量资源。**
@@ -97,7 +94,7 @@ gunicorn --bind 0.0.0.0:80 --workers 1  backend.app:app -k uvicorn.workers.Uvico
 
 
 ### 装饰器
-#### 数据校验 
+#### 数据校验
 
 ```python
 @app.route("/test", methods=["POST"])
@@ -136,7 +133,7 @@ async def modify_user(request, user):
 
 #### 数据库操作
 
-* 异常处理及回滚操作 
+* 异常处理及回滚操作
 * 执行sql语句自动判断是否需要commit
 * 添加批量插入或更新的功能
 

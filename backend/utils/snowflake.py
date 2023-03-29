@@ -7,7 +7,7 @@ import logging
 import time
 
 # 64位ID的划分
-from backend.decorator.singleton import singleton
+from backend.core.decorator.singleton import singleton
 from backend.exception.InvalidSystemClock import InvalidSystemClock
 
 WORKER_ID_BITS = 5

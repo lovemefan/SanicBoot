@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/12/22 下午11:49
 # @Author  : lovemefan
-from backend.decorator.datasource import DatasourceDecorator
-from backend.decorator.singleton import singleton
+from backend.core.decorator.datasource import DatasourceDecorator
 from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 

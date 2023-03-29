@@ -9,12 +9,11 @@ from sanic.response import json
 from sanic_jwt import exceptions, inject_user, protected
 from sanic_jwt.exceptions import Unauthorized
 
-from backend.decorator.validateParameters import Length, NotEmpty, Pattern
+from backend.core.decorator.validateParameters import Length, NotEmpty, Pattern
 from backend.exception.UserException import (
     MissParameters,
     UserAddException,
     UserAlreadyExist,
-    UserDeleteException,
     UserNotExist,
 )
 from backend.model.ResponseBody import ResponseBody

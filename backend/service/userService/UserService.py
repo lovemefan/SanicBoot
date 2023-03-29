@@ -4,8 +4,8 @@
 # @Author  : lovemefan
 # @File    : UserService.py
 
+from backend.core.decorator.singleton import singleton
 from backend.dao.UserDao import UserDao
-from backend.decorator.singleton import singleton
 from backend.exception.UserException import UserNotExist
 from backend.model.User import User
 
