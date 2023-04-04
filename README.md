@@ -15,6 +15,7 @@
     -[ ] mongodb
     -[ ] PostgreSQL
     -[ ] elasticsearch
+ 5. 完善文档及注释，增加英文文档
 
 
 ## 1. 简介
