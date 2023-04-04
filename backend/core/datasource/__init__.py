@@ -6,10 +6,9 @@
 import importlib
 import os
 
+from backend.core import DATASOURCE_REGISTRY
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
-
-DATASOURCE_REGISTRY = {}
 
 
 def register_datasource(name):
@@ -64,4 +63,4 @@ def import_models(models_dir, namespace):
 
 # automatically import any Python files in the models/ directory
 models_dir = os.path.dirname(__file__)
-import_models(models_dir, "backend.utils.datasource")
+import_models(models_dir, "backend.core.datasource")
