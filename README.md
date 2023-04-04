@@ -3,24 +3,24 @@
 ## sanic-backend v2.0.0 进一步重构
  1. 配置文件增强
 
-    -[ ] yaml配置文件
-    -[ ] @Vallue 配置注入到配置类中
+    - [ ] yaml配置文件
+    - [ ] @Vallue 配置注入到配置类中
 
  2. 依赖注入
 
-    -[ ] @Autowired 注入到service、controller中
+    - [ ] @Autowired 注入到service、controller中
  3. 自动发现与自动注册
 
-    -[ ] 自动发现service、controller、model、 dao
-    -[ ] 自动注册路由
+    - [ ] 自动发现service、controller、model、 dao
+    - [ ] 自动注册路由
 
  4. 更多数据库支持,优先级按一下顺序
 
-    -[ ] sqlite
-    -[ ] redis
-    -[ ] mongodb
-    -[ ] PostgreSQL
-    -[ ] elasticsearch
+    - [ ] sqlite
+    - [ ] redis
+    - [ ] mongodb
+    - [ ] PostgreSQL
+    - [ ] elasticsearch
 
  5. 完善文档及注释，增加英文文档
 
