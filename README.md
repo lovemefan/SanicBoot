@@ -1,5 +1,22 @@
 # 基于Sanic的后端模板
-[toc]
+
+## sanic-backend v2.0.0 进一步重构
+ 1. 配置文件增强
+    -[ ] yaml配置文件
+    -[ ] @Vallue 配置注入到配置类中
+ 2. 依赖注入
+    -[ ] @Autowired 注入到service、controller中
+ 3. 自动发现与自动注册
+    -[ ] 自动发现service、controller、model、 dao
+    -[ ] 自动注册路由
+ 4. 更多数据库支持,优先级按一下顺序
+    -[ ] sqlite
+    -[ ] redis
+    -[ ] mongodb
+    -[ ] PostgreSQL
+    -[ ] elasticsearch
+
+
 ## 1. 简介
 
 在python3.6中，官方的异步协程库asyncio正式成为标准。在保留便捷性的同时对性能有了很大的提升,已经出现许多的异步框架使用asyncio。
