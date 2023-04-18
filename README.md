@@ -115,10 +115,26 @@ gunicorn --bind 0.0.0.0:80 --workers 1  backend.app:app -k uvicorn.workers.Uvico
 #### 统一异常处理
 
 对抛出的异常进行处理，返回统一格式
+#### 配置注入
+将配置文件config.yaml中的具体配置注入到python变量当中
 
+```python
+from backend.core.component.value import Value
 
+class MysqlConifg:
+    @Value('datasource.mysql.host')
+    def host(self):
+        pass
 
-### 装饰器
+    @Value('datasource.mysql.port')
+    def port(self):
+        pass
+
+mysql_config = MysqlConifg
+print(mysql_config.host)
+print(mysql_config.port)
+```
+
 #### 数据校验
 
 ```python
