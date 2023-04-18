@@ -3,8 +3,7 @@
 # @Time      :2023/3/30 00:23
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
-import importlib
-import sys
+
 
 from backend.core import CONTROLLERS_REGISTRY, DAO_REGISTRY, SERVICES_REGISTRY
 from backend.core.decorator.datasource import DatasourceDecorator

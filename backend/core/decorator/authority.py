@@ -68,7 +68,6 @@ def authority(user_identity=None, require_all=False, require_all_actions=True, *
                             request_kwargs=kwargs,
                         )
                         if not is_authorized:
-                            status = 403
                             reasons = "Invalid user_identity."
                             raise Unauthorized(reasons)
 

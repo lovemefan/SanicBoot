@@ -45,6 +45,7 @@ async def validate_password(request):
             message="username or password empty",
             status_code=StatusCode.USERNAME_OR_PASSWORD_EMPTY.name,
         )
+    return json(response.__dict__)
 
 
 async def authenticate(request, *args, **kwargs):

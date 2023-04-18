@@ -3,16 +3,11 @@
 # @Time      :2023/3/19 01:25
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
-import asyncio
+
 import threading
-import time
 from typing import Union
 
-import aiomysql
-import pymysql
-
 from backend.config.BaseConfig import BaseConfig
-from backend.exception.SqlException import SQLException
 from backend.utils.logger import logger
 
 lock = threading.Lock()

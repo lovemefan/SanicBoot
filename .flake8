@@ -1,10 +1,11 @@
 [flake8]
 show-source=true
 statistics=true
-max-line-length = 88
+max-line-length = 108
 per-file-ignores =
     # line too long
     backend/utils/datasource/DataBasePollBase: E501,
+
 
 
 exclude =
@@ -18,3 +19,5 @@ ignore =
   W503,
   # E226 missing whitespace around arithmetic operator
   E226,
+  # W291 trailing whitespace
+  W291

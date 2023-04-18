@@ -22,7 +22,19 @@ class UserDao(DaoBase):
         pass
 
     @mysql.execute_sql(
-        "select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid"
+        """
+        SELECT u1.uid,
+            u1.username,
+            u1.phone,
+            u1.email,
+            u1.user_role,
+            u2.username AS create_by,
+            u1.create_time,
+            u1.last_login_time,
+            u1.status
+        FROM user AS u1
+        LEFT JOIN user AS u2
+            ON u1.create_by = u2.uid"""
     )
     def get_all_user(self, results):
         return results
@@ -57,10 +69,22 @@ class UserDao(DaoBase):
         Returns:
            tuple: query result of sql
         """
-        sql = (
-            f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status, u1.identity  "
-            f"from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid where u1.uid = {user.uid}"
-        )
+        sql = f"""
+            SELECT u1.uid,
+                u1.username,
+                u1.phone,
+                u1.email,
+                u1.user_role,
+                u2.username AS create_by,
+                u1.create_time,
+                u1.last_login_time,
+                u1.status,
+                u1.identity
+            FROM user AS u1
+            LEFT JOIN user AS u2
+                ON u1.create_by = u2.uid
+            WHERE u1.uid = {user.uid}
+        """
         return sql
 
     @mysql.auto_execute_sql
@@ -74,7 +98,18 @@ class UserDao(DaoBase):
            tuple: query result of sql
         """
         uid = IdWorker().get_id()
-        sql = f"insert into user(uid,username,`password`,phone,email,user_role,create_by) values({uid},'{user.username}','{user.password}','{user.phone}','{user.email}',{user.role},{user.create_by})"
+        sql = f"""
+        insert into user(
+          uid, username, password, phone, email,
+          user_role, create_by
+        )
+        values
+          (
+            {uid}, '{user.username}', '{user.password}',
+            '{user.phone}', '{user.email}',
+            {user.role}, {user.create_by}
+          )
+        """
         return sql
 
     @mysql.auto_execute_sql
@@ -100,7 +135,18 @@ class UserDao(DaoBase):
         Returns:
            tuple: query result of sql
         """
-        sql = f"update user set username='{user.username}',password='{user.password}',phone='{user.phone}',user_role={user.role},status={user.status} where uid = '{user.uid}'"
+        sql = f"""
+        update
+          user
+        set
+          username = '{user.username}',
+          password = '{user.password}',
+          phone = '{user.phone}',
+          user_role = {user.role},
+          status = {user.status}
+        where
+          uid = '{user.uid}'
+        """
         return sql
 
     @mysql.auto_execute_sql

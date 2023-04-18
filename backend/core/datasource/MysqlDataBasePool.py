@@ -78,7 +78,8 @@ class MysqlDataBasePool(DataBasePoolBase):
 
         2. execute many sql statement in same transaction
             when sql is list, you should specify the query,
-            otherwise it will set query type by Determine the first sql statement whether there is a substring of 'select'
+            otherwise it will set query type by Determine
+            the first sql statement whether there is a substring of 'select'
 
                 Example: Inserting and update new employees
 
@@ -156,8 +157,10 @@ class MysqlDataBasePool(DataBasePoolBase):
                     raise SQLException("SQL execution failed.")
 
         if return_affected:
-            # if set return_affected, will return all the sqls' number of rows that has been produced of affected
-            # the document intro will be found @https://aiomysql.readthedocs.io/en/latest/cursors.html
+            # if set return_affected,
+            # will return all the sqls' number of rows that has been produced of affected
+            # the document intro will be
+            # found @https://aiomysql.readthedocs.io/en/latest/cursors.html
             return (result, affected_rows)
         else:
             return result

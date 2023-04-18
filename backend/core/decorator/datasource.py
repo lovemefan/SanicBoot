@@ -100,7 +100,8 @@ class DatasourceDecorator:
         return decorator
 
     def auto_execute_sql(self, func):
-        """this is a decorator execute sql from the return of func method and return results of sql execution.
+        """this is a decorator execute sql from the return of
+        func method and return results of sql execution.
         Examples:
             # when query is True, connection will skip commit operation,
             # if query not set, it will set query by if the `select` string in the sql automatically
