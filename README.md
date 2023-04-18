@@ -68,31 +68,26 @@ https://github.com/ahopkins/sanic-jwt
 
 > 设置配置文件采用ini格式配置文件，文件位于backend/config/config.ini 路径下
 
-```ini
-[http]
-;http端口
-port = 80
+```yaml
+server:
+  http:
+    port: 80
 
-[log]
-;系统日志等级，日志等级 有三等， INFO ， DEBUG ， WARNNING
-level = DEBUG
-backupCount = 10
-format = [%%(asctime)s] - %%(levelname)s - %%(threadName)s - %%(module)s.%%(funcName)s - %%(message)s
-filename = logs/run.log
-maxBytes = 102400
+  log:
+    level: "DEBUG"
+    backupCount: 10
+    format: "[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d %(module)s.%(funcName)s] %(message)s"
+    filename: "logs/run.log"
+    maxBytes: 102400
 
-[mysql]
-db_name = xxx
-host = xxx
-user = xxx
-password = xxx
-port=3306
-;数据库连接最大复用数，0为无限制
-maxusage=1000
-
-[server]
-;sanic 是否需要设置debug模式
-debug = False
+datasource:
+    mysql:
+        db_name: xxx
+        host: xxx
+        user: xxx
+        password: xxx
+        port: 3306
+        max_usage: 1000
 ```
 
 ## 7. 启动服务
