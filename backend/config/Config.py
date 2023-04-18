@@ -12,8 +12,11 @@ from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
 # using lock to make sure get one config at same time
-
 lock = threading.RLock()
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s [%(filename)s:%(lineno)d] %(message)s",
+    level=logging.DEBUG,
+)
 
 
 class ConfigFileModifyHandler(FileSystemEventHandler):
@@ -81,6 +84,8 @@ class Config:
         map_key = key.split(".")
         config = config or self.config
         if len(map_key) == 1:
+            if map_key[0] not in config.keys():
+                logging.info(f"key is not available,using default value:{default}")
             return config.get(map_key[0], default)
         else:
             option = ".".join(map_key[1:])
