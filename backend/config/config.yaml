@@ -1,0 +1,19 @@
+server:
+  http:
+    port: 80
+
+  log:
+    level: "DEBUG"
+    backupCount: 10
+    format: "[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d %(module)s.%(funcName)s] %(message)s"
+    filename: "logs/run.log"
+    maxBytes: 102400
+
+datasource:
+    mysql:
+        db_name: xxx
+        host: xxx
+        user: xxx
+        password: xxx
+        port: 3306
+        max_usage: 1000
