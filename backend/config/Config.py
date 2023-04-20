@@ -83,6 +83,8 @@ class Config:
         """
         map_key = key.split(".")
         config = config or self.config
+        if not isinstance(config, dict):
+            return config
         if len(map_key) == 1:
             if map_key[0] not in config.keys():
                 logging.info(f"key is not available,using default value:{default}")
