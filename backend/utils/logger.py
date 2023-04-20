@@ -21,30 +21,30 @@ level_map = {
 
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(
-    logging.Formatter(Config.get_instance().get("log.format", None))
+    logging.Formatter(Config.get_instance().get("server.log.format", None))
 )
-if Config.get_instance().get("log.filename", None) is not None:
-    dir = os.path.dirname(Config.get_instance().get("log.filename"))
+if Config.get_instance().get("server.log.filename", None) is not None:
+    dir = os.path.dirname(Config.get_instance().get("server.log.filename"))
     if not os.path.exists(dir):
         os.makedirs(dir)
 else:
     if not os.path.exists("logs"):
         os.makedirs("logs")
-file_path = Config.get_instance().get("log.filename", "logs/run.log")
+file_path = Config.get_instance().get("server.log.filename", "logs/run.log")
 file_dir = Path(os.path.dirname(file_path))
 file_dir.mkdir(parents=True, exist_ok=True)
 file_stream_handler = logging.handlers.RotatingFileHandler(
     filename=file_path,
-    maxBytes=int(Config.get_instance().get("log.maxBytes", 102400)),
-    backupCount=int(Config.get_instance().get("log.backupCount", 5)),
+    maxBytes=int(Config.get_instance().get("server.log.maxBytes", 102400)),
+    backupCount=int(Config.get_instance().get("server.log.backupCount", 5)),
 )
 file_stream_handler.setFormatter(
-    logging.Formatter(Config.get_instance().get("log.format", None))
+    logging.Formatter(Config.get_instance().get("vlog.format", None))
 )
 
 logger = logging.getLogger(__name__)
 
-logger.setLevel(level_map[Config.get_instance().get("log.level", "INFO")])
+logger.setLevel(level_map[Config.get_instance().get("server.log.level", "INFO")])
 logger.addHandler(stream_handler)
 logger.addHandler(file_stream_handler)
 
