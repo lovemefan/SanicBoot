@@ -5,9 +5,10 @@
 # @Email     :lovemefan@outlook.com
 from backend.core import CONTROLLERS_REGISTRY
 from backend.model.Controller import ControllerBase
+from backend.utils.textProcess import name_convert_to_snake
 
 
-def register_controller(cls):
+def Controller(cls):
     """
     New controller can be added to sanic controller with the :func:`register_controller`
     function decorator.
@@ -18,7 +19,7 @@ def register_controller(cls):
     .. note:: All controller must implement the :class:`controllerBase` interface.
     """
 
-    name = cls.__name__
+    name = name_convert_to_snake(cls.__name__)
     if name in CONTROLLERS_REGISTRY:
         return CONTROLLERS_REGISTRY[name]
 
