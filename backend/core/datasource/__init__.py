@@ -6,7 +6,7 @@
 import importlib
 import os
 
-from backend.core import DATASOURCE_REGISTRY
+from backend.core import REPOSITORY_REGISTRY
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
 
@@ -25,15 +25,15 @@ def register_datasource(name):
     """
 
     def register_model_cls(cls):
-        if name in DATASOURCE_REGISTRY:
-            return DATASOURCE_REGISTRY[name]
+        if name in REPOSITORY_REGISTRY:
+            return REPOSITORY_REGISTRY[name]
 
         if not issubclass(cls, DataBasePoolBase):
             raise ValueError(
                 "Model ({}: {}) must extend DataBasePoolBase".format(name, cls.__name__)
             )
 
-        DATASOURCE_REGISTRY[name] = cls
+        REPOSITORY_REGISTRY[name] = cls
 
         return cls
 
@@ -42,9 +42,9 @@ def register_datasource(name):
 
 def get_datasource(name):
     """get datasource by name"""
-    if name not in DATASOURCE_REGISTRY:
+    if name not in REPOSITORY_REGISTRY:
         raise KeyError("Unknown datasource type: {}".format(name))
-    return DATASOURCE_REGISTRY[name]
+    return REPOSITORY_REGISTRY[name]
 
 
 def import_models(models_dir, namespace):
@@ -57,7 +57,7 @@ def import_models(models_dir, namespace):
             and (file.endswith(".py") or os.path.isdir(path))
         ):
             datasource_name = file[: file.find(".py")] if file.endswith(".py") else file
-            logger.info("Importing datasource: {}".format(datasource_name))
+            logger.debug("Importing datasource: {}".format(datasource_name))
             importlib.import_module(namespace + "." + datasource_name)
 
 

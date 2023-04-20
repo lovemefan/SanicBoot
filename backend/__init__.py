@@ -31,6 +31,6 @@ def import_models(module_dir, namespace):
 
 
 import_models(module_dir / "core/datasource", "backend.core.datasource")
-import_models(module_dir / "dao", "backend.dao")
+import_models(module_dir / "repository", "backend.repository")
 import_models(module_dir / "services", "backend.services")
 import_models(module_dir / "controllers", "backend.controllers")
