@@ -11,16 +11,16 @@ from sanic_jwt import Configuration, initialize
 from sanic_openapi import swagger_blueprint
 
 from backend.config.Config import Config
+from backend.controllers.user.UserRoute import Authenticate, RetrieveUser
+from backend.core.component.autowired import Autowired
 from backend.exception.UserException import (
     MissParameters,
     UserAddException,
     UserDeleteException,
     UserNotExist,
 )
+from backend.model.Controller import ControllerBase
 from backend.model.ResponseBody import ResponseBody
-from backend.routes import blueprint_list
-from backend.routes.userRoute.UserRoute import authenticate, retrieve_user
-from backend.service.userService.UserService import UserService
 from backend.utils.logger import logger
 from backend.utils.StatusCode import StatusCode
 
@@ -85,11 +85,16 @@ async def delete_user_exception_handle(request, exception):
     return json(response, 401)
 
 
-async def scope_extender(user, *args, **kwargs):
-    if user.user_identity is None:
-        user_service = UserService()
-        user = user_service.get_user_information(user)
-    return user.identity
+class ScopeExtender(ControllerBase):
+    @Autowired
+    def user_service(self):
+        pass
+
+    async def scope_extender(self, user, *args, **kwargs):
+        if user.user_identity is None:
+            # user_service = UserService()
+            user = self.user_service.get_user_information(user)
+        return user.identity
 
 
 class MyJWTConfig(Configuration):
@@ -99,10 +104,10 @@ class MyJWTConfig(Configuration):
 
 sanic_init = initialize(
     app,
-    authenticate=authenticate,
+    authenticate=Authenticate().authenticate,
     configuration_class=MyJWTConfig,
-    retrieve_user=retrieve_user,
-    add_scopes_to_payload=scope_extender,
+    retrieve_user=RetrieveUser().retrieve_user,
+    add_scopes_to_payload=ScopeExtender().scope_extender,
     url_prefix="/v1/api/auth",
 )
 
@@ -180,11 +185,6 @@ def load_banner():
 
     print(banner)
 
-
-for blueprint_name, blueprint in blueprint_list.items():
-    #    logger.info(f"Blueprint: {blueprint_name} registered, Url prefix is:"
-    #                f"{blueprint.version_prefix}{blueprint.version}{blueprint.url_prefix}")
-    app.blueprint(blueprint)
 
 if __name__ == "__main__":
     # load_banner()
