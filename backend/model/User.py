@@ -15,6 +15,7 @@ class User:
         email=None,
         password=None,
         role=0,
+        user_identity=3,
         create_by=None,
         create_time=None,
         last_login_time=None,
@@ -50,6 +51,7 @@ class User:
         else:
             self.last_login_time = last_login_time
         self.status = status
+        self.user_identity = user_identity
         self.identity = identity
 
     def to_dict(self):
