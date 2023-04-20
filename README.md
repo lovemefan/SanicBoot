@@ -8,13 +8,13 @@
 
  2. 依赖注入
 
-    - [ ] @Autowired 注入到service、controller中
+    - [x] @Autowired 注入到service、controller、Dao中
  3. 自动发现与自动注册
 
-    - [ ] 自动发现service、controller、model、 dao
-    - [ ] 自动注册路由
+    - [x] 自动发现service、controller、model、 dao
+    - [x] 自动注册路由
 
- 4. 更多数据库支持,优先级按一下顺序
+ 4. 更多数据库支持,优先级按以下顺序
 
     - [ ] sqlite
     - [ ] redis
