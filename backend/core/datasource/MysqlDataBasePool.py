@@ -4,7 +4,7 @@
 # @Author  : lovemefan
 # @File    : DBOperation.py
 # using lock to make sure get one config at same time
-import asyncio
+import threading
 import time
 from typing import Union
 
@@ -13,10 +13,14 @@ import pymysql
 
 from backend.core.datasource import register_datasource
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
+from backend.core.decorator.singleton import singleton
 from backend.exception.SqlException import SQLException
 from backend.utils.logger import logger
 
+lock = threading.RLock()
 
+
+@singleton
 @register_datasource("mysql")
 class MysqlDataBasePool(DataBasePoolBase):
     """DataBase pool
@@ -27,20 +31,20 @@ class MysqlDataBasePool(DataBasePoolBase):
     def __init__(self):
         super().__init__()
         config = {
-            "host": self.get("mysql.host"),
-            "port": int(self.get("mysql.port")),
-            "db": self.get("mysql.db_name"),
-            "user": self.get("mysql.user"),
-            "password": self.get("mysql.password"),
+            "host": self.get("datasource.mysql.host"),
+            "port": int(self.get("datasource.mysql.port")),
+            "db": self.get("datasource.mysql.db_name"),
+            "user": self.get("datasource.mysql.user"),
+            "password": self.get("datasource.mysql.password"),
             "charset": "utf8",
         }
         self.__poolDB = aiomysql.create_pool(
             # use pymysql as mysql database driver
             minsize=1,
-            loop=asyncio.get_event_loop(),
+            # loop=asyncio.get_event_loop(),
             # max number usage of one connection,
             # 0 or None is no limits,default is 0
-            maxsize=int(self.get("mysql.maxusage")),
+            maxsize=int(self.get("datasource.mysql.max_usage")),
             autocommit=True,
             **config,
         )
