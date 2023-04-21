@@ -3,9 +3,17 @@
 # @Time      :2023/3/30 00:26
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
+from sanic import Sanic
+from sanic_openapi import swagger_blueprint
+
+from backend.config.Config import Config
 from backend.core import CONTROLLERS_REGISTRY
 from backend.model.Controller import ControllerBase
+from backend.utils.logger import logger
 from backend.utils.textProcess import name_convert_to_snake
+
+app = Sanic("sanic-backend")
+app.blueprint(swagger_blueprint)
 
 
 def Controller(cls):
@@ -20,6 +28,10 @@ def Controller(cls):
     """
 
     name = name_convert_to_snake(cls.__name__)
+    namespace = Config.get_instance().get("server.component.controller")
+    uri = f"{cls.__module__}.{cls.__name__}".replace(namespace, "").replace(".", "/")
+    uri = "/".join([name_convert_to_snake(i) for i in uri.split("/") if i])
+
     if name in CONTROLLERS_REGISTRY:
         return CONTROLLERS_REGISTRY[name]
 
@@ -29,6 +41,8 @@ def Controller(cls):
         )
 
     CONTROLLERS_REGISTRY[name] = cls
+    logger.debug(f"Add controller {name} to {uri}")
+    app.add_route(cls.as_view(), uri)
 
     return cls
 
