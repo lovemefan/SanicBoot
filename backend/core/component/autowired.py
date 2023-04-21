@@ -64,14 +64,15 @@ class Autowired(object):
 
     def __get__(self, inst, owner):
         name = self.fget.__name__
-        if issubclass(owner, DaoBase):
-            self.instance = REPOSITORY_REGISTRY[name]
-            return REPOSITORY_REGISTRY[name]
-        elif issubclass(owner, ServiceBase):
-            self.instance = REPOSITORY_REGISTRY[name]
-            return REPOSITORY_REGISTRY[name]
-        elif issubclass(owner, ControllerBase):
-            self.instance = SERVICES_REGISTRY[name]
-            return SERVICES_REGISTRY[name]
-        else:
+        try:
+            if issubclass(owner, DaoBase):
+                self.instance = REPOSITORY_REGISTRY[name]
+                return REPOSITORY_REGISTRY[name]
+            elif issubclass(owner, ServiceBase):
+                self.instance = REPOSITORY_REGISTRY[name]
+                return REPOSITORY_REGISTRY[name]
+            elif issubclass(owner, ControllerBase):
+                self.instance = SERVICES_REGISTRY[name]
+                return SERVICES_REGISTRY[name]
+        except KeyError:
             raise KeyError(f"Unknown instance: {inst} which class is {owner}")
