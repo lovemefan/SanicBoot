@@ -4,15 +4,15 @@
 # @Author  : lovemefan
 # @File    : app.py
 
-from sanic import HTTPResponse, Request, Sanic
+from sanic import HTTPResponse, Request
 from sanic.exceptions import NotFound, RequestTimeout, SanicException, Unauthorized
 from sanic.response import json
 from sanic_jwt import Configuration, initialize
-from sanic_openapi import swagger_blueprint
 
 from backend.config.Config import Config
-from backend.controllers.user.UserRoute import Authenticate, RetrieveUser
+from backend.controller.user.UserController import Authenticate, RetrieveUser
 from backend.core.component.autowired import Autowired
+from backend.core.component.controller import app
 from backend.exception.UserException import (
     MissParameters,
     UserAddException,
@@ -23,9 +23,6 @@ from backend.model.Controller import ControllerBase
 from backend.model.ResponseBody import ResponseBody
 from backend.utils.logger import logger
 from backend.utils.StatusCode import StatusCode
-
-app = Sanic("sanic-backend")
-app.blueprint(swagger_blueprint)
 
 
 @app.exception(RequestTimeout)
@@ -193,5 +190,5 @@ if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=port,
-        debug=eval(Config.get_instance().get("server.debug", "False")),
+        debug=Config.get_instance().get("server.log.debug", False),
     )
