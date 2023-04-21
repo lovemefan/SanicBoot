@@ -14,7 +14,7 @@ from watchdog.observers import Observer
 # using lock to make sure get one config at same time
 lock = threading.RLock()
 logging.basicConfig(
-    format="%(asctime)s %(levelname)s [%(filename)s:%(lineno)d] %(message)s",
+    format="[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
     level=logging.DEBUG,
 )
 
