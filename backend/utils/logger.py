@@ -8,6 +8,8 @@ import logging.handlers
 import os
 from pathlib import Path
 
+from sanic.log import logger as sanic_logger
+
 # from config import Config
 from backend.config.Config import Config
 
@@ -42,9 +44,12 @@ file_stream_handler.setFormatter(
     logging.Formatter(Config.get_instance().get("vlog.format", None))
 )
 
-logger = logging.getLogger(__name__)
+logger = sanic_logger
+
 
 logger.setLevel(level_map[Config.get_instance().get("server.log.level", "INFO")])
+logger.parent = None
+logger.handlers = []
 logger.addHandler(stream_handler)
 logger.addHandler(file_stream_handler)
 
