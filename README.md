@@ -1,8 +1,31 @@
 # 基于Sanic的后端模板
-[toc]
-## 1. 简介
 
-最近使用python做web开发选择web框架的时候，flask并不支持异步，有些异步框架Tornado、Twisted、Gevent 等为了解决性能问题。这些框架在性能上有些提升，但是也有一些问题难以解决。
+## sanic-backend v2.0.0 进一步重构
+ 1. 配置文件增强
+
+    - [x] yaml配置文件
+    - [x] @Value 配置注入到配置类中
+
+ 2. 依赖注入
+
+    - [x] @Autowired 注入到service、controller、Dao中
+ 3. 自动发现与自动注册
+
+    - [x] 自动发现service、controller、model、 dao
+    - [x] 自动注册路由
+
+ 4. 更多数据库支持,优先级按以下顺序
+
+    - [ ] sqlite
+    - [ ] redis
+    - [ ] mongodb
+    - [ ] PostgreSQL
+    - [ ] elasticsearch
+
+ 5. 完善文档及注释，增加英文文档
+
+
+## 1. 简介
 
 在python3.6中，官方的异步协程库asyncio正式成为标准。在保留便捷性的同时对性能有了很大的提升,已经出现许多的异步框架使用asyncio。
 
@@ -13,7 +36,6 @@ Sanic框架是和Flask相似异步协程框架，简单轻量，并且性能很�
 ## 2. 特性
 
 * **使用sanic异步框架，简单，轻量，高效。**
-* **使用uvloop为核心引擎，使sanic在很多情况下单机并发甚至不亚于Golang。**
 * **项目中使用单例模式实例容器来管理service层的实列，全局只需要创建一次**
 * **全局配置文件，不需要重启服务，支持动态更新**
 * **使用异步数据库aiomysql连接引擎，异步提高执行效率，使用数据库池管理连接，避免浪费大量资源。**
@@ -46,31 +68,26 @@ https://github.com/ahopkins/sanic-jwt
 
 > 设置配置文件采用ini格式配置文件，文件位于backend/config/config.ini 路径下
 
-```ini
-[http]
-;http端口
-port = 80
+```yaml
+server:
+  http:
+    port: 80
 
-[log]
-;系统日志等级，日志等级 有三等， INFO ， DEBUG ， WARNNING
-level = DEBUG
-backupCount = 10
-format = [%%(asctime)s] - %%(levelname)s - %%(threadName)s - %%(module)s.%%(funcName)s - %%(message)s
-filename = logs/run.log
-maxBytes = 102400
+  log:
+    level: "DEBUG"
+    backupCount: 10
+    format: "[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d %(module)s.%(funcName)s] %(message)s"
+    filename: "logs/run.log"
+    maxBytes: 102400
 
-[mysql]
-db_name = xxx
-host = xxx
-user = xxx
-password = xxx
-port=3306
-;数据库连接最大复用数，0为无限制
-maxusage=1000
-
-[server]
-;sanic 是否需要设置debug模式
-debug = False
+datasource:
+    mysql:
+        db_name: xxx
+        host: xxx
+        user: xxx
+        password: xxx
+        port: 3306
+        max_usage: 1000
 ```
 
 ## 7. 启动服务
@@ -93,11 +110,27 @@ gunicorn --bind 0.0.0.0:80 --workers 1  backend.app:app -k uvicorn.workers.Uvico
 #### 统一异常处理
 
 对抛出的异常进行处理，返回统一格式
+#### 配置注入
+将配置文件config.yaml中的具体配置注入到python变量当中
 
+```python
+from backend.core.component.value import Value
 
+class MysqlConifg:
+    @Value('datasource.mysql.host')
+    def host(self):
+        pass
 
-### 装饰器
-#### 数据校验 
+    @Value('datasource.mysql.port')
+    def port(self):
+        pass
+
+mysql_config = MysqlConifg
+print(mysql_config.host)
+print(mysql_config.port)
+```
+
+#### 数据校验
 
 ```python
 @app.route("/test", methods=["POST"])
@@ -136,7 +169,7 @@ async def modify_user(request, user):
 
 #### 数据库操作
 
-* 异常处理及回滚操作 
+* 异常处理及回滚操作
 * 执行sql语句自动判断是否需要commit
 * 添加批量插入或更新的功能
 

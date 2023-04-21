@@ -2,28 +2,44 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2020/12/22 下午11:49
 # @Author  : lovemefan
-from backend.decorator.datasource import DatasourceDecorator
-from backend.decorator.singleton import singleton
+from backend.core.component.autowired import Autowired
+from backend.core.component.repository import Repository
+from backend.model.Dao import DaoBase
 from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 
-Mysql = DatasourceDecorator("mysql")
 
-
-class UserDao:
+@Repository
+class UserDao(DaoBase):
     """User operation"""
 
     def __init__(self):
         pass
 
-    @Mysql.execute_sql(
-        "select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid"
-    )
-    def get_all_user(self, results):
-        return results
+    @Autowired
+    def mysql(self):
+        pass
 
-    @Mysql.auto_execute_sql
-    def get_user_password(self, username):
+    @mysql.execute
+    def get_all_user(self, results):
+        sql = """
+        SELECT u1.uid,
+            u1.username,
+            u1.phone,
+            u1.email,
+            u1.user_role,
+            u2.username AS create_by,
+            u1.create_time,
+            u1.last_login_time,
+            u1.status
+        FROM user AS u1
+        LEFT JOIN user AS u2
+            ON u1.create_by = u2.uid
+        """
+        return sql
+
+    @mysql.execute
+    def get_user_password(username):
         """get user password to validate identify by uesrname
         Args:
             user (User):
@@ -33,8 +49,8 @@ class UserDao:
         sql = f"select password from user where username = '{username}'"
         return sql
 
-    @Mysql.auto_execute_sql
-    def get_user_id(self, username):
+    @mysql.execute
+    def get_user_id(username):
         """get user password to validate identify by uesrname
         Args:
             user (User):
@@ -44,7 +60,7 @@ class UserDao:
         sql = f"select uid from user where username = '{username}'"
         return sql
 
-    @Mysql.auto_execute_sql
+    @mysql.execute
     def get_user_information(self, user):
         """get user password to validate identify by uid when user has login
         Args:
@@ -52,13 +68,25 @@ class UserDao:
         Returns:
            tuple: query result of sql
         """
-        sql = (
-            f"select u1.uid,u1.username,u1.phone,u1.email,u1.user_role,u2.username as create_by,u1.create_time,u1.last_login_time, u1.status, u1.identity  "
-            f"from user as u1 LEFT JOIN user as u2 on u1.create_by = u2.uid where u1.uid = {user.uid}"
-        )
+        sql = f"""
+            SELECT u1.uid,
+                u1.username,
+                u1.phone,
+                u1.email,
+                u1.user_role,
+                u2.username AS create_by,
+                u1.create_time,
+                u1.last_login_time,
+                u1.status,
+                u1.identity
+            FROM user AS u1
+            LEFT JOIN user AS u2
+                ON u1.create_by = u2.uid
+            WHERE u1.uid = {user.uid}
+        """
         return sql
 
-    @Mysql.auto_execute_sql
+    @mysql.execute
     def add_user(self, user):
         """
         Args:
@@ -69,10 +97,21 @@ class UserDao:
            tuple: query result of sql
         """
         uid = IdWorker().get_id()
-        sql = f"insert into user(uid,username,`password`,phone,email,user_role,create_by) values({uid},'{user.username}','{user.password}','{user.phone}','{user.email}',{user.role},{user.create_by})"
+        sql = f"""
+        insert into user(
+          uid, username, password, phone, email,
+          user_role, create_by
+        )
+        values
+          (
+            {uid}, '{user.username}', '{user.password}',
+            '{user.phone}', '{user.email}',
+            {user.role}, {user.create_by}
+          )
+        """
         return sql
 
-    @Mysql.auto_execute_sql
+    @mysql.execute
     def add_user_into_group(self, uid, create_by: int):
         """
         Args:
@@ -87,7 +126,7 @@ class UserDao:
         sql = f"insert into group_user(gid,uid) select gid,{uid} from group_user where uid = {create_by}"
         return sql
 
-    @Mysql.auto_execute_sql
+    @mysql.execute
     def modify_user(self, user):
         """modify user,you can only modify username,password,phone,user_role and status
         Args:
@@ -95,10 +134,21 @@ class UserDao:
         Returns:
            tuple: query result of sql
         """
-        sql = f"update user set username='{user.username}',password='{user.password}',phone='{user.phone}',user_role={user.role},status={user.status} where uid = '{user.uid}'"
+        sql = f"""
+        update
+          user
+        set
+          username = '{user.username}',
+          password = '{user.password}',
+          phone = '{user.phone}',
+          user_role = {user.role},
+          status = {user.status}
+        where
+          uid = '{user.uid}'
+        """
         return sql
 
-    @Mysql.auto_execute_sql
+    @mysql.execute
     def delete_user(self, user):
         if user.username:
             sql = f"delete from user where username='{user.username}'"
@@ -106,8 +156,8 @@ class UserDao:
             sql = f"delete from user where uid='{user.uid}'"
         return sql
 
-    @Mysql.auto_execute_sql
-    def login(self, user):
+    @mysql.execute
+    def login(user):
         """update last_login_time"""
         if user.username:
             sql = f"update user set last_login_time = NOW() where username='{user.username}'"

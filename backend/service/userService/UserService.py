@@ -3,19 +3,23 @@
 # @Time    : 2020/12/24 下午2:18
 # @Author  : lovemefan
 # @File    : UserService.py
-
-from backend.dao.UserDao import UserDao
-from backend.decorator.singleton import singleton
+from backend.core.component.autowired import Autowired
+from backend.core.component.service import Service
 from backend.exception.UserException import UserNotExist
+from backend.model.Service import ServiceBase
 from backend.model.User import User
 
 
-@singleton
-class UserService:
+@Service
+class UserService(ServiceBase):
     """user @singleton to avoid create amount of same instance, improve the efficiency"""
 
     def __init__(self):
-        self.userDao = UserDao()
+        pass
+
+    @Autowired
+    def user_dao(self):
+        pass
 
     async def get_all_user_information(self):
         """query from dbs
@@ -24,7 +28,7 @@ class UserService:
         Returns:
             User : user information
         """
-        info = await self.userDao.get_all_user()
+        info = await self.user_dao.get_all_user()
         users = []
         for row in info:
             user = User(
@@ -49,7 +53,7 @@ class UserService:
         Returns:
             User : user information
         """
-        info = await self.userDao.get_user_information(user)
+        info = await self.user_dao.get_user_information(user)
 
         if len(info) == 0:
             raise UserNotExist(user.username)
@@ -71,7 +75,7 @@ class UserService:
 
     async def get_user_id(self, user):
         """get uid by usename"""
-        row = await self.userDao.get_user_id(user.username)
+        row = await self.user_dao.get_user_id(username=user.username)
 
         if len(row) == 0:
             raise UserNotExist(user.username)
@@ -86,8 +90,8 @@ class UserService:
         Exception:
             pymysql.err.IntegrityError : The username has exist
         """
-        await self.userDao.add_user(user)
-        await self.userDao.add_user_into_group(
+        await self.user_dao.add_user(user)
+        await self.user_dao.add_user_into_group(
             self.get_user_id(user).uid, user.create_by
         )
         return True
@@ -97,7 +101,7 @@ class UserService:
         Args:
             user (User): class instance of User
         """
-        await self.userDao.modify_user(user)
+        await self.user_dao.modify_user(user)
         return True
 
     async def delete_user(self, user):
@@ -107,7 +111,7 @@ class UserService:
         Exception:
             if the user's uid is none, will raise a exception
         """
-        await self.userDao.delete_user(user)
+        await self.user_dao.delete_user(user)
         return True
 
     async def validate(self, user):
@@ -120,7 +124,7 @@ class UserService:
             UserNotExist : if the user not exist will raise this exception
         """
         username = user.username
-        password = await self.userDao.get_user_password(username)
+        password = await self.user_dao.get_user_password(username=username)
         if len(password) == 0:
             raise UserNotExist(username)
 
@@ -130,15 +134,14 @@ class UserService:
 
     async def login(self, user):
         """update last login time"""
-        await self.userDao.login(user)
+        await self.user_dao.login(user)
         return True
 
 
 if __name__ == "__main__":
     ins1 = UserService()
     ins2 = UserService()
-    # print True
-    # print(ins1 is ins2)
+
     user = User(
         username="lovemefan",
         uid=1342014866998829056,

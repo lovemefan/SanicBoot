@@ -7,7 +7,7 @@ import threading
 
 from backend.utils.logger import logger
 
-lock = threading.Lock()
+lock = threading.RLock()
 # instance container
 instances = {}
 
@@ -17,15 +17,13 @@ def singleton(cls):
 
     def get_instance(*args, **kwargs):
         cls_name = cls.__name__
-        try:
-            lock.acquire()
-            if cls_name not in instances:
-                logger.info(f"creating {cls_name} instance")
-                instance = cls(*args, **kwargs)
-                instances[cls_name] = instance
-                logger.info(f"create {cls_name} instance finished")
-        finally:
-            lock.release()
+        if cls_name not in instances:
+            with lock:
+                if cls_name not in instances:
+                    logger.info(f"creating {cls_name} instance")
+                    instance = cls(*args, **kwargs)
+                    instances[cls_name] = instance
+                    logger.info(f"create {cls_name} instance finished")
 
         return instances[cls_name]
 

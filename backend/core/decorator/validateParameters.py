@@ -3,7 +3,6 @@
 # @Time      :2023/2/3 18:56
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
-import asyncio
 import numbers
 import re
 from functools import wraps
@@ -11,7 +10,6 @@ from typing import Any, Union
 
 from sanic import json
 
-from backend.exception.UserException import MissParameters
 from backend.model.ResponseBody import ResponseBody
 from backend.utils.logger import logger
 from backend.utils.StatusCode import StatusCode
@@ -38,7 +36,7 @@ def get_parameters_from_request_by_content_type(request, parameter_type):
         try:
             data.update(dict(request.json))
         except Exception as e:
-            pass
+            logger.error(e)
     elif parameter_type == "json":
         data = dict(request.json)
     elif parameter_type == "form":

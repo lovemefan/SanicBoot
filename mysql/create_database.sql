@@ -19,9 +19,9 @@ coding: utf-8
     2.【强制】在 varchar 字段上建立索引时,必须指定索引长度,没必要对全字段建立索引,根据
         实际文本区分度决定索引长度。
 */
-DROP DATABASE  IF EXISTS `translation_system`;
-CREATE DATABASE `translation_system`;
-USE `translation_system`;
+DROP DATABASE  IF EXISTS `sanic_backend_system`;
+CREATE DATABASE `sanic_backend_system`;
+USE `sanic_backend_system`;
 
 -- ------------
 --   用户相关表

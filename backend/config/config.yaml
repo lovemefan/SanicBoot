@@ -1,0 +1,27 @@
+server:
+  name: sanic_backend
+  http:
+    port: 80
+
+  component:
+    controller: "backend.controller"
+    service: "backend.service"
+    repository: "backend.repository"
+    datasource: "backend.core.datasource"
+
+  log:
+    debug: false
+    backupCount: 10
+    format: "[%(asctime)s %(levelname)s ] [%(filename)s:%(lineno)d %(module)s.%(funcName)s] %(message)s"
+    filename: "logs/run.log"
+    maxBytes: 102400
+
+
+datasource:
+    mysql:
+        db_name: xx
+        host: xx
+        user: xx
+        password: xx
+        port: xx
+        max_usage: 1000

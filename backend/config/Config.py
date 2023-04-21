@@ -6,14 +6,17 @@
 import logging
 import os
 import threading
-from configparser import ConfigParser, NoOptionError
 
+import yaml
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
 # using lock to make sure get one config at same time
-
-lock = threading.Lock()
+lock = threading.RLock()
+logging.basicConfig(
+    format="[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
+    level=logging.DEBUG,
+)
 
 
 class ConfigFileModifyHandler(FileSystemEventHandler):
@@ -35,9 +38,8 @@ class Config:
     def __init__(self, config_file_path=None):
         """initialize attributions of config class"""
         logging.debug("init config ...")
-        self.config = ConfigParser()
         self.config_file_path = config_file_path or os.path.join(
-            os.path.dirname(__file__), "config.ini"
+            os.path.dirname(__file__), "config.yaml"
         )
         self.load_config()
         self._init_config_file_observer()
@@ -49,43 +51,44 @@ class Config:
         observer.schedule(
             event_handler, path=os.path.dirname(self.config_file_path), recursive=False
         )
-        observer.setDaemon(True)
+        observer.Daemon = True
         observer.start()
 
     @staticmethod
     def get_instance():
         """get a instance at once simultaneously"""
-        if Config.__instance:
-            return Config.__instance
-        try:
-            lock.acquire()
-            if not Config.__instance:
-                Config.__instance = Config()
-        finally:
-            lock.release()
+
+        if not Config.__instance:
+            with lock:
+                if not Config.__instance:
+                    Config.__instance = Config()
+
         return Config.__instance
 
     def load_config(self):
         """load the config file"""
         logging.debug("loading the config ...")
-        self.config.read(self.config_file_path, "utf-8")
+        with open(file=self.config_file_path, mode="r", encoding="utf-8") as f:
+            input = f.read()
+            self.config = yaml.safe_load(input)
 
-    def get(self, key, default=None):
+    def get(self, key, config=None, default=None):
         """get value by the key from config
         Args:
             key (str): format [section].[key] example: app.name
+            config (dict): config
             default: if the key not exist ,return default value
         Returns:
             str: value of key, if the key not exist ,return default value
         """
         map_key = key.split(".")
-        if len(map_key) < 2:
-            return default
-        section = map_key[0]
-        if not self.config.has_section(section):
-            return default
-        option = ".".join(map_key[1:])
-        try:
-            return self.config.get(section, option, raw=True)
-        except NoOptionError:
-            return default
+        config = config or self.config
+        if not isinstance(config, dict):
+            return config
+        if len(map_key) == 1:
+            if map_key[0] not in config.keys():
+                logging.info(f"key is not available,using default value:{default}")
+            return config.get(map_key[0], default)
+        else:
+            option = ".".join(map_key[1:])
+            return self.get(option, config.get(map_key[0]), default)

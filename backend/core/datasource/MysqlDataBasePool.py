@@ -4,19 +4,23 @@
 # @Author  : lovemefan
 # @File    : DBOperation.py
 # using lock to make sure get one config at same time
-import asyncio
+import threading
 import time
 from typing import Union
 
 import aiomysql
 import pymysql
 
+from backend.core.datasource import register_datasource
+from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
+from backend.core.decorator.singleton import singleton
 from backend.exception.SqlException import SQLException
-from backend.utils.datasource import register_datasource
-from backend.utils.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
 
+lock = threading.RLock()
 
+
+@singleton
 @register_datasource("mysql")
 class MysqlDataBasePool(DataBasePoolBase):
     """DataBase pool
@@ -27,20 +31,20 @@ class MysqlDataBasePool(DataBasePoolBase):
     def __init__(self):
         super().__init__()
         config = {
-            "host": self.get("mysql.host"),
-            "port": int(self.get("mysql.port")),
-            "db": self.get("mysql.db_name"),
-            "user": self.get("mysql.user"),
-            "password": self.get("mysql.password"),
+            "host": self.get("datasource.mysql.host"),
+            "port": int(self.get("datasource.mysql.port")),
+            "db": self.get("datasource.mysql.db_name"),
+            "user": self.get("datasource.mysql.user"),
+            "password": self.get("datasource.mysql.password"),
             "charset": "utf8",
         }
         self.__poolDB = aiomysql.create_pool(
             # use pymysql as mysql database driver
             minsize=1,
-            loop=asyncio.get_event_loop(),
+            # loop=asyncio.get_event_loop(),
             # max number usage of one connection,
             # 0 or None is no limits,default is 0
-            maxsize=int(self.get("mysql.maxusage")),
+            maxsize=int(self.get("datasource.mysql.max_usage")),
             autocommit=True,
             **config,
         )
@@ -78,7 +82,8 @@ class MysqlDataBasePool(DataBasePoolBase):
 
         2. execute many sql statement in same transaction
             when sql is list, you should specify the query,
-            otherwise it will set query type by Determine the first sql statement whether there is a substring of 'select'
+            otherwise it will set query type by Determine
+            the first sql statement whether there is a substring of 'select'
 
                 Example: Inserting and update new employees
 
@@ -156,8 +161,10 @@ class MysqlDataBasePool(DataBasePoolBase):
                     raise SQLException("SQL execution failed.")
 
         if return_affected:
-            # if set return_affected, will return all the sqls' number of rows that has been produced of affected
-            # the document intro will be found @https://aiomysql.readthedocs.io/en/latest/cursors.html
+            # if set return_affected,
+            # will return all the sqls' number of rows that has been produced of affected
+            # the document intro will be
+            # found @https://aiomysql.readthedocs.io/en/latest/cursors.html
             return (result, affected_rows)
         else:
             return result
