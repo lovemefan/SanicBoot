@@ -5,9 +5,9 @@
 # @Email     :lovemefan@outlook.com
 import inspect
 
-from backend.core import REPOSITORY_REGISTRY, SERVICES_REGISTRY
+from backend.core import DATASOURCE_REGISTRY, REPOSITORY_REGISTRY, SERVICES_REGISTRY
 from backend.model.Controller import ControllerBase
-from backend.model.Dao import DaoBase
+from backend.model.Repository import RepositoryBase
 from backend.model.Service import ServiceBase
 from backend.utils.textProcess import filter_invalid_character
 
@@ -45,7 +45,7 @@ class Autowired(object):
         Returns:
             tuple: results of
         """
-        if self.name not in REPOSITORY_REGISTRY:
+        if self.name not in DATASOURCE_REGISTRY:
             raise KeyError(f"Unknown datasource: {self.name}")
 
         async def wrap(*args, **kwargs):
@@ -55,7 +55,7 @@ class Autowired(object):
             query = inspect.signature(func).parameters.get("query", None)
             many = inspect.signature(func).parameters.get("many", False)
             data = kwargs.get("data", None)
-            results = await REPOSITORY_REGISTRY[self.name]().execute(
+            results = await DATASOURCE_REGISTRY[self.name]().execute(
                 sql, query, many, data
             )
             return results
@@ -65,9 +65,9 @@ class Autowired(object):
     def __get__(self, inst, owner):
         name = self.fget.__name__
         try:
-            if issubclass(owner, DaoBase):
-                self.instance = REPOSITORY_REGISTRY[name]
-                return REPOSITORY_REGISTRY[name]
+            if issubclass(owner, RepositoryBase):
+                self.instance = DATASOURCE_REGISTRY[name]
+                return DATASOURCE_REGISTRY[name]
             elif issubclass(owner, ServiceBase):
                 self.instance = REPOSITORY_REGISTRY[name]
                 return REPOSITORY_REGISTRY[name]
@@ -75,4 +75,4 @@ class Autowired(object):
                 self.instance = SERVICES_REGISTRY[name]
                 return SERVICES_REGISTRY[name]
         except KeyError:
-            raise KeyError(f"Unknown instance: {inst} which class is {owner}")
+            raise KeyError(f"Unknown name: {name} in {inst}")

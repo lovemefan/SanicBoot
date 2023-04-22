@@ -4,7 +4,7 @@
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
 from backend.core import REPOSITORY_REGISTRY
-from backend.model.Dao import DaoBase
+from backend.model.Repository import RepositoryBase
 from backend.utils.textProcess import name_convert_to_snake
 
 
@@ -23,9 +23,9 @@ def Repository(cls):
     if name in REPOSITORY_REGISTRY:
         return REPOSITORY_REGISTRY[name]
 
-    if not issubclass(cls, DaoBase):
+    if not issubclass(cls, RepositoryBase):
         raise ValueError(
-            "Model ({}: {}) must extend DaoBase".format(name, cls.__name__)
+            "Model ({}: {}) must extend RepositoryBase".format(name, cls.__name__)
         )
 
     REPOSITORY_REGISTRY[name] = cls
@@ -36,5 +36,5 @@ def Repository(cls):
 def get_dao(name):
     """get datasource by name"""
     if name not in REPOSITORY_REGISTRY:
-        raise KeyError("Unknown dao name: {}".format(name))
+        raise KeyError("Unknown repository name: {}".format(name))
     return REPOSITORY_REGISTRY[name]

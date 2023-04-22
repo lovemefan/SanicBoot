@@ -5,5 +5,5 @@
 # @Email     :lovemefan@outlook.com
 
 
-class DaoBase(object):
+class RepositoryBase(object):
     pass
