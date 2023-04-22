@@ -6,12 +6,12 @@
 import importlib
 import os
 
-from backend.core import REPOSITORY_REGISTRY
+from backend.core import DATASOURCE_REGISTRY, REPOSITORY_REGISTRY
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.utils.logger import logger
 
 
-def register_datasource(name):
+def Datasource(name):
     """
     New datasource types can be added to sanic datasource with the :func:`register_datasource`
     function decorator.
@@ -25,15 +25,15 @@ def register_datasource(name):
     """
 
     def register_model_cls(cls):
-        if name in REPOSITORY_REGISTRY:
-            return REPOSITORY_REGISTRY[name]
+        if name in DATASOURCE_REGISTRY:
+            return DATASOURCE_REGISTRY[name]
 
         if not issubclass(cls, DataBasePoolBase):
             raise ValueError(
                 "Model ({}: {}) must extend DataBasePoolBase".format(name, cls.__name__)
             )
 
-        REPOSITORY_REGISTRY[name] = cls
+        DATASOURCE_REGISTRY[name] = cls
 
         return cls
 

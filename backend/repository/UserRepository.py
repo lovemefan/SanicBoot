@@ -4,13 +4,13 @@
 # @Author  : lovemefan
 from backend.core.component.autowired import Autowired
 from backend.core.component.repository import Repository
-from backend.model.Dao import DaoBase
+from backend.model.Repository import RepositoryBase
 from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 
 
 @Repository
-class UserDao(DaoBase):
+class UserDao(RepositoryBase):
     """User operation"""
 
     def __init__(self):

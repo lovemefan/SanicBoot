@@ -11,7 +11,7 @@ from typing import Union
 import aiomysql
 import pymysql
 
-from backend.core.datasource import register_datasource
+from backend.core.datasource import Datasource
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
 from backend.core.decorator.singleton import singleton
 from backend.exception.SqlException import SQLException
@@ -21,7 +21,7 @@ lock = threading.RLock()
 
 
 @singleton
-@register_datasource("mysql")
+@Datasource("mysql")
 class MysqlDataBasePool(DataBasePoolBase):
     """DataBase pool
     To get connection from database pool
