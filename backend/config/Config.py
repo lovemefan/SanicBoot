@@ -72,7 +72,12 @@ class Config:
             input = f.read()
             self.config = yaml.safe_load(input)
 
-    def get(self, key, config=None, default=None):
+    def get(
+        self,
+        key,
+        default=None,
+        config=None,
+    ):
         """get value by the key from config
         Args:
             key (str): format [section].[key] example: app.name
@@ -91,4 +96,4 @@ class Config:
             return config.get(map_key[0], default)
         else:
             option = ".".join(map_key[1:])
-            return self.get(option, config.get(map_key[0]), default)
+            return self.get(option, default=default, config=config.get(map_key[0]))
