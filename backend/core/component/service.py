@@ -8,6 +8,7 @@
 from backend.core import SERVICES_REGISTRY
 from backend.core.decorator.singleton import singleton
 from backend.model.Service import ServiceBase
+from backend.utils.logger import logger
 from backend.utils.textProcess import name_convert_to_snake
 
 
@@ -31,6 +32,7 @@ def Service(cls):
         return SERVICES_REGISTRY[name]
 
     SERVICES_REGISTRY[name] = singleton(cls)()
+    logger.debug(f"Register service {name} success")
 
     return cls
 

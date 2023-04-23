@@ -5,6 +5,7 @@
 # @Email     :lovemefan@outlook.com
 from backend.core import REPOSITORY_REGISTRY
 from backend.model.Repository import RepositoryBase
+from backend.utils.logger import logger
 from backend.utils.textProcess import name_convert_to_snake
 
 
@@ -29,7 +30,7 @@ def Repository(cls):
         )
 
     REPOSITORY_REGISTRY[name] = cls
-
+    logger.debug(f"Register repository {name} success")
     return cls
 
 

@@ -41,7 +41,7 @@ def Controller(cls):
         )
 
     CONTROLLERS_REGISTRY[name] = cls
-    logger.debug(f"Add controller {name} to {uri}")
+    logger.debug(f"Register controller {name} to {uri}")
     app.add_route(cls.as_view(), uri)
 
     return cls
