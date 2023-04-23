@@ -3,8 +3,7 @@ show-source=true
 statistics=true
 max-line-length = 108
 per-file-ignores =
-    # line too long
-    backend/utils/datasource/DataBasePollBase: E501,
+    backend/app.py: F401,
 
 
 
