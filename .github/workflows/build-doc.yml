@@ -1,4 +1,6 @@
 name: Generate doc
+permissions:
+  contents: write
 on:
   push:
     branches:
