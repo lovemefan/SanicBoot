@@ -8,6 +8,7 @@ import logging.handlers
 import os
 from pathlib import Path
 
+import colorlog as colorlog
 from sanic.log import logger as sanic_logger
 
 # from config import Config
@@ -21,10 +22,22 @@ level_map = {
     "CRITICAL": logging.CRITICAL,
 }
 
+log_colors_config = {
+    "DEBUG": "white",
+    "INFO": "green",
+    "WARNING": "yellow",
+    "ERROR": "red",
+    "CRITICAL": "bold_red",
+}
+
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(
-    logging.Formatter(Config.get_instance().get("server.log.format", None))
+    colorlog.ColoredFormatter(
+        fmt=Config.get_instance().get("server.log.format", None),
+        log_colors=log_colors_config,
+    )
 )
+
 if Config.get_instance().get("server.log.filename", None) is not None:
     dir = os.path.dirname(Config.get_instance().get("server.log.filename"))
     if not os.path.exists(dir):

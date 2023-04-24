@@ -1,0 +1,48 @@
+代码风格
+=====================
+.. note::
+    本项目使用一下工具来保持代码风格的一致性：
+
+- `black <https://github.com/psf/black>`_, 用于格式化代码，以便于阅读
+- `flake8 <https://github.com/PyCQA/flake8>`_, 用于检查代码中的错误和代码风格
+- `isort <https://github.com/PyCQA/isort>`_, 用于自动排序导入的模块
+
+.. note::
+    下面是各工具使用的版本
+
+- ``black == 22.3.0``
+- ``flake8 == 5.0.4``
+- ``isort == 5.10.1``
+
+.. tip::
+  在提交代码之前，建议先安装 ``pre-commit`` 工具，它会在你运行 ``git commit`` 时自动运行black、flake8、isort，以确保你的代码符合规范。
+
+.. code-block::
+
+    $ git clone https://github.com/lovemefan/sanic-backend.git
+    $ cd sanic-backend
+    $ pip install pre-commit
+    $ pre-commit install
+
+.. caution::
+  如果你的代码不符合规范,检查中有任何一个失败，那么 ``git commit`` 将会失败,则根据提示修改：
+
+.. tip::
+如果想在提交代码之前检查代码是否符合规范，可以运行以下命令：
+
+.. code-block:: bash
+
+    $ pre-commit install
+    $ pre-commit run
+
+.. tip::
+ 如果你不想安装pre-commit工具，则可以利用以下命令来事先检查代码是否符合规范
+
+.. code-block:: bash
+
+    $ pip install black==22.3.0 flake8==5.0.4 isort==5.10.1
+    $ black --check your_changed_file.py
+    $ black your_changed_file.py  # modify it in-place
+    $ flake8 your_changed_file.py
+    $ isort --check your_changed_file.py  # modify it in-place
+    $ isort your_changed_file.py
