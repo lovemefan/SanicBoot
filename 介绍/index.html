@@ -1,0 +1,396 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="快速上手" href="../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html" /><link rel="prev" title="sanic-backend" href="../index.html" />
+
+    <!-- Generated with Sphinx 6.2.0 and Furo 2023.03.27 -->
+        <title>项目简介 - v2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand"> v2.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text"> v2.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">项目简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">快速上手</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/index.html">框架特性</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">依赖注入</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5.html">属性注入@Autowired</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html">配置注入@Value</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">参数校验</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E7%A9%BA%E5%80%BC%E6%A0%A1%E9%AA%8C.html">空值校验@NotEmpty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C.html">长度校验@Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E8%8C%83%E5%9B%B4%E6%A0%A1%E9%AA%8C.html">范围校验@Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E6%9E%9A%E4%B8%BE%E6%A0%A1%E9%AA%8C.html">枚举校验@EnumString</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%A1%E9%AA%8C.html">正则表达式校验@Pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%E8%B4%A1%E7%8C%AE/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC.html">代码风格</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="id1">
+<h1>项目简介<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>最低依赖要求：</p>
+<ul class="simple">
+<li><p>Python: 3.8+</p></li>
+<li><p>Sanic: 21.9+</p></li>
+</ul>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>简单轻便</dt><dd><ul>
+<li><p>开箱即用，像spring boot一样快速构建属于您的API 应用程序</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>易于拓展</dt><dd><ul>
+<li><p>具备sanic优秀的拓展性，随时可以为各种大小的 Web 应用程序提供支持。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>sanic-backend在python3.6中，官方的异步协程库asyncio正式成为标准。
+在保留便捷性的同时对性能有了很大的提升,已经出现许多的异步框架使用asyncio。
+Sanic框架是和Flask相似异步协程框架，简单轻量，并且性能很高。
+使用uvloop为核心引擎，使sanic在很多情况下单机并发甚至不亚于Golang。</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>为了提高开发效率，本项目借鉴了spring boot的很多优秀的特性和用法
+，方便使用python 语言快速构建一个web系统，
+可方便用于小型web系统和深度学习模型推理接口的简单搭建。</p>
+</div>
+<p>sanic-backend 从2021年至今，从本人实验室项目和个人项目重构和迭代过程中，
+迭代了两个大的版本</p>
+<section id="id2">
+<h2>版本变更<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt>v1.0.0</dt><dd><ul>
+<li><p>基于异步数据库aiomysql持久化模块，免去了数据库操作代码以及设置参数和获取结果集的工作</p></li>
+<li><p>使用sanic-jwt作为鉴权模块</p></li>
+<li><p>全局ini配置文件</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>v2.0.0 正在重构中，借鉴了spring boot部分的设计和使用习惯</dt><dd><ul>
+<li><p>全局yaml配置文件</p></li>
+<li><p>依赖注入</p></li>
+<li><p>自动发现与注入</p></li>
+<li><p>更多数据库支持</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<ol class="arabic">
+<li><p>配置文件增强</p>
+<blockquote>
+<div><p>[√] yaml配置文件</p>
+<p>[√] &#64;Value 配置注入到配置类中</p>
+</div></blockquote>
+</li>
+<li><p>依赖注入</p>
+<blockquote>
+<div><p>[√] &#64;Autowired 注入到service、controller、Dao中</p>
+</div></blockquote>
+</li>
+<li><p>自动发现与自动注册</p>
+<blockquote>
+<div><p>[√] 自动发现service、controller、model、 dao</p>
+<p>[√] 自动注册路由</p>
+</div></blockquote>
+</li>
+<li><p>更多数据库支持,优先级按以下顺序</p>
+<blockquote>
+<div><p>[ ] sqlite</p>
+<p>[ ] redis</p>
+<p>[ ] mongodb</p>
+<p>[ ] PostgreSQL</p>
+<p>[ ] elasticsearch</p>
+</div></blockquote>
+</li>
+<li><p>完善文档及注释，增加英文文档</p></li>
+</ol>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>版本v1.0.0已经趋于稳定，并应用于我自己的一些语音识别服务接口中：</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://github.com/lovemefan/Paraformer-webserver">paraformer webserver</a></p></li>
+<li><p><a class="reference external" href="https://github.com/lovemefan/whisper-webserver">whisper webserver</a></p></li>
+<li><p><a class="reference external" href="https://github.com/lovemefan/Wav2vec2-webserver">wav2vec2 webserver</a></p></li>
+</ol>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">快速上手</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, lovemefan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">项目简介</a><ul>
+<li><a class="reference internal" href="#id2">版本变更</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    </body>
+</html>
