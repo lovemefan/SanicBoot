@@ -50,7 +50,7 @@ class ValidatePassword(ControllerBase):
         if await self.user_service.validate(user):
             response = ResponseBody(
                 message="username or password empty",
-                status_code=StatusCode.USERNAME_OR_PASSWORD_EMPTY.name,
+                code=StatusCode.USERNAME_OR_PASSWORD_EMPTY.name,
             )
         return json(response.__dict__)
 
@@ -151,29 +151,27 @@ class AddUser(ControllerBase):
         return json(
             ResponseBody(
                 message=f"Add user {username} success",
-                status_code=StatusCode.ADD_USER_SUCCESS.name,
+                code=StatusCode.ADD_USER_SUCCESS.name,
             ).__dict__,
             200,
         )
 
 
 @Controller
-class GetALLInfo(ControllerBase):
+class GetAllInfo(ControllerBase):
     @Autowired
     def user_service(self):
         pass
 
     # @user_route.route("/get_all_user_information", methods=["GET"])
-    @inject_user()
-    @protected()
-    async def post(self, request, user):
-        if not user.role:
-            raise Unauthorized("You have no authorized to get user information")
-
+    @NotEmpty(
+        required=["test"],
+        parameter_type="json",
+    )
+    async def post(self, request):
+        print(self)
         users = await self.user_service.get_all_user_information()
-        response = ResponseBody(
-            message=users, status_code=StatusCode.PERMISSION_AVAILABLE.name
-        )
+        response = ResponseBody(message=users, code=StatusCode.PERMISSION_DENIED.name)
         return json(response.__dict__)
 
 
@@ -205,9 +203,7 @@ class GetUserInfo(ControllerBase):
             user = await self.user_service.get_user_information(
                 await self.user_service.get_user_id(User(username=username))
             )
-        response = ResponseBody(
-            message=user.to_dict(), status_code=StatusCode.PERMISSION_AVAILABLE.name
-        )
+        response = ResponseBody(message=user.to_dict(), code=StatusCode.SUCCESS.name)
         return json(response.__dict__)
 
 
@@ -237,7 +233,7 @@ class DeleteUser(ControllerBase):
         await self.user_service.delete_user(User(uid=user_id))
         response = ResponseBody(
             message=f"delete {delete_user.username} Success",
-            status_code=StatusCode.DELETE_USER_SUCCESS.name,
+            code=StatusCode.SUCCESS.name,
         )
         return json(response.__dict__)
 
@@ -296,6 +292,6 @@ class ModifyUser(ControllerBase):
 
         response = ResponseBody(
             message=f"Modify {modify_user.username} Success: ",
-            status_code=StatusCode.MODIFY_USER_SUCCESS.name,
+            code=StatusCode.MODIFY_USER_SUCCESS.name,
         )
         return json(response.__dict__)

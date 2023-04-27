@@ -5,12 +5,11 @@
 from backend.core.component.autowired import Autowired
 from backend.core.component.repository import Repository
 from backend.model.Repository import RepositoryBase
-from backend.model.User import User
 from backend.utils.snowflake import IdWorker
 
 
 @Repository
-class UserDao(RepositoryBase):
+class UserRepository(RepositoryBase):
     """User operation"""
 
     def __init__(self):
@@ -21,7 +20,7 @@ class UserDao(RepositoryBase):
         pass
 
     @mysql.execute
-    def get_all_user(self, results):
+    def get_all_user():
         sql = """
         SELECT u1.uid,
             u1.username,
@@ -165,17 +164,3 @@ class UserDao(RepositoryBase):
         elif user.uid:
             sql = f"update user set last_login_time = NOW() where username='{user.uid}'"
             return sql
-
-
-if __name__ == "__main__":
-    dao = UserDao()
-    user = User(
-        username="lovemefan",
-        password="5c5ed1b1b2e95abacda4cc7c8b40d58d",
-        phone="18679128652",
-        email="lovemefan@outlook.com",
-        role=1,
-        create_by=1341983140255768576,
-    )
-    res = dao.add_user(user)
-    dao.get_all_user()

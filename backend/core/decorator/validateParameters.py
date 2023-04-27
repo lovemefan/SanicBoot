@@ -61,7 +61,7 @@ def NotEmpty(required: Union[list, tuple], parameter_type: str = "all"):
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
 
             if parameter_type == "json" and not request.json:
                 logger.debug(
@@ -142,7 +142,7 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
             return await _assert_condition(
@@ -166,7 +166,7 @@ def Range(key, message, min=0, max=0, parameter_type: str = "all"):
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
             return await _assert_condition(
@@ -197,7 +197,7 @@ def Assert(
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
             return await _assert_condition(
@@ -246,7 +246,7 @@ def Pattern(
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
             if pattern_mode == "match":
@@ -277,7 +277,7 @@ def EnumString(
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
-            request = args[0]
+            request = args[1]
             # todo validate request type
             data = get_parameters_from_request_by_content_type(request, parameter_type)
             return await _assert_condition(
