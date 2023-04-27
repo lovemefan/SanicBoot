@@ -1,2 +1,23 @@
 配置注入@Value
 ______
+
+.. autoclass:: backend.core.component.value.Value
+    :members:
+
+由于python装饰器只支持装饰类和方法，没有办法像java一样装饰变量。
+@value参考了python内置的@property装饰器，通过装饰类方法实现类成员变量的注入。
+
+
+.. code-block:: python
+    :linenos:
+
+    class configTest:
+        @Value('datasource.mysql.port')
+        def port(self):
+            pass
+
+        def connect():
+            port = self.port
+
+    config = configTest()
+    print(config.port)

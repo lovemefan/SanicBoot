@@ -22,4 +22,5 @@ Sanic-backend是基于sanic封装的python web快速开发框架。
    介绍/index
    快速上手/index
    框架特性/index
+   二次开发教程/index
    贡献/index

@@ -22,9 +22,11 @@ class Autowired(object):
     def execute(self, func):
         """this is a decorator execute sql from the return of
         func method and return results of sql execution.
+
         Examples:
             # when query is True, connection will skip commit operation,
             # if query not set, it will set query by if the `select` string in the sql automatically
+
             @auto_execute_sql
             def user_list(self, query=True):
                 return 'select * from user'
@@ -50,7 +52,6 @@ class Autowired(object):
 
         async def wrap(*args, **kwargs):
             filter_invalid_character(*args, **kwargs)
-            print(func)
             sql = func(*args, **kwargs)
             query = inspect.signature(func).parameters.get("query", None)
             many = inspect.signature(func).parameters.get("many", False)
@@ -63,6 +64,15 @@ class Autowired(object):
         return wrap
 
     def __get__(self, inst, owner):
+        """call for autowired attribute
+
+        Args:
+            inst: instance decoratored  by Autowired
+            owner: owner class of instance
+
+        Returns:
+
+        """
         name = self.fget.__name__
         try:
             if issubclass(owner, RepositoryBase):

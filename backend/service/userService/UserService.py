@@ -18,7 +18,7 @@ class UserService(ServiceBase):
         pass
 
     @Autowired
-    def user_dao(self):
+    def user_repository(self):
         pass
 
     async def get_all_user_information(self):
@@ -28,7 +28,7 @@ class UserService(ServiceBase):
         Returns:
             User : user information
         """
-        info = await self.user_dao.get_all_user()
+        info = await self.user_repository.get_all_user()
         users = []
         for row in info:
             user = User(
@@ -53,7 +53,7 @@ class UserService(ServiceBase):
         Returns:
             User : user information
         """
-        info = await self.user_dao.get_user_information(user)
+        info = await self.user_repository.get_user_information(user)
 
         if len(info) == 0:
             raise UserNotExist(user.username)
@@ -75,7 +75,7 @@ class UserService(ServiceBase):
 
     async def get_user_id(self, user):
         """get uid by usename"""
-        row = await self.user_dao.get_user_id(username=user.username)
+        row = await self.user_repository.get_user_id(username=user.username)
 
         if len(row) == 0:
             raise UserNotExist(user.username)
@@ -90,8 +90,8 @@ class UserService(ServiceBase):
         Exception:
             pymysql.err.IntegrityError : The username has exist
         """
-        await self.user_dao.add_user(user)
-        await self.user_dao.add_user_into_group(
+        await self.user_repository.add_user(user)
+        await self.user_repository.add_user_into_group(
             self.get_user_id(user).uid, user.create_by
         )
         return True
@@ -101,7 +101,7 @@ class UserService(ServiceBase):
         Args:
             user (User): class instance of User
         """
-        await self.user_dao.modify_user(user)
+        await self.user_repository.modify_user(user)
         return True
 
     async def delete_user(self, user):
@@ -111,7 +111,7 @@ class UserService(ServiceBase):
         Exception:
             if the user's uid is none, will raise a exception
         """
-        await self.user_dao.delete_user(user)
+        await self.user_repository.delete_user(user)
         return True
 
     async def validate(self, user):
@@ -124,7 +124,7 @@ class UserService(ServiceBase):
             UserNotExist : if the user not exist will raise this exception
         """
         username = user.username
-        password = await self.user_dao.get_user_password(username=username)
+        password = await self.user_repository.get_user_password(username=username)
         if len(password) == 0:
             raise UserNotExist(username)
 
@@ -134,7 +134,7 @@ class UserService(ServiceBase):
 
     async def login(self, user):
         """update last login time"""
-        await self.user_dao.login(user)
+        await self.user_repository.login(user)
         return True
 
 
