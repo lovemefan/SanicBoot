@@ -38,6 +38,7 @@ jobs:
       - name: Build doc
         shell: bash
         run: |
+          export PYTHONPATH=$(pwd):${PYTHONPATH}
           python -m pip install -r backend/requirements.txt
           cd docs
           python -m pip install -r ./requirements.txt
