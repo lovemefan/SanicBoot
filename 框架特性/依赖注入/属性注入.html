@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="配置注入@Value" href="%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html" /><link rel="prev" title="依赖注入" href="index.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.03.27 -->
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
         <title>属性注入@Autowired - v2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -164,7 +164,11 @@
 <li class="toctree-l3"><a class="reference internal" href="%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html">配置注入@Value</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">参数校验</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/index.html">配置管理</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/YAML%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.html">YAML配置文件</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">参数校验</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E7%A9%BA%E5%80%BC%E6%A0%A1%E9%AA%8C.html">空值校验@NotEmpty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C.html">长度校验@Length</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E8%8C%83%E5%9B%B4%E6%A0%A1%E9%AA%8C.html">范围校验@Range</a></li>
@@ -174,7 +178,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC.html">代码风格</a></li>
 </ul>
 </li>
@@ -206,7 +210,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -214,6 +218,133 @@
         <article role="main">
           <section id="autowired">
 <h1>属性注入&#64;Autowired<a class="headerlink" href="#autowired" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>使用<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Autowired 目前只支持Service、Repository、Datasource对象的注入，目前完全够使用了，
+暂时不考虑其他对象的支持。</p>
+<p>所有被注入的模型需要调用各层的注册装饰器</p>
+<section id="repositorydatasource">
+<h3>1. 在Repository层注入Datasource对象<a class="headerlink" href="#repositorydatasource" title="Permalink to this heading">#</a></h3>
+<p>注意事项：</p>
+<ul class="simple">
+<li><p>自定义的UserRepository类需要继承RepositoryBase父类。</p></li>
+<li><p>需要使用&#64;Repository来装饰自定义的UserRepository类，目的是将自定义的UserRepository注册到系统当中，方便Service层注入。</p></li>
+<li><p>自定义的UserRepository类会注册为转换成小写以下划线分割的实例名，所以类名需要使用开头字母大写的驼峰命名法。</p></li>
+<li><p>下面代码中的mysql属于已实现的mysql数据源，对Datasource注册及扩展感兴趣的同学请看 <a class="reference internal" href="../%E6%95%B0%E6%8D%AE%E6%BA%90/index.html"><span class="doc">数据源</span></a>。</p></li>
+<li><p>注意类方法比如get_all_user，没有self参数。原因是在装饰类方法之前，该类实例并未创建，无法获取到self。
+这是因为Autowired是使用类来实现的装饰器，这是类装饰器的弊端。如果有更好的办法请联系我，欢迎提交PR。
+因此解决办法就是当作类静态方法来处理，直接删掉self，以便sevice层调用。</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">backend.core.component.autowired</span> <span class="kn">import</span> <span class="n">Autowired</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">backend.core.component.repository</span> <span class="kn">import</span> <span class="n">Repository</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">backend.model.Repository</span> <span class="kn">import</span> <span class="n">RepositoryBase</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="nd">@Repository</span>
+<span class="linenos"> 6</span><span class="k">class</span> <span class="nc">UserRepository</span><span class="p">(</span><span class="n">RepositoryBase</span><span class="p">):</span>
+<span class="linenos"> 7</span>    <span class="nd">@Autowired</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">mysql</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 9</span>        <span class="k">pass</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="nd">@mysql</span><span class="o">.</span><span class="n">execute</span>
+<span class="linenos">12</span>    <span class="k">def</span> <span class="nf">get_all_user</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+<span class="linenos">13</span>        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos">14</span><span class="s2">        SELECT u1.uid,</span>
+<span class="linenos">15</span><span class="s2">            u1.username,</span>
+<span class="linenos">16</span><span class="s2">            u1.phone,</span>
+<span class="linenos">17</span><span class="s2">            u1.email,</span>
+<span class="linenos">18</span><span class="s2">            u1.user_role,</span>
+<span class="linenos">19</span><span class="s2">            u2.username AS create_by,</span>
+<span class="linenos">20</span><span class="s2">            u1.create_time,</span>
+<span class="linenos">21</span><span class="s2">            u1.last_login_time,</span>
+<span class="linenos">22</span><span class="s2">            u1.status</span>
+<span class="linenos">23</span><span class="s2">        FROM user AS u1</span>
+<span class="linenos">24</span><span class="s2">        LEFT JOIN user AS u2</span>
+<span class="linenos">25</span><span class="s2">            ON u1.create_by = u2.uid</span>
+<span class="linenos">26</span><span class="s2">        &quot;&quot;&quot;</span>
+<span class="linenos">27</span>        <span class="k">return</span> <span class="n">sql</span>
+</pre></div>
+</div>
+</section>
+<section id="servicerepository">
+<h3>2. 在Service层注入Repository对象<a class="headerlink" href="#servicerepository" title="Permalink to this heading">#</a></h3>
+<p>注意事项：</p>
+<ul class="simple">
+<li><p>自定义的UserService类需要继承ServiceBase父类。</p></li>
+<li><p>需要使用&#64;Service来装饰自定义的UserService类，目的是将自定义的UserService注册到系统当中，方便Controller层注入。</p></li>
+<li><p>类名同样需要使用开头字母大写的驼峰命名法。</p></li>
+<li><p>自定义的UserRepository类会注册为转换成小写以下划线分割的实例名，使用</p></li>
+<li><p>被&#64;mysql.execute装饰后，原方法会变成一个异步方法，因此在Service及上层需要使用await调用。
+如下面第18行代码所示。</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">backend.core.component.autowired</span> <span class="kn">import</span> <span class="n">Autowired</span>
+<span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">backend.core.component.service</span> <span class="kn">import</span> <span class="n">Service</span>
+<span class="linenos"> 3</span><span class="kn">from</span> <span class="nn">backend.model.Service</span> <span class="kn">import</span> <span class="n">ServiceBase</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="nd">@Service</span>
+<span class="linenos"> 6</span><span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">ServiceBase</span><span class="p">):</span>
+<span class="linenos"> 7</span>    <span class="nd">@Autowired</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">user_p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 9</span>        <span class="k">pass</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_all_user_information</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">12</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;query from dbs</span>
+<span class="linenos">13</span><span class="sd">        Args:</span>
+<span class="linenos">14</span><span class="sd">            user (User): User instance</span>
+<span class="linenos">15</span><span class="sd">        Returns:</span>
+<span class="linenos">16</span><span class="sd">            User : user information</span>
+<span class="linenos">17</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">18</span>        <span class="n">info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_dao</span><span class="o">.</span><span class="n">get_all_user</span><span class="p">()</span>
+<span class="linenos">19</span>        <span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">20</span>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+<span class="linenos">21</span>            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+<span class="linenos">22</span>                <span class="n">uid</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="linenos">23</span>                <span class="n">username</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="linenos">24</span>                <span class="n">phone</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+<span class="linenos">25</span>                <span class="n">email</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+<span class="linenos">26</span>                <span class="n">role</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+<span class="linenos">27</span>                <span class="n">create_by</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+<span class="linenos">28</span>                <span class="n">create_time</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+<span class="linenos">29</span>                <span class="n">last_login_time</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+<span class="linenos">30</span>                <span class="n">status</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+<span class="linenos">31</span>            <span class="p">)</span>
+<span class="linenos">32</span>            <span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>        <span class="k">return</span> <span class="n">users</span>
+</pre></div>
+</div>
+</section>
+<section id="controllerservice">
+<h3>在Controller层注入Service对象<a class="headerlink" href="#controllerservice" title="Permalink to this heading">#</a></h3>
+<p>注意事项：</p>
+<ul class="simple">
+<li><p>自定义的UserController类需要继承ControllerBase父类。</p></li>
+<li><p>需要使用&#64;Controller来装饰自定义的UserController类。</p></li>
+<li><p>类名同样需要使用开头字母大写的驼峰命名法。</p></li>
+<li><p>自定义的UserController类会根据类的路径和实例名来组成当前controller的路由路径。
+例如当前GetAllInfo类路径为backend/controller/user/UserController.py
+该路由者为http://host:port/user/user_controller/get_all_info</p></li>
+<li><p>如果post或get等方法需要使用装饰器，则该装饰器内部需要使用&#64;wraps来继承被装饰方法的属性。
+否则在post方法体里面将不能访问到self.user_service方法</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@Controller</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">GetAllInfo</span><span class="p">(</span><span class="n">ControllerBase</span><span class="p">):</span>
+<span class="linenos"> 3</span>    <span class="nd">@Autowired</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">user_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 5</span>        <span class="k">pass</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="k">async</span> <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<span class="linenos"> 8</span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">role</span><span class="p">:</span>
+<span class="linenos"> 9</span>            <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">(</span><span class="s2">&quot;You have no authorized to get user information&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>        <span class="n">users</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_service</span><span class="o">.</span><span class="n">get_all_user_information</span><span class="p">()</span>
+<span class="linenos">12</span>        <span class="n">response</span> <span class="o">=</span> <span class="n">ResponseBody</span><span class="p">(</span>
+<span class="linenos">13</span>            <span class="n">message</span><span class="o">=</span><span class="n">users</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">PERMISSION_AVAILABLE</span><span class="o">.</span><span class="n">name</span>
+<span class="linenos">14</span>        <span class="p">)</span>
+<span class="linenos">15</span>        <span class="k">return</span> <span class="n">json</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
         </article>
@@ -259,8 +390,32 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">属性注入&#64;Autowired</a><ul>
+<li><a class="reference internal" href="#id1">使用</a><ul>
+<li><a class="reference internal" href="#repositorydatasource">1. 在Repository层注入Datasource对象</a></li>
+<li><a class="reference internal" href="#servicerepository">2. 在Service层注入Repository对象</a></li>
+<li><a class="reference internal" href="#controllerservice">在Controller层注入Service对象</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

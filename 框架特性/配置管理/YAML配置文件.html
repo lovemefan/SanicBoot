@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="参数校验" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html" /><link rel="prev" title="配置管理" href="index.html" />
 
-    <!-- Generated with Sphinx 6.2.0 and Furo 2023.03.27 -->
-        <title>&lt;no title&gt; - v2.0.0 documentation</title>
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
+        <title>YAML配置文件 - v2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -155,16 +155,20 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../%E4%BB%8B%E7%BB%8D/index.html">项目简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">快速上手</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">框架特性</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">框架特性</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">依赖注入</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5.html">属性注入@Autowired</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html">配置注入@Value</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">参数校验</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">配置管理</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">YAML配置文件</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">参数校验</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E7%A9%BA%E5%80%BC%E6%A0%A1%E9%AA%8C.html">空值校验@NotEmpty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C.html">长度校验@Length</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E8%8C%83%E5%9B%B4%E6%A0%A1%E9%AA%8C.html">范围校验@Range</a></li>
@@ -174,7 +178,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC.html">代码风格</a></li>
 </ul>
 </li>
@@ -206,20 +210,112 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
+          <section id="yaml">
+<h1>YAML配置文件<a class="headerlink" href="#yaml" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2>配置文件<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>可自定义添加配置项</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">server</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="w">  </span><span class="c1"># name of project</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sanic_backend</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">http</span><span class="p">:</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="c1"># 尽量不要修改下面的配置，该配置指定了各组件扫描的路径</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="c1"># Try not to modify the following configuration,</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="c1"># which specifies the path for each component to be scanned</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">component</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">    </span><span class="nt">controller</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend.controller&quot;</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend.service&quot;</span>
+<span class="linenos">13</span><span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend.repository&quot;</span>
+<span class="linenos">14</span><span class="w">    </span><span class="nt">datasource</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend.core.datasource&quot;</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">log</span><span class="p">:</span>
+<span class="linenos">17</span><span class="w">    </span><span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nt">backupCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="linenos">19</span><span class="w">    </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;[%(asctime)s</span><span class="nv"> </span><span class="s">%(levelname)s</span><span class="nv"> </span><span class="s">]</span><span class="nv"> </span><span class="s">[%(filename)s:%(lineno)d</span><span class="nv"> </span><span class="s">%(module)s.%(funcName)s]</span><span class="nv"> </span><span class="s">%(message)s&quot;</span>
+<span class="linenos">20</span><span class="w">    </span><span class="nt">filename</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;logs/run.log&quot;</span>
+<span class="linenos">21</span><span class="w">    </span><span class="nt">maxBytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">102400</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="nt">datasource</span><span class="p">:</span>
+<span class="linenos">25</span><span class="w">    </span><span class="nt">mysql</span><span class="p">:</span>
+<span class="linenos">26</span><span class="w">        </span><span class="nt">db_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xx</span>
+<span class="linenos">27</span><span class="w">        </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xx</span>
+<span class="linenos">28</span><span class="w">        </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xx</span>
+<span class="linenos">29</span><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xx</span>
+<span class="linenos">30</span><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xx</span>
+<span class="linenos">31</span><span class="w">        </span><span class="c1"># 数据库池最大连接数量</span>
+<span class="linenos">32</span><span class="w">        </span><span class="c1"># maximum sizes of the pool.</span>
+<span class="linenos">33</span><span class="w">        </span><span class="nt">max_usage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>获取配置项<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>获取本地配置有三种方法：</p>
+<section id="baseconfig">
+<h3>1. 继承BaseConfig类<a class="headerlink" href="#baseconfig" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h4>使用方法<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">backend.config.BaseConfig</span> <span class="kn">import</span> <span class="n">BaseConfig</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="k">class</span> <span class="nc">Mysql</span><span class="p">(</span><span class="n">BaseConfig</span><span class="p">):</span>
+<span class="linenos">4</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">():</span>
+<span class="linenos">5</span>        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasource.mysql.host&quot;</span><span class="p">,</span> <span class="s1">&#39;localhost&#39;</span><span class="p">)</span>
+<span class="linenos">6</span>        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasource.mysql.port&quot;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h3>2. 使用工具类获取<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h4>使用方法<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">backend.config.Config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="linenos">2</span><span class="n">host</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datasource.mysql.host&quot;</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="value">
+<h3>3.使用&#64;Value装饰器<a class="headerlink" href="#value" title="Permalink to this heading">#</a></h3>
+<p>参考 <a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html"><span class="doc">&#64;Value的使用</span></a>。</p>
+</section>
+</section>
+</section>
+
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="../%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">参数校验</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">配置管理</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -238,8 +334,39 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">YAML配置文件</a><ul>
+<li><a class="reference internal" href="#id1">配置文件</a></li>
+<li><a class="reference internal" href="#id2">获取配置项</a><ul>
+<li><a class="reference internal" href="#baseconfig">1. 继承BaseConfig类</a><ul>
+<li><a class="reference internal" href="#id3">使用方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">2. 使用工具类获取</a><ul>
+<li><a class="reference internal" href="#id5">使用方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#value">3.使用&#64;Value装饰器</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
