@@ -30,9 +30,6 @@ class Autowired(object):
             @auto_execute_sql
             def user_list(self, query=True):
                 return 'select * from user'
-
-
-
             @execute
             def user_list(self, many=True, data):
                 return "update user set nick_name='%s', age=%d where name='%s'"
