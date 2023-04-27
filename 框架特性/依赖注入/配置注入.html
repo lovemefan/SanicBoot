@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -210,7 +210,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -218,6 +218,30 @@
         <article role="main">
           <section id="value">
 <h1>配置注入&#64;Value<a class="headerlink" href="#value" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.core.component.value.Value">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.core.component.value.</span></span><span class="sig-name descname"><span class="pre">Value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/core/component/value.html#Value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.core.component.value.Value" title="Permalink to this definition">#</a></dt>
+<dd><p>Used for injecting values into fields from config.yaml</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – </p></li>
+<li><p><strong>default</strong> – default None</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<dl>
+<dt>class configTest:</dt><dd><p>&#64;Value(‘datasource.mysql.port’)
+def port(self):</p>
+<blockquote>
+<div><p>pass</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>print(configTest().port)</p>
+</dd></dl>
+
 <p>由于python装饰器只支持装饰类和方法，没有办法像java一样装饰变量。
 &#64;value参考了python内置的&#64;property装饰器，通过装饰类方法实现类成员变量的注入。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">configTest</span><span class="p">:</span>
@@ -277,8 +301,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">配置注入&#64;Value</a><ul>
+<li><a class="reference internal" href="#backend.core.component.value.Value"><code class="docutils literal notranslate"><span class="pre">Value</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

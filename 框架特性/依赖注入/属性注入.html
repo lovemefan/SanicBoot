@@ -218,6 +218,64 @@
         <article role="main">
           <section id="autowired">
 <h1>属性注入&#64;Autowired<a class="headerlink" href="#autowired" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.core.component.autowired.Autowired">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.core.component.autowired.</span></span><span class="sig-name descname"><span class="pre">Autowired</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/core/component/autowired.html#Autowired"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.core.component.autowired.Autowired" title="Permalink to this definition">#</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="backend.core.component.autowired.Autowired.__get__">
+<span class="sig-name descname"><span class="pre">__get__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/core/component/autowired.html#Autowired.__get__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.core.component.autowired.Autowired.__get__" title="Permalink to this definition">#</a></dt>
+<dd><p>call for autowired attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> – instance decoratored  by Autowired</p></li>
+<li><p><strong>owner</strong> – owner class of instance</p></li>
+</ul>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.core.component.autowired.Autowired.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/core/component/autowired.html#Autowired.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.core.component.autowired.Autowired.execute" title="Permalink to this definition">#</a></dt>
+<dd><p>this is a decorator execute sql from the return of
+func method and return results of sql execution.</p>
+<p class="rubric">Examples</p>
+<p># when query is True, connection will skip commit operation,
+# if query not set, it will set query by if the <cite>select</cite> string in the sql automatically</p>
+<p>&#64;auto_execute_sql
+def user_list(self, query=True):</p>
+<blockquote>
+<div><p>return ‘select * from user’</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Call:</dt><dd><p>user_list(sql)</p>
+</dd>
+</dl>
+<p>&#64;execute
+def user_list(self, many=True, data):</p>
+<blockquote>
+<div><p>return “update user set nick_name=’%s’, age=%d where name=’%s’”</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Call:</dt><dd><p># batch of <cite>update/insert</cite> operation execution
+data = [(‘nick_tom’, 18, ‘tom’), (‘nick_jack’, 19, ‘jack’)]
+user_list(data=data)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>results of</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <section id="id1">
 <h2>使用<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>Autowired 目前只支持Service、Repository、Datasource对象的注入，目前完全够使用了，
@@ -403,6 +461,11 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">属性注入&#64;Autowired</a><ul>
+<li><a class="reference internal" href="#backend.core.component.autowired.Autowired"><code class="docutils literal notranslate"><span class="pre">Autowired</span></code></a><ul>
+<li><a class="reference internal" href="#backend.core.component.autowired.Autowired.__get__"><code class="docutils literal notranslate"><span class="pre">Autowired.__get__()</span></code></a></li>
+<li><a class="reference internal" href="#backend.core.component.autowired.Autowired.execute"><code class="docutils literal notranslate"><span class="pre">Autowired.execute()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#id1">使用</a><ul>
 <li><a class="reference internal" href="#repositorydatasource">1. 在Repository层注入Datasource对象</a></li>
 <li><a class="reference internal" href="#servicerepository">2. 在Service层注入Repository对象</a></li>
