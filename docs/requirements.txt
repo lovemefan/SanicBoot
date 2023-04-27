@@ -1,2 +1,4 @@
 furo
 sphinx
+pyyaml
+watchdog
