@@ -1,2 +1,142 @@
 属性注入@Autowired
 _________
+
+.. autoclass:: backend.core.component.autowired.Autowired
+    :members: execute, __get__
+
+
+使用
+^^^^
+
+Autowired 目前只支持Service、Repository、Datasource对象的注入，目前完全够使用了，
+暂时不考虑其他对象的支持。
+
+所有被注入的模型需要调用各层的注册装饰器
+
+1. 在Repository层注入Datasource对象
+********
+
+注意事项：
+
+- 自定义的UserRepository类需要继承RepositoryBase父类。
+- 需要使用@Repository来装饰自定义的UserRepository类，目的是将自定义的UserRepository注册到系统当中，方便Service层注入。
+- 自定义的UserRepository类会注册为转换成小写以下划线分割的实例名，所以类名需要使用开头字母大写的驼峰命名法。
+- 下面代码中的mysql属于已实现的mysql数据源，对Datasource注册及扩展感兴趣的同学请看 :doc:`数据源 <../数据源/index>`。
+- 注意类方法比如get_all_user，没有self参数。原因是在装饰类方法之前，该类实例并未创建，无法获取到self。
+  这是因为Autowired是使用类来实现的装饰器，这是类装饰器的弊端。如果有更好的办法请联系我，欢迎提交PR。
+  因此解决办法就是当作类静态方法来处理，直接删掉self，以便sevice层调用。
+.. code-block:: python
+    :linenos:
+
+    from backend.core.component.autowired import Autowired
+    from backend.core.component.repository import Repository
+    from backend.model.Repository import RepositoryBase
+
+    @Repository
+    class UserRepository(RepositoryBase):
+        @Autowired
+        def mysql(self):
+            pass
+
+        @mysql.execute
+        def get_all_user(results):
+            sql = """
+            SELECT u1.uid,
+                u1.username,
+                u1.phone,
+                u1.email,
+                u1.user_role,
+                u2.username AS create_by,
+                u1.create_time,
+                u1.last_login_time,
+                u1.status
+            FROM user AS u1
+            LEFT JOIN user AS u2
+                ON u1.create_by = u2.uid
+            """
+            return sql
+
+
+2. 在Service层注入Repository对象
+********
+
+注意事项：
+
+- 自定义的UserService类需要继承ServiceBase父类。
+- 需要使用@Service来装饰自定义的UserService类，目的是将自定义的UserService注册到系统当中，方便Controller层注入。
+- 类名同样需要使用开头字母大写的驼峰命名法。
+- 自定义的UserRepository类会注册为转换成小写以下划线分割的实例名，使用
+- 被@mysql.execute装饰后，原方法会变成一个异步方法，因此在Service及上层需要使用await调用。
+  如下面第18行代码所示。
+
+.. code-block:: python
+    :linenos:
+
+    from backend.core.component.autowired import Autowired
+    from backend.core.component.service import Service
+    from backend.model.Service import ServiceBase
+
+    @Service
+    class UserService(ServiceBase):
+        @Autowired
+        def user_p(self):
+            pass
+
+        async def get_all_user_information(self):
+            """query from dbs
+            Args:
+                user (User): User instance
+            Returns:
+                User : user information
+            """
+            info = await self.user_dao.get_all_user()
+            users = []
+            for row in info:
+                user = User(
+                    uid=row[0],
+                    username=row[1],
+                    phone=row[2],
+                    email=row[3],
+                    role=row[4],
+                    create_by=row[5],
+                    create_time=row[6],
+                    last_login_time=row[7],
+                    status=row[8],
+                )
+                users.append(user.__dict__)
+
+            return users
+
+
+在Controller层注入Service对象
+********
+
+注意事项：
+
+- 自定义的UserController类需要继承ControllerBase父类。
+- 需要使用@Controller来装饰自定义的UserController类。
+- 类名同样需要使用开头字母大写的驼峰命名法。
+- 自定义的UserController类会根据类的路径和实例名来组成当前controller的路由路径。
+  例如当前GetAllInfo类路径为backend/controller/user/UserController.py
+  该路由者为http://host:port/user/user_controller/get_all_info
+- 如果post或get等方法需要使用装饰器，则该装饰器内部需要使用@wraps来继承被装饰方法的属性。
+  否则在post方法体里面将不能访问到self.user_service方法
+
+.. code-block:: python
+    :linenos:
+
+    @Controller
+    class GetAllInfo(ControllerBase):
+        @Autowired
+        def user_service(self):
+            pass
+
+        async def post(self, request, user):
+            if not user.role:
+                raise Unauthorized("You have no authorized to get user information")
+
+            users = await self.user_service.get_all_user_information()
+            response = ResponseBody(
+                message=users, status_code=StatusCode.PERMISSION_AVAILABLE.name
+            )
+            return json(response.__dict__)

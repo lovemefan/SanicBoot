@@ -7,6 +7,7 @@ _________
 可自定义添加配置项
 
 .. code-block:: yaml
+    :linenos:
 
     server:
       # name of project
@@ -56,6 +57,7 @@ _________
 使用方法
 ******
 .. code-block:: python
+    :linenos:
 
     from backend.config.BaseConfig import BaseConfig
 
@@ -74,6 +76,7 @@ _________
 ******
 
 .. code-block:: python
+    :linenos:
 
     from backend.config.Config import Config
     host = Config.get_instance().get("datasource.mysql.host", "localhost")
@@ -83,4 +86,4 @@ _________
 3.使用@Value装饰器
 """"""""""""""""""
 
-参考 :doc:`@Value的使用 <../依赖注入/属性注入>`。
+参考 :doc:`@Value的使用 <../依赖注入/配置注入>`。
