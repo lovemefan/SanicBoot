@@ -11,7 +11,6 @@ from pathlib import Path
 import colorlog as colorlog
 from sanic.log import logger as sanic_logger
 
-# from config import Config
 from backend.config.Config import Config
 
 level_map = {

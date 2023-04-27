@@ -79,6 +79,7 @@ class Config:
         config=None,
     ):
         """get value by the key from config
+
         Args:
             key (str): format [section].[key] example: app.name
             config (dict): config

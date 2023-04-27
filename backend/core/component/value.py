@@ -9,8 +9,12 @@ from backend.config.Config import Config
 
 class Value(object):
     """
-    used for injecting values into fields from config.yaml
-    example:
+    Used for injecting values into fields from config.yaml
+
+    Args:
+        key:
+        default: default None
+    Examples:
         class configTest:
             @Value('datasource.mysql.port')
             def port(self):
