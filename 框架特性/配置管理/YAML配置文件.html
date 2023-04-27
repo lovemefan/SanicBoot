@@ -262,6 +262,34 @@
 <p>获取本地配置有三种方法：</p>
 <section id="baseconfig">
 <h3>1. 继承BaseConfig类<a class="headerlink" href="#baseconfig" title="Permalink to this heading">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.config.BaseConfig.BaseConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.config.BaseConfig.</span></span><span class="sig-name descname"><span class="pre">BaseConfig</span></span><a class="reference internal" href="../../_modules/backend/config/BaseConfig.html#BaseConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.BaseConfig.BaseConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>implements this class to use the get method to get config from config file
+Example :  class A(BaseConfig)  use a = A() ,you can use a.get(key:str) to get  config from config file</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.config.BaseConfig.BaseConfig.get">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/config/BaseConfig.html#BaseConfig.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.BaseConfig.BaseConfig.get" title="Permalink to this definition">#</a></dt>
+<dd><p>get value from config by the key file dynamically</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – the key of config file, example <cite>host.ip</cite>.</p></li>
+<li><p><strong>default</strong> (<em>str</em>) – if the key is not exist,return default as value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the value of config file key example : if the key is <cite>host.ip</cite>
+maybe it will return <cite>localhost</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <section id="id3">
 <h4>使用方法<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">backend.config.BaseConfig</span> <span class="kn">import</span> <span class="n">BaseConfig</span>
@@ -276,6 +304,46 @@
 </section>
 <section id="id4">
 <h3>2. 使用工具类获取<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.config.Config.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.config.Config.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/config/Config.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.Config.Config" title="Permalink to this definition">#</a></dt>
+<dd><p>upgrade the config automatically while the config.ini file changed
+Example Config.get_instance().get(key, default)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.config.Config.Config.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/config/Config.html#Config.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.Config.Config.get" title="Permalink to this definition">#</a></dt>
+<dd><p>get value by the key from config</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – format [section].[key] example: app.name</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – config</p></li>
+<li><p><strong>default</strong> – if the key not exist ,return default value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>value of key, if the key not exist ,return default value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.config.Config.Config.get_instance">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/config/Config.html#Config.get_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.Config.Config.get_instance" title="Permalink to this definition">#</a></dt>
+<dd><p>get a instance at once simultaneously</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.config.Config.Config.load_config">
+<span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/config/Config.html#Config.load_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.config.Config.Config.load_config" title="Permalink to this definition">#</a></dt>
+<dd><p>load the config file</p>
+</dd></dl>
+
+</dd></dl>
+
 <section id="id5">
 <h4>使用方法<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">backend.config.Config</span> <span class="kn">import</span> <span class="n">Config</span>
@@ -350,10 +418,20 @@
 <li><a class="reference internal" href="#id1">配置文件</a></li>
 <li><a class="reference internal" href="#id2">获取配置项</a><ul>
 <li><a class="reference internal" href="#baseconfig">1. 继承BaseConfig类</a><ul>
+<li><a class="reference internal" href="#backend.config.BaseConfig.BaseConfig"><code class="docutils literal notranslate"><span class="pre">BaseConfig</span></code></a><ul>
+<li><a class="reference internal" href="#backend.config.BaseConfig.BaseConfig.get"><code class="docutils literal notranslate"><span class="pre">BaseConfig.get()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#id3">使用方法</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#id4">2. 使用工具类获取</a><ul>
+<li><a class="reference internal" href="#backend.config.Config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li><a class="reference internal" href="#backend.config.Config.Config.get"><code class="docutils literal notranslate"><span class="pre">Config.get()</span></code></a></li>
+<li><a class="reference internal" href="#backend.config.Config.Config.get_instance"><code class="docutils literal notranslate"><span class="pre">Config.get_instance()</span></code></a></li>
+<li><a class="reference internal" href="#backend.config.Config.Config.load_config"><code class="docutils literal notranslate"><span class="pre">Config.load_config()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#id5">使用方法</a></li>
 </ul>
 </li>
