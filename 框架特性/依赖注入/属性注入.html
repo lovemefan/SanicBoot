@@ -249,21 +249,14 @@ def user_list(self, query=True):</p>
 <blockquote>
 <div><p>return ‘select * from user’</p>
 </div></blockquote>
-<dl class="simple">
-<dt>Call:</dt><dd><p>user_list(sql)</p>
-</dd>
-</dl>
 <p>&#64;execute
 def user_list(self, many=True, data):</p>
 <blockquote>
 <div><p>return “update user set nick_name=’%s’, age=%d where name=’%s’”</p>
 </div></blockquote>
-<dl class="simple">
-<dt>Call:</dt><dd><p># batch of <cite>update/insert</cite> operation execution
+<p># batch of <cite>update/insert</cite> operation execution
 data = [(‘nick_tom’, 18, ‘tom’), (‘nick_jack’, 19, ‘jack’)]
 user_list(data=data)</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>results of</p>

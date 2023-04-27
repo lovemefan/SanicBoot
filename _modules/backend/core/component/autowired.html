@@ -248,18 +248,16 @@
 <span class="sd">            def user_list(self, query=True):</span>
 <span class="sd">                return &#39;select * from user&#39;</span>
 
-<span class="sd">            Call:</span>
-<span class="sd">                user_list(sql)</span>
 
 
 <span class="sd">            @execute</span>
 <span class="sd">            def user_list(self, many=True, data):</span>
 <span class="sd">                return &quot;update user set nick_name=&#39;%s&#39;, age=%d where name=&#39;%s&#39;&quot;</span>
 
-<span class="sd">            Call:</span>
-<span class="sd">                # batch of `update/insert` operation execution</span>
-<span class="sd">                data = [(&#39;nick_tom&#39;, 18, &#39;tom&#39;), (&#39;nick_jack&#39;, 19, &#39;jack&#39;)]</span>
-<span class="sd">                user_list(data=data)</span>
+
+<span class="sd">            # batch of `update/insert` operation execution</span>
+<span class="sd">            data = [(&#39;nick_tom&#39;, 18, &#39;tom&#39;), (&#39;nick_jack&#39;, 19, &#39;jack&#39;)]</span>
+<span class="sd">            user_list(data=data)</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            tuple: results of</span>
