@@ -31,18 +31,16 @@ class Autowired(object):
             def user_list(self, query=True):
                 return 'select * from user'
 
-            Call:
-                user_list(sql)
 
 
             @execute
             def user_list(self, many=True, data):
                 return "update user set nick_name='%s', age=%d where name='%s'"
 
-            Call:
-                # batch of `update/insert` operation execution
-                data = [('nick_tom', 18, 'tom'), ('nick_jack', 19, 'jack')]
-                user_list(data=data)
+
+            # batch of `update/insert` operation execution
+            data = [('nick_tom', 18, 'tom'), ('nick_jack', 19, 'jack')]
+            user_list(data=data)
 
         Returns:
             tuple: results of
