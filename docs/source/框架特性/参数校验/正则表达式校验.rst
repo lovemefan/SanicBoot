@@ -1,2 +1,4 @@
 正则表达式校验@Pattern
 ________
+
+.. automethod:: backend.core.decorator.validateParameters.Pattern

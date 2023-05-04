@@ -1,2 +1,4 @@
 范围校验@Range
 ______
+
+.. automethod:: backend.core.decorator.validateParameters.Range
