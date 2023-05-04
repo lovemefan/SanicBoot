@@ -52,7 +52,8 @@ def get_parameters_from_request_by_content_type(request, parameter_type):
 
 
 def NotEmpty(required: Union[list, tuple], parameter_type: str = "all"):
-    """validate
+    """validate required parameter exist in request
+
     Args:
         required (list): list of parameters
         parameter_type (str): auto, args, form, json, file
@@ -139,6 +140,19 @@ async def _assert_condition(
 
 
 def Length(key, message, min=0, max=0, parameter_type: str = "all"):
+    """
+
+    Args:
+        key(str): key of data(form,json..)
+        message(str): prompt message if validate failed
+        min(int): min value
+        max(int): max value
+        parameter_type(str): [json , args, form, files, args] type of requests
+
+    Returns:
+
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -162,7 +176,20 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     return decorator
 
 
-def Range(key, message, min=0, max=0, parameter_type: str = "all"):
+def Range(key, message, min: int = 0, max: int = 0, parameter_type: str = "all"):
+    """
+
+    Args:
+        key(str): key of data(form,json..)
+        message(str): prompt message if validate failed
+        min(int): min value
+        max(int): max value
+        parameter_type(str): [json , args, form, files, args] type of requests
+
+    Returns:
+
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -194,6 +221,20 @@ def Assert(
     key_type=Any,
     string2number=False,
 ):
+    """
+
+    Args:
+        key(str): key of data(form,json..)
+        condition(function): a function input value and return True or False
+        message(str): prompt message if validate failed
+        parameter_type(str):  [json , args, form, files, args] type of requests
+        key_type(Any): assert the key_type and value of key
+        string2number(bool): if convert the value into number
+
+    Returns:
+
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -227,7 +268,7 @@ def Pattern(
 ):
     """
     Args:
-        key(str): key of requests
+        key(str): key of data from request
         pattern(str): pattern of condition
         message(str): message to return when pattern mismatched
         flags: flags parameter of re module
@@ -274,6 +315,16 @@ def Pattern(
 def EnumString(
     key: str, value: Union[list, tuple], message="", parameter_type: str = "all"
 ):
+    """
+
+    Args:
+        key: key of data(form,json..)
+        value: enum string with list of tuple of string, such as ['1', '2']
+        message: prompt message if validate failed
+        parameter_type: default `all`, [all, args, form, json, file]
+
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):

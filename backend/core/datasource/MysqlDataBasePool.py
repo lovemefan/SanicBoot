@@ -6,6 +6,7 @@
 # using lock to make sure get one config at same time
 import threading
 import time
+from abc import ABC
 from typing import Union
 
 import aiomysql
@@ -22,11 +23,8 @@ lock = threading.RLock()
 
 @singleton
 @Datasource("mysql")
-class MysqlDataBasePool(DataBasePoolBase):
-    """DataBase pool
-    To get connection from database pool
-    Example : DataBasePool.get_instance()
-    """
+class MysqlDataBasePool(DataBasePoolBase, ABC):
+    """DataBase pool To get connection from database pool"""
 
     def __init__(self):
         super().__init__()
@@ -59,6 +57,17 @@ class MysqlDataBasePool(DataBasePoolBase):
         return_affected: bool = False,
     ):
         """Execute batch of sql statement method will execute the operation iterating over two ways:
+
+        Args:
+            sql(str): the sql statement
+            query(bool): if query is true, it would not call with transaction
+            many(bool): if many is true, support insert or replace statements are optimized by batching
+            data(bool): if many is true, support insert or replace statements by batching data
+            return_affected(bool): if set return_affected,
+                will return all the sqls' number of rows that has been produced of affected
+                the document intro will be
+                found @https://aiomysql.readthedocs.io/en/latest/cursors.html
+
 
          1. update or insert in same table. insert or replace statements are optimized by batching the data,
             that is using the MySQL multiple rows syntax.
