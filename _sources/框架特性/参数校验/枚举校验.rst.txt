@@ -1,2 +1,4 @@
 枚举校验@EnumString
 ____________
+
+.. automethod:: backend.core.decorator.validateParameters.EnumString

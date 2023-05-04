@@ -1,2 +1,6 @@
 空值校验@NotEmpty
 _________
+
+空值校验器目的是为了判断用户是否传递需要的参数
+
+.. automethod:: backend.core.decorator.validateParameters.NotEmpty

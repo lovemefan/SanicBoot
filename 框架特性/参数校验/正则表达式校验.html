@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="&lt;no title&gt;" href="../%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/index.html" /><link rel="prev" title="枚举校验@EnumString" href="%E6%9E%9A%E4%B8%BE%E6%A0%A1%E9%AA%8C.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="断言校验@Assert" href="%E6%96%AD%E8%A8%80%E6%A0%A1%E9%AA%8C.html" /><link rel="prev" title="枚举校验@EnumString" href="%E6%9E%9A%E4%B8%BE%E6%A0%A1%E9%AA%8C.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.03.27 -->
         <title>正则表达式校验@Pattern - v2.0.0 documentation</title>
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -174,11 +174,16 @@
 <li class="toctree-l3"><a class="reference internal" href="%E8%8C%83%E5%9B%B4%E6%A0%A1%E9%AA%8C.html">范围校验@Range</a></li>
 <li class="toctree-l3"><a class="reference internal" href="%E6%9E%9A%E4%B8%BE%E6%A0%A1%E9%AA%8C.html">枚举校验@EnumString</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">正则表达式校验@Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%96%AD%E8%A8%80%E6%A0%A1%E9%AA%8C.html">断言校验@Assert</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../%E6%95%B0%E6%8D%AE%E6%BA%90/index.html">数据源</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%95%B0%E6%8D%AE%E6%BA%90/mysql%E6%95%B0%E6%8D%AE%E6%BA%90.html">Mysql数据源</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../%E8%B4%A1%E7%8C%AE/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC.html">代码风格</a></li>
 </ul>
 </li>
@@ -210,7 +215,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -218,6 +223,31 @@
         <article role="main">
           <section id="pattern">
 <h1>正则表达式校验&#64;Pattern<a class="headerlink" href="#pattern" title="Permalink to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="backend.core.decorator.validateParameters.Pattern">
+<span class="sig-prename descclassname"><span class="pre">validateParameters.</span></span><span class="sig-name descname"><span class="pre">Pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'match'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#backend.core.decorator.validateParameters.Pattern" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – key of data from request</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>) – pattern of condition</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – message to return when pattern mismatched</p></li>
+<li><p><strong>flags</strong> – flags parameter of re module
+re.A # assume ascii “locale”
+re.I # ignore case
+re.L # assume current 8-bit locale
+re.U # assume unicode “locale”
+re.M # make anchors look for newline
+re.S # make dot match newline
+re.X # ignore whitespace and comments
+re.T # disable backtracking</p></li>
+<li><p><strong>pattern_mode</strong> – [match or search]. match means equals, search means included.</p></li>
+<li><p><strong>parameter_type</strong> – [json , args, form, files, args] type of requests</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article>
@@ -225,12 +255,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/index.html">
+          <a class="next-page" href="%E6%96%AD%E8%A8%80%E6%A0%A1%E9%AA%8C.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">&lt;no title&gt;</div>
+                <div class="title">断言校验&#64;Assert</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -263,8 +293,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">正则表达式校验&#64;Pattern</a><ul>
+<li><a class="reference internal" href="#backend.core.decorator.validateParameters.Pattern"><code class="docutils literal notranslate"><span class="pre">validateParameters.Pattern()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
