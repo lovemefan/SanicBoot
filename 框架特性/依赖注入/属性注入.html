@@ -344,7 +344,7 @@ user_list(data=data)</p>
 <span class="linenos">15</span><span class="sd">        Returns:</span>
 <span class="linenos">16</span><span class="sd">            User : user information</span>
 <span class="linenos">17</span><span class="sd">        &quot;&quot;&quot;</span>
-<span class="linenos">18</span>        <span class="n">info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_dao</span><span class="o">.</span><span class="n">get_all_user</span><span class="p">()</span>
+<span class="linenos">18</span>        <span class="n">info</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_repository</span><span class="o">.</span><span class="n">get_all_user</span><span class="p">()</span>
 <span class="linenos">19</span>        <span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">20</span>        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
 <span class="linenos">21</span>            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
