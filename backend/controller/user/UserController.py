@@ -157,7 +157,7 @@ class AddUser(ControllerBase):
         )
 
 
-@Controller
+@Controller("/getall")
 class GetAllInfo(ControllerBase):
     @Autowired
     def user_service(self):
