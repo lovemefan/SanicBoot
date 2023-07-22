@@ -1,4 +1,10 @@
 # 基于Sanic的后端模板
+<p align="left">
+    <a href=""><img src="https://img.shields.io/badge/OS-Linux%2C%20Win%2C%20Mac-brightgreen.svg"></a>
+    <a href=""><img src="https://img.shields.io/badge/Python->=3.6-aff.svg"></a>
+    <a href=""><img src="https://img.shields.io/badge/License-MIT-green.svg"></a>
+</p>
+
 
 [使用文档](https://lovemefan.github.io/sanic-backend/)
 ## 1. 简介
@@ -38,8 +44,9 @@ Sanic框架是和Flask相似异步协程框架，简单轻量，并且性能很�
     - [ ] mongodb
     - [ ] PostgreSQL
     - [ ] elasticsearch
+ 5. 支持更多认证方式
 
- 5. 完善文档及注释，增加英文文档
+ 6. 完善文档及注释，增加英文文档
 
 ## 4. 使用到的项目
 
