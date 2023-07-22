@@ -139,6 +139,15 @@ async def _assert_condition(
 
 
 def Length(key, message, min=0, max=0, parameter_type: str = "all"):
+    """
+    Args:
+        key(str): key of requests
+        message(str): message to return when pattern mismatched
+        min(number): minimum of string length
+        max(number): maximum of string length
+        parameter_type: [json , args, form, files, args] type of requests
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -162,7 +171,16 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     return decorator
 
 
-def Range(key, message, min=0, max=0, parameter_type: str = "all"):
+def Range(key: str, message: str, min=0, max=0, parameter_type: str = "all"):
+    """
+    Args:
+        key(str): key of requests
+        message(str): message to return when pattern mismatched
+        min(number): minimum of number
+        max(number): maximum of number
+        parameter_type: [json , args, form, files, args] type of requests
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -187,13 +205,23 @@ def Range(key, message, min=0, max=0, parameter_type: str = "all"):
 
 
 def Assert(
-    key,
+    key: str,
     condition,
-    message,
+    message: str,
     parameter_type: str = "all",
     key_type=Any,
-    string2number=False,
+    string2number: bool = False,
 ):
+    """
+    Args:
+        key(str): key of requests
+        condition (function): condition should be a function or lambda function
+        message(str): message to return when pattern mismatched
+        parameter_type: [json , args, form, files, args] type of requests
+        key_type(str, int, ..): the type of key, int, str, eg ..
+        string2number(bool): if convert string to number
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
@@ -274,6 +302,14 @@ def Pattern(
 def EnumString(
     key: str, value: Union[list, tuple], message="", parameter_type: str = "all"
 ):
+    """
+    Args:
+        key(str): key of requests
+        value(str): list enum of values
+        message(str): message to return when pattern mismatched
+        parameter_type: [json , args, form, files, args] type of requests
+    """
+
     def decorator(func):
         @wraps(func)
         async def wrap(*args, **kwargs):
