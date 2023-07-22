@@ -1,0 +1,44 @@
+断言校验@Assert
+________________
+
+.. autoclass:: backend.core.decorator.validateParameters.Assert
+    :members:
+
+.. important::
+
+    Assert如python内置assert逻辑一致，当condition为false的时候会被拦截，返回错误信息
+    其中condition参数可以时一个函数也可以时一个lamda表达式，其中输入是该key当值，返回是布尔值
+    断言校验比较灵活，使用断言校验几乎能完成各种逻辑校验，下面有一个使用断言校验器实现限制上传文件大小的例子
+
+
+.. code-block::
+    :linenos:
+
+    from backend.core.decorator.validateParameters import NotEmpty, Assert, Length
+    from backend.config.Config import Config
+
+    @Controller
+    class LogUploadController(ControllerBase):
+
+        # 本来使用配置装饰器获取会更优雅，但是使用的时候不在self上下文环境内，暂时没想好能怎么用下面方式实现配置注入
+        # @Value('server.upload_log_file_size_limit')
+        # def upload_log_file_size_limit(self):
+        #     pass
+
+        # 所以目前只能，直接去获取配置文件中的值
+        upload_log_file_size_limit = Config.get_instance().get('server.upload_log_file_size_limit', 99)
+
+        @NotEmpty(required=['log', 'user_name'], parameter_type='all')
+        @Assert('log', message='File size can not exceed 99M', parameter_type='files',
+                condition=lambda x: len(x.body) <= upload_log_file_size_limit * 1024 * 1024)
+        async def post(request):
+            log_service = LogUploadService()
+            log_file = request.files.get('log')
+            user_name = request.form.get('user_name')
+            user = User(username=user_name)
+            await log_service.save_log_from_client(log_file.body, user, device)
+            response = ResponseBody(
+                    message=f"Succeeded",
+                    data='',
+                    code=StatusCode.SUCCESS.value)
+            return json(response.__dict__)

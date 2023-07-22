@@ -1,23 +1,27 @@
 枚举校验@EnumString
-____________
+_____________________
 
 .. autoclass:: backend.core.decorator.validateParameters.EnumString
     :members:
 
-由于python装饰器只支持装饰类和方法，没有办法像java一样装饰变量。
-@value参考了python内置的@property装饰器，通过装饰类方法实现类成员变量的注入。
+.. important::
 
+    枚举校验通过设置枚举遍历，当参数值不在集合里时被拦截，并返回错误信息
 
 .. code-block:: python
     :linenos:
 
-    class configTest:
-        @Value('datasource.mysql.port')
-        def port(self):
-            pass
+    from backend.core.decorator.validateParameters import (
+        NotEmpty,
+        EnumString
+    )
 
-        def connect():
-            port = self.port
 
-    config = configTest()
-    print(config.port)
+    @Controller
+    class TestController(ControllerBase):
+
+        @NotEmpty(required=['number'], parameter_type='json')
+        @EnumString('gender', value=['male', 'female'], message='gender must male or female', parameter_type='json')
+        async def post(self, request, user):
+            request.json.get("gender")
+            return json({'code': 'ok'})
