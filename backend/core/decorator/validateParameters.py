@@ -143,13 +143,11 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     """
 
     Args:
-        key(str): key of data(form,json..)
-        message(str): prompt message if validate failed
-        min(int): min value
-        max(int): max value
-        parameter_type(str): [json , args, form, files, args] type of requests
-
-    Returns:
+        key(str): key of requests
+        message(str): message to return when pattern mismatched
+        min(number): minimum of string length
+        max(number): maximum of string length
+        parameter_type: [json , args, form, files, args] type of requests
 
     """
 
@@ -176,17 +174,15 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     return decorator
 
 
-def Range(key, message, min: int = 0, max: int = 0, parameter_type: str = "all"):
+
+def Range(key: str, message: str, min=0, max=0, parameter_type: str = "all"):
     """
-
     Args:
-        key(str): key of data(form,json..)
-        message(str): prompt message if validate failed
-        min(int): min value
-        max(int): max value
-        parameter_type(str): [json , args, form, files, args] type of requests
-
-    Returns:
+        key(str): key of requests
+        message(str): message to return when pattern mismatched
+        min(number): minimum of number
+        max(number): maximum of number
+        parameter_type: [json , args, form, files, args] type of requests
 
     """
 
@@ -214,25 +210,21 @@ def Range(key, message, min: int = 0, max: int = 0, parameter_type: str = "all")
 
 
 def Assert(
-    key,
+    key: str,
     condition,
-    message,
+    message: str,
     parameter_type: str = "all",
     key_type=Any,
-    string2number=False,
+    string2number: bool = False,
 ):
     """
 
     Args:
-        key(str): key of data(form,json..)
-        condition(function): a function input value and return True or False
-        message(str): prompt message if validate failed
-        parameter_type(str):  [json , args, form, files, args] type of requests
-        key_type(Any): assert the key_type and value of key
-        string2number(bool): if convert the value into number
-
-    Returns:
-
+        key(str): key of requests
+        condition (function): condition should be a function or lambda function
+        message(str): message to return when pattern mismatched
+        parameter_type: [json , args, form, files, args] type of requests
+        key_type(str, int, ..): the type of key, int, str, eg ..
     """
 
     def decorator(func):
@@ -316,13 +308,10 @@ def EnumString(
     key: str, value: Union[list, tuple], message="", parameter_type: str = "all"
 ):
     """
-
     Args:
-        key: key of data(form,json..)
-        value: enum string with list of tuple of string, such as ['1', '2']
-        message: prompt message if validate failed
-        parameter_type: default `all`, [all, args, form, json, file]
-
+        key(str): key of requests
+        value(str): list enum of values
+        message(str): message to return when pattern mismatched
     """
 
     def decorator(func):

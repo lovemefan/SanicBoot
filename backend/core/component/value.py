@@ -12,15 +12,9 @@ class Value(object):
     Used for injecting values into fields from config.yaml
 
     Args:
-        key:
-        default: default None
-    Examples:
-        class configTest:
-            @Value('datasource.mysql.port')
-            def port(self):
-                pass
+        key: the key of config file, such as `server.http.port`
+        default: default value, default None
 
-        print(configTest().port)
     """
 
     _config = Config.get_instance()

@@ -1,8 +1,9 @@
 参数校验
-______
 
-
+___________
 设计参数校验装饰器是为了减少大量重复冗余，且与业务逻辑不太相关的校验代码。
+校验器会从用户当请求中通过key获取值，并判断是否满足条件。
+=======
 
 .. important::
     注意⚠️：**参数校验的装饰器得保持@NotEmpty在最上面，其他装饰器可组合, 如下面代码。**
@@ -10,6 +11,7 @@ ______
     除@NotEmpty的其他校验装饰器不负责校验值是否存在，所以使用任意校验器都需要配合@NotEmpty使用
 
 .. code-block:: python
+    :linenos:
 
     from backend.core.decorator.validateParameters import (
         NotEmpty,

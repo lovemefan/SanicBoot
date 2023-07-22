@@ -1,4 +1,28 @@
 枚举校验@EnumString
-____________
+_____________________
 
-.. automethod:: backend.core.decorator.validateParameters.EnumString
+.. autoclass:: backend.core.decorator.validateParameters.EnumString
+    :members:
+
+.. important::
+
+    枚举校验通过设置枚举遍历，当参数值不在集合里时被拦截，并返回错误信息
+
+.. code-block:: python
+    :linenos:
+
+    from backend.core.decorator.validateParameters import (
+        NotEmpty,
+        EnumString
+    )
+
+
+    @Controller
+    class TestController(ControllerBase):
+
+        @NotEmpty(required=['gender'], parameter_type='json')
+        @EnumString('gender', value=['male', 'female'], message='gender must male or female', parameter_type='json')
+        async def post(self, request):
+            request.json.get("gender")
+            return json({'code': 'ok'})
+
