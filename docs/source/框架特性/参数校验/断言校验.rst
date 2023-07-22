@@ -31,7 +31,7 @@ ________________
         @NotEmpty(required=['log', 'user_name'], parameter_type='all')
         @Assert('log', message='File size can not exceed 99M', parameter_type='files',
                 condition=lambda x: len(x.body) <= upload_log_file_size_limit * 1024 * 1024)
-        async def post(request):
+        async def post(self, request):
             log_service = LogUploadService()
             log_file = request.files.get('log')
             user_name = request.form.get('user_name')

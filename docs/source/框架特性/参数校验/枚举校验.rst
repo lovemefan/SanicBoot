@@ -20,8 +20,8 @@ _____________________
     @Controller
     class TestController(ControllerBase):
 
-        @NotEmpty(required=['number'], parameter_type='json')
+        @NotEmpty(required=['gender'], parameter_type='json')
         @EnumString('gender', value=['male', 'female'], message='gender must male or female', parameter_type='json')
-        async def post(self, request, user):
+        async def post(self, request):
             request.json.get("gender")
             return json({'code': 'ok'})

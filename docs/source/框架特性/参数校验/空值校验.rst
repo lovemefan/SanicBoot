@@ -22,6 +22,6 @@ _________
 
         @NotEmpty(required=['number'], parameter_type='json')
         @Assert('number', condition=is_odd, message='The number is not a odd')
-        async def post(self, request, user):
+        async def post(self, request):
             request.json.get("number")
             return json({'code': 'ok'})
