@@ -1,5 +1,6 @@
 空值校验@NotEmpty
-_________
+________________
+
 
 .. autoclass:: backend.core.decorator.validateParameters.NotEmpty
     :members:
@@ -25,3 +26,4 @@ _________
         async def post(self, request):
             request.json.get("number")
             return json({'code': 'ok'})
+

@@ -1,5 +1,6 @@
 正则表达式校验@Pattern
-________
+____________________
+
 .. autoclass:: backend.core.decorator.validateParameters.Pattern
     :members:
 
@@ -29,4 +30,4 @@ ________
         async def post(self, request):
             request.json.get("phone")
             request.json.get("email")
-            return json({'code': 'ok'})
+

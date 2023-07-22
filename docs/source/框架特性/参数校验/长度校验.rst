@@ -25,3 +25,4 @@ _______________
         async def post(self, request):
             request.json.get("user_name")
             return json({'code': 'ok'})
+

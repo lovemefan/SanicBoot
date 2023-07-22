@@ -1,0 +1,5 @@
+furo
+sphinx
+pyyaml
+watchdog
+colorlog

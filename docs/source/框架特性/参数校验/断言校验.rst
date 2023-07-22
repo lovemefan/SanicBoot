@@ -42,3 +42,4 @@ ________________
                     data='',
                     code=StatusCode.SUCCESS.value)
             return json(response.__dict__)
+

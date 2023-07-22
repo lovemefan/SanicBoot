@@ -1,7 +1,9 @@
 参数校验
+
 ___________
 设计参数校验装饰器是为了减少大量重复冗余，且与业务逻辑不太相关的校验代码。
 校验器会从用户当请求中通过key获取值，并判断是否满足条件。
+=======
 
 .. important::
     注意⚠️：**参数校验的装饰器得保持@NotEmpty在最上面，其他装饰器可组合, 如下面代码。**
@@ -47,7 +49,6 @@ ___________
             request.json.get("email")
             request.json.get("number")
             return json({'code': 'ok'})
-
 
 .. toctree::
    :maxdepth: 1

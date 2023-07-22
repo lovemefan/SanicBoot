@@ -39,7 +39,7 @@ Autowired 目前只支持Service、Repository、Datasource对象的注入，目�
             pass
 
         @mysql.execute
-        def get_all_user(results):
+        def get_all_user():
             sql = """
             SELECT u1.uid,
                 u1.username,
@@ -89,7 +89,7 @@ Autowired 目前只支持Service、Repository、Datasource对象的注入，目�
             Returns:
                 User : user information
             """
-            info = await self.user_dao.get_all_user()
+            info = await self.user_repository.get_all_user()
             users = []
             for row in info:
                 user = User(

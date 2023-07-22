@@ -24,25 +24,20 @@ class Autowired(object):
         func method and return results of sql execution.
 
         Examples:
-            # when query is True, connection will skip commit operation,
-            # if query not set, it will set query by if the `select` string in the sql automatically
+            when query is True, connection will skip commit operation,
+            if query not set, it will set query by if the `select` string in the sql automatically
 
             @auto_execute_sql
             def user_list(self, query=True):
                 return 'select * from user'
-
-            Call:
-                user_list(sql)
-
-
             @execute
             def user_list(self, many=True, data):
                 return "update user set nick_name='%s', age=%d where name='%s'"
 
-            Call:
-                # batch of `update/insert` operation execution
-                data = [('nick_tom', 18, 'tom'), ('nick_jack', 19, 'jack')]
-                user_list(data=data)
+
+            batch of `update/insert` operation execution
+            data = [('nick_tom', 18, 'tom'), ('nick_jack', 19, 'jack')]
+            user_list(data=data)
 
         Returns:
             tuple: results of

@@ -1,4 +1,6 @@
 name: Generate doc
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -18,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        python-version: ["3.8"]
+        python-version: ["3.11"]
     steps:
       # refer to https://github.com/actions/checkout
       - uses: actions/checkout@v2
@@ -36,14 +38,16 @@ jobs:
       - name: Build doc
         shell: bash
         run: |
+          export PYTHONPATH=$(pwd):${PYTHONPATH}
+          python -m pip install -r backend/requirements.txt
           cd docs
-          python3 -m pip install -r ./requirements.txt
+          python -m pip install -r ./requirements.txt
           make html
           touch build/html/.nojekyll
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.SANICBACKEND_DOC_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/build/html
           publish_branch: gh-pages

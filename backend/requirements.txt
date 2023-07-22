@@ -1,5 +1,6 @@
 aiofiles==23.1.0
 aiomysql==0.1.1
+colorlog==6.7.0
 httptools==0.5.0
 multidict==6.0.4
 PyJWT==2.6.0
