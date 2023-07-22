@@ -1,6 +1,29 @@
 空值校验@NotEmpty
-_________
+________________
 
-空值校验器目的是为了判断用户是否传递需要的参数
 
-.. automethod:: backend.core.decorator.validateParameters.NotEmpty
+.. autoclass:: backend.core.decorator.validateParameters.NotEmpty
+    :members:
+
+.. important::
+
+    NotEmpty用于判断用户当请求体中是否有存在当key，
+    请求体类型有form(表单)，json（json数据），args(url中参数)，file(文件类型)
+
+.. code-block:: python
+    :linenos:
+
+    from backend.core.decorator.validateParameters import (
+        NotEmpty,
+        Assert
+    )
+
+    @Controller
+    class TestController(ControllerBase):
+
+        @NotEmpty(required=['number'], parameter_type='json')
+        @Assert('number', condition=is_odd, message='The number is not a odd')
+        async def post(self, request):
+            request.json.get("number")
+            return json({'code': 'ok'})
+

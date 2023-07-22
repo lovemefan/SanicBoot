@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js" lang="zh-CN">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
+        <title>backend.core.decorator.authority - v2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand"> v2.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  
+  <span class="sidebar-brand-text"> v2.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%E4%BB%8B%E7%BB%8D/index.html">项目简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">快速上手</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/index.html">框架特性</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of 框架特性</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">依赖注入</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of 依赖注入</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5.html">属性注入@Autowired</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html">配置注入@Value</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/index.html">配置管理</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of 配置管理</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/YAML%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.html">YAML配置文件</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E7%A9%BA%E5%80%BC%E6%A0%A1%E9%AA%8C.html">空值校验@NotEmpty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C.html">长度校验@Length</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E8%8C%83%E5%9B%B4%E6%A0%A1%E9%AA%8C.html">范围校验@Range</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E6%9E%9A%E4%B8%BE%E6%A0%A1%E9%AA%8C.html">枚举校验@EnumString</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%A1%E9%AA%8C.html">正则表达式校验@Pattern</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/%E6%96%AD%E8%A8%80%E6%A0%A1%E9%AA%8C.html">断言校验@Assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/Controller%E6%B3%A8%E5%86%8C.html">Controller注册</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/Repository%E6%B3%A8%E5%86%8C.html">Repository注册</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/Service%E6%B3%A8%E5%86%8C.html">Service注册</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%95%B0%E6%8D%AE%E6%BA%90/index.html">数据源</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of 数据源</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%95%B0%E6%8D%AE%E6%BA%90/mysql%E6%95%B0%E6%8D%AE%E6%BA%90.html"><code class="docutils literal notranslate"><span class="pre">MysqlDataBasePool</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E6%95%B0%E6%8D%AE%E6%BA%90/Datasource%E6%B3%A8%E5%86%8C.html">Datasource注册</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E8%AE%A4%E8%AF%81/index.html">认证方式</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of 认证方式</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E8%AE%A4%E8%AF%81/%E7%94%A8%E6%88%B7%E9%89%B4%E6%9D%83.html">用户鉴权</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../%E8%B4%A1%E7%8C%AE/index.html">如何贡献代码</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of 如何贡献代码</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../%E8%B4%A1%E7%8C%AE/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC.html">代码风格</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for backend.core.decorator.authority</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+<span class="c1"># @FileName  :authority.py</span>
+<span class="c1"># @Time      :2023/1/11 14:00</span>
+<span class="c1"># @Author    :lovemefan</span>
+<span class="c1"># @email     :lovemefan@outlook.com</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">isawaitable</span>
+
+<span class="kn">from</span> <span class="nn">sanic.views</span> <span class="kn">import</span> <span class="n">HTTPMethodView</span>
+<span class="kn">from</span> <span class="nn">sanic_jwt</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">sanic_jwt.decorators</span> <span class="kn">import</span> <span class="n">_do_protection</span><span class="p">,</span> <span class="n">instant_config</span>
+<span class="kn">from</span> <span class="nn">sanic_jwt.exceptions</span> <span class="kn">import</span> <span class="n">Unauthorized</span>
+
+<span class="kn">from</span> <span class="nn">backend.model.UserIdentity</span> <span class="kn">import</span> <span class="n">UserIdentity</span>
+
+
+<div class="viewcode-block" id="authority"><a class="viewcode-back" href="../../../../%E6%A1%86%E6%9E%B6%E7%89%B9%E6%80%A7/%E8%AE%A4%E8%AF%81/%E7%94%A8%E6%88%B7%E9%89%B4%E6%9D%83.html#backend.core.decorator.authority.authority">[docs]</a><span class="k">def</span> <span class="nf">authority</span><span class="p">(</span><span class="n">user_identity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">require_all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">require_all_actions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">user_identity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">user_identity</span> <span class="o">=</span> <span class="p">[</span><span class="n">UserIdentity</span><span class="o">.</span><span class="n">USER</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">decorated_function</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">HTTPMethodView</span><span class="p">):</span>
+                <span class="n">request</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">user_identity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">user_identity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">protect_kwargs</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">protect_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;initialized_on&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="s2">&quot;kw&quot;</span><span class="p">:</span> <span class="n">kw</span><span class="p">,</span>
+                        <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span>
+                        <span class="s2">&quot;f&quot;</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span>
+                        <span class="s2">&quot;return_response&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">await</span> <span class="n">_do_protection</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">protect_kwargs</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;OPTIONS&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">instance</span>
+
+                <span class="k">with</span> <span class="n">instant_config</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+                    <span class="n">current_user_identity</span> <span class="o">=</span> <span class="k">await</span> <span class="n">instance</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">extract_scopes</span><span class="p">(</span>
+                        <span class="n">request</span>
+                    <span class="p">)</span>
+                    <span class="n">override</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">override_scope_validator</span>
+                    <span class="n">destructure</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">destructure_scopes</span>
+                    <span class="k">if</span> <span class="n">current_user_identity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># If there are no defined scopes in the payload,</span>
+                        <span class="c1"># deny access</span>
+                        <span class="n">is_authorized</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="n">reasons</span> <span class="o">=</span> <span class="s2">&quot;Invalid user identity.&quot;</span>
+                        <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">(</span><span class="n">reasons</span><span class="p">)</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">is_authorized</span> <span class="o">=</span> <span class="k">await</span> <span class="n">validate_identity</span><span class="p">(</span>
+                            <span class="n">request</span><span class="p">,</span>
+                            <span class="n">user_identity</span><span class="p">,</span>
+                            <span class="n">current_user_identity</span><span class="p">,</span>
+                            <span class="n">require_all</span><span class="o">=</span><span class="n">require_all</span><span class="p">,</span>
+                            <span class="n">require_all_actions</span><span class="o">=</span><span class="n">require_all_actions</span><span class="p">,</span>
+                            <span class="n">override</span><span class="o">=</span><span class="n">override</span><span class="p">,</span>
+                            <span class="n">destructure</span><span class="o">=</span><span class="n">destructure</span><span class="p">,</span>
+                            <span class="n">request_args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                            <span class="n">request_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_authorized</span><span class="p">:</span>
+                            <span class="n">reasons</span> <span class="o">=</span> <span class="s2">&quot;Invalid user_identity.&quot;</span>
+                            <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">(</span><span class="n">reasons</span><span class="p">)</span>
+
+            <span class="c1"># the user is authorized.</span>
+            <span class="c1"># run the handler method and return the response</span>
+            <span class="c1"># NOTE: it&#39;s possible to use return await.utils(f, ...) in</span>
+            <span class="c1"># here, but inside the @protected decorator it wont work,</span>
+            <span class="c1"># so this is left as is for now</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isawaitable</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span>
+            <span class="k">return</span> <span class="n">response</span>
+
+        <span class="k">return</span> <span class="n">decorated_function</span>
+
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">validate_identity</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">,</span>
+    <span class="n">user_identity</span><span class="p">,</span>
+    <span class="n">current_user_identity</span><span class="p">,</span>
+    <span class="n">override</span><span class="p">,</span>
+    <span class="n">destructure</span><span class="p">,</span>
+    <span class="n">require_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">require_all_actions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">request_args</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">request_kwargs</span><span class="o">=</span><span class="p">{},</span>
+<span class="p">):</span>
+    <span class="n">scopes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">utils</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">destructure</span><span class="p">,</span> <span class="n">user_identity</span><span class="p">)</span>
+    <span class="n">scopes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">utils</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">scopes</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">request_args</span><span class="p">,</span> <span class="o">**</span><span class="n">request_kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scopes</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">scopes</span> <span class="o">=</span> <span class="p">[</span><span class="n">scopes</span><span class="p">]</span>
+
+    <span class="n">method</span> <span class="o">=</span> <span class="nb">all</span> <span class="k">if</span> <span class="n">require_all</span> <span class="k">else</span> <span class="nb">any</span>
+    <span class="k">return</span> <span class="n">method</span><span class="p">(</span>
+        <span class="n">validate_single_identity</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span>
+            <span class="n">current_user_identity</span><span class="p">,</span>
+            <span class="n">require_all_actions</span><span class="o">=</span><span class="n">require_all_actions</span><span class="p">,</span>
+            <span class="n">override</span><span class="o">=</span><span class="n">override</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">scopes</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">validate_single_identity</span><span class="p">(</span>
+    <span class="n">required</span><span class="p">,</span> <span class="n">user_scopes</span><span class="p">,</span> <span class="n">require_all_actions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user_scopes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">elif</span> <span class="n">user_scopes</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">user_scopes</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_scopes</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">user_scopes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">user_scopes</span><span class="p">))</span>
+
+    <span class="n">user_scopes</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">user_scopes</span><span class="p">]</span>
+
+    <span class="n">is_valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">requested</span> <span class="ow">in</span> <span class="n">user_scopes</span><span class="p">:</span>
+        <span class="n">valid_namespace</span> <span class="o">=</span> <span class="n">required</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">requested</span>
+
+        <span class="n">is_valid</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="n">valid_namespace</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">is_valid</span><span class="p">:</span>
+            <span class="k">break</span>
+
+    <span class="n">outcome</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">override</span><span class="p">(</span><span class="n">is_valid</span><span class="p">,</span> <span class="n">required</span><span class="p">,</span> <span class="n">user_scopes</span><span class="p">,</span> <span class="n">require_all_actions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">override</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">is_valid</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">outcome</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, lovemefan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/scripts/furo.js"></script>
+    </body>
+</html>

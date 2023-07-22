@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="&lt;no title&gt;" href="../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html" /><link rel="prev" title="认证方式" href="index.html" />
 
     <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
-        <title>&lt;no title&gt; - v2.0.0 documentation</title>
+        <title>用户鉴权 - v2.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -155,10 +155,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../%E4%BB%8B%E7%BB%8D/index.html">项目简介</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/index.html">快速上手</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">框架特性</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of 框架特性</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">框架特性</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of 框架特性</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">依赖注入</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of 依赖注入</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5.html">属性注入@Autowired</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%85%A5.html">配置注入@Value</a></li>
@@ -182,8 +182,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%95%B0%E6%8D%AE%E6%BA%90/Datasource%E6%B3%A8%E5%86%8C.html">Datasource注册</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../%E8%AE%A4%E8%AF%81/index.html">认证方式</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of 认证方式</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../%E8%AE%A4%E8%AF%81/%E7%94%A8%E6%88%B7%E9%89%B4%E6%9D%83.html">用户鉴权</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">认证方式</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of 认证方式</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">用户鉴权</a></li>
 </ul>
 </li>
 </ul>
@@ -220,20 +220,59 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
+          <section id="id1">
+<h1>用户鉴权<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="backend.core.decorator.authority.authority">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.core.decorator.authority.</span></span><span class="sig-name descname"><span class="pre">authority</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_identity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require_all_actions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/backend/core/decorator/authority.html#authority"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.core.decorator.authority.authority" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>占坑</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nd">@authority</span><span class="p">([</span><span class="n">UserIdentity</span><span class="o">.</span><span class="n">SUPER_ADMIN</span><span class="p">,</span> <span class="n">UserIdentity</span><span class="o">.</span><span class="n">ADMIN</span><span class="p">])</span>
+<span class="linenos">2</span><span class="nd">@inject_user</span><span class="p">()</span>
+<span class="linenos">3</span><span class="nd">@NotEmpty</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;user_role&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">],</span> <span class="n">parameter_type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nd">@Pattern</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;^([a-z0-9A-Z]+[-|</span><span class="se">\\</span><span class="s1">.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?</span><span class="se">\\</span><span class="s1">.)+[a-zA-Z]{2,}$&#39;</span><span class="p">,</span>
+<span class="linenos">5</span>         <span class="n">pattern_mode</span><span class="o">=</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">parameter_type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Email format invalid&#39;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="k">async</span> <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+<span class="linenos">7</span>    <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">&lt;no title&gt;</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">认证方式</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -252,8 +291,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">用户鉴权</a><ul>
+<li><a class="reference internal" href="#backend.core.decorator.authority.authority"><code class="docutils literal notranslate"><span class="pre">authority</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

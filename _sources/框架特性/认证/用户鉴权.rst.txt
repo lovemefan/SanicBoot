@@ -1,0 +1,19 @@
+用户鉴权
+_________
+
+.. autoclass:: backend.core.decorator.authority.authority
+    :members:
+
+.. important::
+    占坑
+
+.. code-block::
+    :linenos:
+
+    @authority([UserIdentity.SUPER_ADMIN, UserIdentity.ADMIN])
+    @inject_user()
+    @NotEmpty(required=['user_id', 'username', 'email', 'password', 'user_role', 'status'], parameter_type='json')
+    @Pattern('email', pattern='^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$',
+             pattern_mode='match', parameter_type='json', message='Email format invalid')
+    async def test(request, user):
+        pass

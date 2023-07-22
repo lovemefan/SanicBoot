@@ -6,3 +6,4 @@
    :caption: Contents:
 
    mysql数据源
+   Datasource注册
