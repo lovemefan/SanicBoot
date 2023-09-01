@@ -62,8 +62,9 @@ module_namespace = Config.get_instance().get("server.component.repository")
 if os.path.exists(module_path):
     import_models(module_path, module_namespace)
 else:
-    raise ValueError(
-        f"{module_path} not exists, please check config of server.component.repository"
+    logger.warning(
+        f"{module_path} not exists, please check config of server.component.repository",
+        "if you do not need repository component, ignore this message",
     )
 
 module_path = module_dir / Config.get_instance().get(
