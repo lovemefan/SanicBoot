@@ -10,18 +10,21 @@ server:
     datasource: "backend.core.datasource"
 
   log:
-    debug: false
-    backupCount: 10
-    format: "[%(asctime)s %(levelname)s ] [%(filename)s:%(lineno)d %(module)s.%(funcName)s] %(message)s"
-    filename: "logs/run.log"
-    maxBytes: 102400
+    console: true
+    save_path: logs
+    console_level: DEBUG
+    stdout_format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    filehandle_level: [ "INFO", "ERROR" ]
+    filehandle_format: "[%(levelname)s] %(asctime)s [%(pathname)s:%(lineno)d] %(funcName)s: %(message)s"
+    backup_count: 10
+    max_million_bytes: 100
 
 
 datasource:
     mysql:
-        db_name: xx
-        host: xx
-        user: xx
-        password: xx
-        port: xx
+        db_name: sanic_backend_system
+        host: 222.197.219.18
+        user: root
+        password: szq1026
+        port: 13306
         max_usage: 1000
