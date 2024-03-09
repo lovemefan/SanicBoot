@@ -1,4 +1,9 @@
 repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [ "--profile=black" ]
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
@@ -24,12 +29,6 @@ repos:
       # W503: line break before binary operator
       # In addition, the default ignore list is:
       # E121,E123,E126,E226,E24,E704,W503,W504
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: ["--profile=black"]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
