@@ -3,27 +3,23 @@
 # @Time    : 2020/12/18 下午3:25
 # @Author  : lovemefan
 # @File    : config.py
-import logging
 import os
 import threading
 
 import yaml
+from loguru import logger
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
 # using lock to make sure get one config at same time
 lock = threading.RLock()
-logging.basicConfig(
-    format="[%(asctime)s %(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
-    level=logging.DEBUG,
-)
 
 
 class ConfigFileModifyHandler(FileSystemEventHandler):
     """Envent handle of config change"""
 
     def on_modified(self, event):
-        logging.debug("updating config ...")
+        logger.debug("updating config ...")
         Config.get_instance().load_config()
 
 
@@ -37,7 +33,7 @@ class Config:
 
     def __init__(self, config_file_path=None):
         """initialize attributions of config class"""
-        logging.debug("init config ...")
+        logger.debug("init config ...")
         self.config_file_path = config_file_path or os.path.join(
             os.path.dirname(__file__), "config.yaml"
         )
@@ -45,7 +41,7 @@ class Config:
         self._init_config_file_observer()
 
     def _init_config_file_observer(self):
-        logging.debug("monitor the config file while file changed")
+        logger.debug("monitor the config file while file changed")
         event_handler = ConfigFileModifyHandler()
         observer = Observer()
         observer.schedule(
@@ -67,7 +63,7 @@ class Config:
 
     def load_config(self):
         """load the config file"""
-        logging.debug("loading the config ...")
+        logger.debug("loading the config ...")
         with open(file=self.config_file_path, mode="r", encoding="utf-8") as f:
             input = f.read()
             self.config = yaml.safe_load(input)
@@ -93,7 +89,7 @@ class Config:
             return config
         if len(map_key) == 1:
             if map_key[0] not in config.keys():
-                logging.info(f"key is not available,using default value:{default}")
+                logger.info(f"key is not available,using default value:{default}")
             return config.get(map_key[0], default)
         else:
             option = ".".join(map_key[1:])

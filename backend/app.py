@@ -185,7 +185,21 @@ def load_banner():
 
 if __name__ == "__main__":
     # load_banner()
-    port = int(Config.get_instance().get("http.port", 80))
+    from sanic.log import error_logger
+    from sanic.log import logger as sanic_logger
+    from sanic.log import server_logger
+
+    from backend.utils.logger import logger as my_logger
+
+    # replace all sanic logger with custom logger
+    for item in [sanic_logger, error_logger, server_logger]:
+        item.info = my_logger.info
+        item.debug = my_logger.debug
+        item.warning = my_logger.warning
+        item.error = my_logger.error
+        item.exception = my_logger.exception
+
+    port = int(Config.get_instance().get("server.http.port", 80))
     logger.info(f"Server initlized, listenning on 0.0.0.0:{port}")
     app.run(
         host="0.0.0.0",
