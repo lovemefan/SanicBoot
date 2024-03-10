@@ -3,12 +3,16 @@
 # @Time    : 2020/12/21 下午3:28
 # @Author  : lovemefan
 # @File    : app.py
+import multiprocessing
 
 from sanic import HTTPResponse, Request
 from sanic.exceptions import NotFound, RequestTimeout, SanicException, Unauthorized
+from sanic.log import error_logger
+from sanic.log import logger as sanic_logger
+from sanic.log import server_logger
 from sanic.response import json
-from sanic_jwt import Configuration, initialize
 
+from backend.config.banner import banner
 from backend.config.Config import Config
 from backend.controller.user.UserController import Authenticate, RetrieveUser
 from backend.core.component.autowired import Autowired
@@ -22,7 +26,12 @@ from backend.exception.UserException import (
 from backend.model.Controller import ControllerBase
 from backend.model.ResponseBody import ResponseBody
 from backend.utils.logger import logger
+from backend.utils.logger import logger as loguru_logger
 from backend.utils.StatusCode import StatusCode
+
+process_name = multiprocessing.current_process().name
+if process_name.startswith("MainProcess"):
+    print(banner)
 
 
 @app.exception(RequestTimeout)
@@ -94,60 +103,6 @@ class ScopeExtender(ControllerBase):
         return user.identity
 
 
-class MyJWTConfig(Configuration):
-    user_id = "username"
-    secret = "6K+t6Z+z57uE5qCH5rOo57O757uf"
-
-
-sanic_init = initialize(
-    app,
-    authenticate=Authenticate().authenticate,
-    configuration_class=MyJWTConfig,
-    retrieve_user=RetrieveUser().retrieve_user,
-    add_scopes_to_payload=ScopeExtender().scope_extender,
-    url_prefix="/v1/api/auth",
-)
-
-
-# replace all response of sanic_jwt with our response body
-@sanic_init.app.exception(SanicException)
-def sanic_exception_response(request, exception):
-    """
-    convert sanic response into our response body
-    """
-    reasons = (
-        exception.args[0][0]
-        if isinstance(exception.args[0], list)
-        else exception.args[0]
-    )
-    logger.exception(exception)
-    return json(
-        ResponseBody(
-            message=reasons, code=StatusCode.INTERNAL_SERVER_ERROR.value
-        ).__dict__,
-        500,
-    )
-
-
-@sanic_init.app.exception(Exception)
-def exception_response(request, exception):
-    """
-    convert sanic response into our response body
-    """
-    reasons = (
-        exception.args[0][0]
-        if isinstance(exception.args[0], list)
-        else exception.args[0]
-    )
-    logger.exception(exception)
-    return json(
-        ResponseBody(
-            message=reasons, code=StatusCode.INTERNAL_SERVER_ERROR.value
-        ).__dict__,
-        500,
-    )
-
-
 @app.middleware("request")
 def cors_middle_req(request: Request):
     """路由需要启用OPTIONS方法"""
@@ -174,35 +129,15 @@ def cors_middle_res(request: Request, response: HTTPResponse):
     )
 
 
-# banner文件展示
-def load_banner():
-    """load the banner"""
-    with open("backend/routes/banner.txt", "r", encoding="utf-8") as f:
-        banner = f.read()
-
-    print(banner)
-
+# replace all sanic logger with custom logger
+for item in [sanic_logger, error_logger, server_logger]:
+    item.info = loguru_logger.info
+    item.debug = loguru_logger.debug
+    item.warning = loguru_logger.warning
+    item.error = loguru_logger.error
+    item.exception = loguru_logger.exception
 
 if __name__ == "__main__":
-    # load_banner()
-    from sanic.log import error_logger
-    from sanic.log import logger as sanic_logger
-    from sanic.log import server_logger
-
-    from backend.utils.logger import logger as my_logger
-
-    # replace all sanic logger with custom logger
-    for item in [sanic_logger, error_logger, server_logger]:
-        item.info = my_logger.info
-        item.debug = my_logger.debug
-        item.warning = my_logger.warning
-        item.error = my_logger.error
-        item.exception = my_logger.exception
-
     port = int(Config.get_instance().get("server.http.port", 80))
     logger.info(f"Server initlized, listenning on 0.0.0.0:{port}")
-    app.run(
-        host="0.0.0.0",
-        port=port,
-        debug=Config.get_instance().get("server.log.debug", False),
-    )
+    app.run(host="0.0.0.0", port=port)
