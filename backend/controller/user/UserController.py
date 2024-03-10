@@ -4,13 +4,12 @@
 # @Author  : lovemefan
 # @File    : UserRoute.py
 import pymysql
-from sanic import Blueprint
+from sanic import Blueprint, Unauthorized
 from sanic.response import json
-from sanic_jwt import exceptions, inject_user, protected
-from sanic_jwt.exceptions import Unauthorized
 
 from backend.core.component.autowired import Autowired
 from backend.core.component.controller import Controller
+from backend.core.decorator.authority import protected
 from backend.core.decorator.validateParameters import Length, NotEmpty, Pattern
 from backend.exception.UserException import (
     MissParameters,
@@ -33,7 +32,6 @@ class ValidatePassword(ControllerBase):
     def user_service(self):
         pass
 
-    # @user_route.route("/validate_password", methods=["POST"])
     @NotEmpty(required=["username", "password"], parameter_type="json")
     @Length(
         "password",
@@ -69,7 +67,7 @@ class Authenticate(ControllerBase):
         user = await self.user_service.get_user_id(User(username=username))
 
         if not username or not password:
-            raise exceptions.AuthenticationFailed("Missing username or password.")
+            raise Unauthorized("Missing username or password.")
 
         try:
             if await self.user_service.validate(
@@ -79,11 +77,9 @@ class Authenticate(ControllerBase):
                 logger.info(f"User :{user.__dict__}")
                 return user
             else:
-                raise exceptions.AuthenticationFailed(
-                    "User not found or password is incorrect."
-                )
+                raise Unauthorized("User not found or password is incorrect.")
         except UserNotExist:
-            raise exceptions.AuthenticationFailed("User not exist.")
+            raise UserNotExist("User not exist.")
 
 
 class RetrieveUser(ControllerBase):
@@ -111,9 +107,7 @@ class AddUser(ControllerBase):
     def user_service(self):
         pass
 
-    # @user_route.route("/add_user", methods=["POST"])
-    @inject_user()
-    @protected()
+    @protected
     async def post(self, request, user):
         """add  a user  ,need administrator identify"""
         username = request.json.get("username", None)
@@ -181,9 +175,7 @@ class GetUserInfo(ControllerBase):
     def user_service(self):
         pass
 
-    # @user_route.route("/get_user_information", methods=["GET"])
-    @inject_user()
-    @protected()
+    @protected
     async def post(self, request, user):
         if not request.json:
             raise MissParameters("no parameter send")
@@ -213,9 +205,7 @@ class DeleteUser(ControllerBase):
     def user_service(self):
         pass
 
-    # @user_route.route("/delete_user", methods=["POST"])
-    @inject_user()
-    @protected()
+    @protected
     async def post(self, request, user):
         if not request.json:
             raise MissParameters("no parameter send")
@@ -244,9 +234,7 @@ class ModifyUser(ControllerBase):
     def user_service(self):
         pass
 
-    # @user_route.route("/modify_user", methods=["POST"])
-    @inject_user()
-    @protected()
+    @protected
     @NotEmpty(
         required=["user_id", "username", "email", "password", "user_role", "status"],
         parameter_type="json",
