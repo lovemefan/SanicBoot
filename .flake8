@@ -10,6 +10,7 @@ per-file-ignores =
 exclude =
   .git,
   **/data/**
+  backend/config/banner.py
 
 ignore =
   # E203 white space before ":"
