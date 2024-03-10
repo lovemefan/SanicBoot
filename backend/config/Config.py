@@ -3,24 +3,25 @@
 # @Time    : 2020/12/18 下午3:25
 # @Author  : lovemefan
 # @File    : config.py
+
 import os
+import sys
 import threading
 
 import yaml
 from loguru import logger
-from watchdog.events import FileSystemEventHandler
-from watchdog.observers import Observer
 
+logger.remove()
+logger.add(
+    sys.stdout,
+    colorize=True,
+    format="<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+    "<level>{level: <8}</level> |<yellow>[{process.name}:{process}]</yellow> "
+    "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> "
+    "- <level>{message}</level>",
+)
 # using lock to make sure get one config at same time
 lock = threading.RLock()
-
-
-class ConfigFileModifyHandler(FileSystemEventHandler):
-    """Envent handle of config change"""
-
-    def on_modified(self, event):
-        logger.debug("updating config ...")
-        Config.get_instance().load_config()
 
 
 class Config:
@@ -33,22 +34,10 @@ class Config:
 
     def __init__(self, config_file_path=None):
         """initialize attributions of config class"""
-        logger.debug("init config ...")
         self.config_file_path = config_file_path or os.path.join(
             os.path.dirname(__file__), "config.yaml"
         )
         self.load_config()
-        self._init_config_file_observer()
-
-    def _init_config_file_observer(self):
-        logger.debug("monitor the config file while file changed")
-        event_handler = ConfigFileModifyHandler()
-        observer = Observer()
-        observer.schedule(
-            event_handler, path=os.path.dirname(self.config_file_path), recursive=False
-        )
-        observer.Daemon = True
-        observer.start()
 
     @staticmethod
     def get_instance():
@@ -63,7 +52,6 @@ class Config:
 
     def load_config(self):
         """load the config file"""
-        logger.debug("loading the config ...")
         with open(file=self.config_file_path, mode="r", encoding="utf-8") as f:
             input = f.read()
             self.config = yaml.safe_load(input)
@@ -89,7 +77,9 @@ class Config:
             return config
         if len(map_key) == 1:
             if map_key[0] not in config.keys():
-                logger.info(f"key is not available,using default value:{default}")
+                logger.info(
+                    f"{map_key[0]} is not available,using default value:{default}"
+                )
             return config.get(map_key[0], default)
         else:
             option = ".".join(map_key[1:])
