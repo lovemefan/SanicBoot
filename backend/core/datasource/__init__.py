@@ -8,6 +8,7 @@ import os
 
 from backend.core import DATASOURCE_REGISTRY, REPOSITORY_REGISTRY
 from backend.core.datasource.DataBasePoolBase import DataBasePoolBase
+from backend.core.decorator.singleton import function_only_in_sanic_server
 from backend.utils.logger import logger
 
 
@@ -47,6 +48,7 @@ def get_datasource(name):
     return REPOSITORY_REGISTRY[name]
 
 
+@function_only_in_sanic_server
 def import_models(models_dir, namespace):
     for file in os.listdir(models_dir):
         path = os.path.join(models_dir, file)

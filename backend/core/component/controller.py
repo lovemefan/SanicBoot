@@ -4,10 +4,10 @@
 # @Author    :lovemefan
 # @Email     :lovemefan@outlook.com
 import inspect
+import multiprocessing
 from typing import Union
 
 from sanic import Sanic
-from sanic_openapi import swagger_blueprint
 
 from backend.config.Config import Config
 from backend.core import CONTROLLERS_REGISTRY
@@ -16,7 +16,6 @@ from backend.utils.logger import logger
 from backend.utils.textProcess import name_convert_to_snake
 
 app = Sanic("sanic-backend")
-app.blueprint(swagger_blueprint)
 
 
 def Controller(cls: Union[str, object]):
@@ -31,20 +30,25 @@ def Controller(cls: Union[str, object]):
     """
 
     def _registry_controller(name, uri, cls):
-        if name in CONTROLLERS_REGISTRY:
-            return CONTROLLERS_REGISTRY[name]
+        process_name = multiprocessing.current_process().name
 
-        if isinstance(cls, object):
-            if not issubclass(cls, ControllerBase):
-                raise ValueError(
-                    "Model ({}: {}) must extend controllerBase".format(
-                        name, cls.__name__
+        if not process_name.startswith("MainProcess") and not process_name.startswith(
+            "SyncManager"
+        ):
+            if name in CONTROLLERS_REGISTRY:
+                return CONTROLLERS_REGISTRY[name]
+
+            if isinstance(cls, object):
+                if not issubclass(cls, ControllerBase):
+                    raise ValueError(
+                        "Model ({}: {}) must extend controllerBase".format(
+                            name, cls.__name__
+                        )
                     )
-                )
 
-        CONTROLLERS_REGISTRY[name] = cls
-        logger.debug(f"Register controller {name} to {uri}")
-        app.add_route(cls.as_view(), uri)
+            CONTROLLERS_REGISTRY[name] = cls
+            logger.debug(f"Register controller {name} to {uri}")
+            app.add_route(cls.as_view(), uri)
 
         return cls
 

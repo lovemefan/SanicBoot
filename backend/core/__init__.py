@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 
 from backend.config.Config import Config
+from backend.core.decorator.singleton import function_only_in_sanic_server
 from backend.utils.logger import logger
 
 DATASOURCE_REGISTRY = {}
@@ -29,6 +30,7 @@ project_root_path = os.path.dirname(__file__)
 module_dir = Path(__file__).parent.parent.parent
 
 
+@function_only_in_sanic_server
 def import_models(module_dir, namespace):
     for file in Path(module_dir).rglob("*.py"):
         if not file.name.startswith("_"):
