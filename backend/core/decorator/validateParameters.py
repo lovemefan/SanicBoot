@@ -174,7 +174,6 @@ def Length(key, message, min=0, max=0, parameter_type: str = "all"):
     return decorator
 
 
-
 def Range(key: str, message: str, min=0, max=0, parameter_type: str = "all"):
     """
     Args:
